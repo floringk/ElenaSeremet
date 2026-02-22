@@ -1,0 +1,15 @@
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "installCommand": null,
+  "rewrites": [
+    { "source": "/", "destination": "/mockups/index.html" },
+    { "source": "/model-1", "destination": "/mockups/model-1.html" },
+    { "source": "/model-2", "destination": "/mockups/model-2.html" },
+    { "source": "/model-3", "destination": "/mockups/model-3.html" },
+    { "source": "/model-4", "destination": "/mockups/model-4.html" },
+    { "source": "/model-5", "destination": "/mockups/model-5.html" },
+    { "source": "/model-6", "destination": "/mockups/model-6.html" },
+    { "source": "/mockups", "destination": "/mockups/index.html" }
+  ]
+}

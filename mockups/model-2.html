@@ -9,39 +9,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: Inter, sans-serif; background: #FFFFFF; color: #111827; line-height: 1.6; }
-    .site-header {
-      padding: 1.25rem 5%;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .site-header .logo { height: 48px; width: auto; display: block; }
-    .site-header nav { display: flex; gap: 2rem; font-size: 0.9375rem; font-weight: 500; }
-    .site-header nav a { color: #111827; text-decoration: none; transition: color 0.2s; }
-    .site-header nav a:hover { color: #6366F1; }
-    .hero {
-      position: relative;
-      min-height: 78vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 4rem 5%;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 55%),
-                  radial-gradient(ellipse 60% 50% at 85% 70%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 1;
-    }
+    body { margin: 0; font-family: Inter, sans-serif; background: #fff; color: #111827; line-height: 1.6; overflow-x: hidden; }
+    .site-header { padding: 1rem 5%; position: relative; z-index: 50; }
+    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .site-header .logo { height: 46px; width: auto; display: block; }
+    .nav-toggle { display: none; }
+    .nav-toggle-label { display: none; flex-direction: column; justify-content: center; gap: 6px; width: 48px; height: 48px; cursor: pointer; padding: 12px; z-index: 102; }
+    .nav-toggle-label span { display: block; width: 24px; height: 2px; background: #111827; border-radius: 1px; transition: transform 0.3s, opacity 0.3s; }
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(2) { opacity: 0; }
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .main-nav { display: flex; gap: 1.75rem; font-size: 0.9375rem; font-weight: 500; }
+    .main-nav a { color: #111827; text-decoration: none; transition: color 0.2s; }
+    .main-nav a:hover { color: #6366F1; }
+    .hero-badge { position: absolute; top: 2rem; left: 50%; transform: translateX(-50%); z-index: 2; background: rgba(255,255,255,0.95); color: #6366F1; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 1.25rem; border-radius: 9999px; box-shadow: 0 4px 16px rgba(99,102,241,0.15); }
+    .hero { position: relative; min-height: 72vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 3rem 5%; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99,102,241,0.1) 0%, transparent 55%), radial-gradient(ellipse 60% 50% at 85% 70%, rgba(236,72,153,0.06) 0%, transparent 50%); pointer-events: none; z-index: 1; }
     .hero-bg { position: absolute; inset: 0; z-index: -1; }
     .hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
     .hero-title .line { opacity: 0; transform: translateY(16px); animation: heroFade 0.8s cubic-bezier(0.22,1,0.36,1) forwards; position: relative; z-index: 2; }
@@ -49,66 +32,100 @@
     .hero-title .line:nth-child(2) { animation-delay: 0.35s; }
     .hero-title .line:nth-child(3) { animation-delay: 0.55s; }
     @keyframes heroFade { to { opacity: 1; transform: translateY(0); } }
-    .hero h1 { font-family: Poppins, sans-serif; font-size: clamp(2.75rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1; margin: 0 0 1rem; position: relative; z-index: 2; letter-spacing: -0.03em; }
-    .hero .tagline { font-size: 1.25rem; color: #374151; margin-bottom: 2rem; position: relative; z-index: 2; max-width: 28ch; }
-    .btn { display: inline-block; padding: 1rem 2.25rem; text-decoration: none; font-weight: 500; border-radius: 9999px; transition: all 0.25s; position: relative; z-index: 2; }
-    .btn-primary { background: #6366F1; color: #fff; border: none; box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99, 102, 241, 0.4); }
-    .section {
-      padding: 5rem 5%;
-      max-width: 1200px;
-      margin: 0 auto;
-      background: #F8FAFC;
-    }
+    .hero h1 { font-family: Poppins, sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; line-height: 1.1; margin: 0 0 1rem; position: relative; z-index: 2; letter-spacing: -0.03em; }
+    .hero .tagline { font-size: 1.125rem; color: #374151; margin-bottom: 1.5rem; position: relative; z-index: 2; max-width: 28ch; }
+    .btn { display: inline-block; padding: 0.875rem 2rem; text-decoration: none; font-weight: 500; border-radius: 9999px; font-size: 0.9375rem; transition: all 0.25s; position: relative; z-index: 2; }
+    .btn-primary { background: #6366F1; color: #fff; border: none; box-shadow: 0 4px 20px rgba(99,102,241,0.35); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,0.4); }
+    .section { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; background: #F8FAFC; }
     .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6366F1; margin-bottom: 0.75rem; text-align: center; }
-    .section h2 { font-family: Poppins, sans-serif; font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 1rem; text-align: center; font-weight: 700; }
-    .section > p { text-align: center; margin-bottom: 2.5rem; max-width: 52ch; margin-left: auto; margin-right: auto; color: #6B7280; font-size: 1.0625rem; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; margin-top: 2rem; }
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-      transition: all 0.35s ease;
-      text-align: center;
-    }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.2); }
-    .card img { width: 64px; height: 64px; object-fit: contain; margin: 0 auto 1.25rem; display: block; }
-    .card h3 { font-family: Poppins, sans-serif; font-size: 1.125rem; margin: 0 0 0.5rem; color: #6366F1; font-weight: 600; }
-    .card p { margin: 0; font-size: 0.9375rem; color: #4B5563; line-height: 1.55; }
+    .section h2 { font-family: Poppins, sans-serif; font-size: clamp(1.6rem, 3vw, 2rem); margin-bottom: 1rem; text-align: center; font-weight: 700; }
+    .section > p { text-align: center; margin-bottom: 1.5rem; max-width: 52ch; margin-left: auto; margin-right: auto; color: #6B7280; font-size: 1rem; }
+    .cards { display: grid; grid-template-columns: 1.2fr 1fr; grid-template-rows: auto auto; gap: 1.25rem; margin-top: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+    .card { background: #fff; border-radius: 24px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: all 0.35s ease; text-align: center; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(99,102,241,0.2); }
+    .card.bento-main { grid-column: 1; grid-row: 1 / -1; display: flex; flex-direction: column; justify-content: center; padding: 2.5rem; }
+    .card.bento-main img { width: 72px; height: 72px; margin: 0 auto 1.25rem; }
+    .card.bento-main h3 { font-size: 1.25rem; }
+    .card img { width: 48px; height: 48px; object-fit: contain; margin: 0 auto 1rem; display: block; }
+    .card h3 { font-family: Poppins, sans-serif; font-size: 1.1rem; margin: 0 0 0.5rem; color: #6366F1; font-weight: 600; }
+    .card p { margin: 0; font-size: 0.875rem; color: #4B5563; line-height: 1.5; }
+    .card .card-link { font-size: 0.8125rem; font-weight: 600; color: #EC4899; text-decoration: none; margin-top: 0.75rem; display: inline-block; }
+    .card .card-link:hover { text-decoration: underline; }
     .btn-secondary { background: #fff; color: #EC4899; border: 2px solid #EC4899; }
     .btn-secondary:hover { background: #EC4899; color: #fff; transform: translateY(-1px); }
-    .team {
-      padding: 5rem 5%;
-      max-width: 1200px;
-      margin: 0 auto;
-      background: #fff;
-    }
-    .team .section-label { color: #EC4899; }
-    .team h2 { font-family: Poppins, sans-serif; font-size: clamp(1.5rem, 2.5vw, 1.875rem); margin-bottom: 2rem; text-align: center; font-weight: 700; }
-    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .testimonial { padding: 4rem 5%; background: #fff; }
+    .testimonial-inner { max-width: 560px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; padding: 2rem; background: linear-gradient(135deg, rgba(99,102,241,0.06) 0%, rgba(236,72,153,0.04) 100%); border-radius: 24px; border: 1px solid rgba(99,102,241,0.12); }
+    .testimonial-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #6366F1, #EC4899); flex-shrink: 0; }
+    .testimonial blockquote { font-family: Poppins, sans-serif; font-size: clamp(1.1rem, 1.8vw, 1.3rem); font-weight: 500; color: #111827; margin: 0 0 0.5rem; line-height: 1.5; }
+    .testimonial cite { font-size: 0.8125rem; color: #6366F1; font-style: normal; font-weight: 500; }
+    .pricing-teaser { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .pricing-card { background: #fff; border-radius: 20px; padding: 1.75rem; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #E5E7EB; transition: all 0.3s; }
+    .pricing-card:hover { border-color: #6366F1; box-shadow: 0 12px 32px -8px rgba(99,102,241,0.15); }
+    .pricing-card h2 { font-family: Poppins, sans-serif; font-size: 1.25rem; margin: 0 0 0.5rem; font-weight: 700; color: #111827; }
+    .pricing-card p { margin: 0 0 1rem; color: #6B7280; font-size: 0.9375rem; }
+    .pricing-card .btn { width: 100%; text-align: center; }
+    .team { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; background: #F8FAFC; }
+    .team .section-label { color: #EC4899; text-align: center; }
+    .team h2 { font-family: Poppins, sans-serif; font-size: clamp(1.4rem, 2.5vw, 1.7rem); margin-bottom: 1.5rem; text-align: center; font-weight: 700; }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .team-card { text-align: center; transition: transform 0.3s; }
     .team-card:hover { transform: translateY(-4px); }
-    .team-card img { width: 100%; max-width: 220px; aspect-ratio: 1; object-fit: cover; border-radius: 20px; margin: 0 auto 1rem; display: block; box-shadow: 0 12px 32px -8px rgba(0,0,0,0.1); }
-    .team-card strong { font-size: 1rem; font-weight: 600; }
-    @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
-    @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr; } }
+    .team-card img { width: 100%; max-width: 200px; aspect-ratio: 1; object-fit: cover; border-radius: 20px; margin: 0 auto 0.75rem; display: block; box-shadow: 0 12px 32px -8px rgba(0,0,0,0.1); }
+    .team-card strong { font-size: 0.9375rem; font-weight: 600; }
+    .cta-strip { padding: 3.5rem 5%; background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%); color: #fff; text-align: center; }
+    .cta-strip h2 { font-family: Poppins, sans-serif; font-size: clamp(1.5rem, 3vw, 1.9rem); margin: 0 0 0.75rem; font-weight: 700; }
+    .cta-strip p { margin: 0 0 1.5rem; opacity: 0.95; font-size: 1rem; }
+    .cta-strip .btn { background: #fff; color: #6366F1; border: none; }
+    .cta-strip .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .site-footer { padding: 3rem 5% 2rem; background: #111827; color: rgba(255,255,255,0.85); font-size: 0.9375rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 2rem; margin-bottom: 2rem; }
+    .footer-grid h3 { font-family: Poppins, sans-serif; font-size: 1rem; font-weight: 600; margin: 0 0 0.75rem; color: #fff; }
+    .footer-grid p { margin: 0 0 0.5rem; }
+    .footer-grid a { color: rgba(255,255,255,0.85); text-decoration: none; }
+    .footer-grid a:hover { color: #fff; }
+    .footer-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-bottom { padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.8125rem; color: rgba(255,255,255,0.6); text-align: center; }
+    @media (max-width: 900px) {
+      .nav-toggle-label { display: flex; }
+      .main-nav { position: fixed; top: 0; right: 0; width: min(300px, 85vw); height: 100vh; background: #fff; flex-direction: column; padding: 5rem 1.5rem 2rem; box-shadow: -4px 0 24px rgba(0,0,0,0.12); z-index: 101; transform: translateX(100%); transition: transform 0.3s ease; gap: 0; }
+      .main-nav a { padding: 0.875rem 0; border-bottom: 1px solid #E5E7EB; font-size: 1rem; }
+      .nav-toggle:checked ~ .main-nav { transform: translateX(0); }
+      .hero { min-height: 60vh; padding: 2rem 5%; }
+      .cards { grid-template-columns: 1fr; }
+      .card.bento-main { grid-row: auto; }
+      .team-grid { grid-template-columns: 1fr; }
+      .pricing-teaser { grid-template-columns: 1fr; }
+      .testimonial-inner { flex-direction: column; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { align-items: center; }
+    }
+    @media (max-width: 600px) {
+      .section, .team { padding: 3rem 5%; }
+      .cards { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
   <header class="site-header">
-    <a href="#"><img src="../content/images/logo-moto-pilates-mat-9.png" alt="Pilates Studio Elena Șeremet" class="logo"></a>
-    <nav>
-      <a href="#">Acasă</a>
-      <a href="#">Despre noi</a>
-      <a href="#">Servicii</a>
-      <a href="#">Prețuri</a>
-      <a href="#">Program</a>
-      <a href="#">Contact</a>
-    </nav>
+    <div class="header-inner">
+      <a href="#"><img src="/content/images/logo-moto-pilates-mat-9.png" alt="Pilates Studio Elena Șeremet" class="logo"></a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Deschide meniul"><span></span><span></span><span></span></label>
+      <nav class="main-nav">
+        <a href="#">Acasă</a>
+        <a href="#">Despre noi</a>
+        <a href="#">Servicii</a>
+        <a href="#">Prețuri</a>
+        <a href="#">Program</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
   </header>
   <section class="hero">
-    <div class="hero-bg"><img src="../content/images/NX6A7960-scaled.jpg" alt=""></div>
+    <span class="hero-badge">Bine ai venit</span>
+    <div class="hero-bg"><img src="/content/images/NX6A7960-scaled.jpg" alt=""></div>
     <h1 class="hero-title">
       <span class="line">body</span><br>
       <span class="line">&</span><br>
@@ -122,21 +139,45 @@
     <h2>Descoperă clasa potrivită pentru tine</h2>
     <p>Te invităm să-ți descoperi forța interioară prin mișcări controlate și conștiente pentru un echilibru profund și o stare de bine completă.</p>
     <div class="cards">
-      <div class="card">
-        <img src="../content/images/Classes.svg" alt="">
+      <div class="card bento-main">
+        <img src="/content/images/Classes.svg" alt="">
         <h3>Pilates Mat</h3>
-        <p>Clase în grup, variate și adaptate nivelului tău.</p>
+        <p>Clase în grup, variate și adaptate nivelului tău. Ideal pentru toate nivelurile.</p>
+        <a href="#" class="card-link">Află mai multe →</a>
       </div>
       <div class="card">
-        <img src="../content/images/illustration-woman-2.svg" alt="">
+        <img src="/content/images/illustration-woman-2.svg" alt="">
         <h3>Sedințe private</h3>
-        <p>Antrenament personalizat, unul la unul.</p>
+        <p>Antrenament personalizat.</p>
+        <a href="#" class="card-link">Detalii →</a>
       </div>
       <div class="card">
-        <img src="../content/images/hatha.svg" alt="">
+        <img src="/content/images/hatha.svg" alt="">
         <h3>Yogalates</h3>
-        <p>Fuziune de yoga și pilates pentru flexibilitate și liniște.</p>
+        <p>Flexibilitate și liniște.</p>
+        <a href="#" class="card-link">Detalii →</a>
       </div>
+    </div>
+  </section>
+  <section class="testimonial">
+    <div class="testimonial-inner">
+      <div class="testimonial-avatar" aria-hidden="true"></div>
+      <div>
+        <blockquote>„Aici vei găsi un loc al relaxării, al energiei pozitive și al evoluției constante.”</blockquote>
+        <cite>— Pilates Studio Elena Șeremet</cite>
+      </div>
+    </div>
+  </section>
+  <section class="pricing-teaser">
+    <div class="pricing-card">
+      <h2>4 sau 8 ședințe</h2>
+      <p>Abonamente pentru începători.</p>
+      <a href="#" class="btn btn-primary">Vezi prețuri</a>
+    </div>
+    <div class="pricing-card">
+      <h2>12 ședințe</h2>
+      <p>Cel mai avantajos pentru practică regulată.</p>
+      <a href="#" class="btn btn-secondary">Vezi prețuri</a>
     </div>
   </section>
   <section class="team">
@@ -144,18 +185,52 @@
     <h2>Echipa noastră</h2>
     <div class="team-grid">
       <div class="team-card">
-        <img src="../content/images/Elena-scaled.jpg" alt="Elena Șeremet">
+        <img src="/content/images/Elena-scaled.jpg" alt="Elena Șeremet">
         <strong>Elena Șeremet</strong>
       </div>
       <div class="team-card">
-        <img src="../content/images/Gabriela-scaled-e1756931846824-849x1024.jpg" alt="Gabriela Ostafe">
+        <img src="/content/images/Gabriela-scaled-e1756931846824-849x1024.jpg" alt="Gabriela Ostafe">
         <strong>Gabriela Ostafe</strong>
       </div>
       <div class="team-card">
-        <img src="../content/images/Adelina-scaled.jpg" alt="Adelina Csolti">
+        <img src="/content/images/Adelina-scaled.jpg" alt="Adelina Csolti">
         <strong>Adelina Csolti</strong>
       </div>
     </div>
   </section>
+  <section class="cta-strip">
+    <h2>Programează-te online</h2>
+    <p>Rezervă locul la clasele preferate în câteva click-uri.</p>
+    <a href="#" class="btn">Rezervă acum</a>
+  </section>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <h3>Contact</h3>
+          <p>Bd. 1 Decembrie 1918, nr. 58</p>
+          <p>București, Sector 3</p>
+          <p><a href="tel:+40755247412">+40 755 247 412</a></p>
+        </div>
+        <div>
+          <h3>Program</h3>
+          <p>Luni – Vineri: 8:30 – 21:00</p>
+          <p>Sâmbătă: 9:00 – 14:00</p>
+          <p>Duminică: Închis</p>
+        </div>
+        <div class="footer-links">
+          <h3>Linkuri</h3>
+          <a href="#">Prețuri</a>
+          <a href="#">Program</a>
+          <a href="#">Contact</a>
+        </div>
+        <div>
+          <h3>Social</h3>
+          <p>Facebook · Instagram</p>
+        </div>
+      </div>
+      <p class="footer-bottom">© Pilates Studio Elena Șeremet. Toate drepturile rezervate.</p>
+    </div>
+  </footer>
 </body>
 </html>
