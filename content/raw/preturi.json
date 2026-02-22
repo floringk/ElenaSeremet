@@ -1,0 +1,55 @@
+{
+  "url": "https://elenaseremet.ro/preturi",
+  "title": "Preturi – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Preturi"
+    },
+    {
+      "type": "p",
+      "text": "Abonamentele Pilates Studio by Elena Șeremet vă ajută să vă atingeți obiectivele de fitness, sănătate și wellbeing."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "4.5/5"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Real Women. Real Stories."
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2026/01/PHOTO-2026-01-05-13-42-11.jpg",
+      "alt": "",
+      "local_path": "images/PHOTO-2026-01-05-13-42-11.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2026/01/PHOTO-2026-01-05-15-04-38.jpg",
+      "alt": "",
+      "local_path": "images/PHOTO-2026-01-05-15-04-38.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2026/01/PHOTO-2026-01-05-13-54-25.jpg",
+      "alt": "",
+      "local_path": "images/PHOTO-2026-01-05-13-54-25.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": []
+}

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Model 1 – Calm Premium Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, sans-serif; background: #F9F8F6; color: #1F2937; line-height: 1.6; overflow-x: hidden; }
+    .site-header {
+      padding: 1rem 5%;
+      position: relative;
+      z-index: 50;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-header .logo { height: 48px; width: auto; display: block; }
+    .nav-toggle { display: none; }
+    .nav-toggle-label {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      padding: 12px;
+      z-index: 102;
+    }
+    .nav-toggle-label span { display: block; width: 24px; height: 2px; background: #1F2937; border-radius: 1px; transition: transform 0.3s, opacity 0.3s; }
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(2) { opacity: 0; }
+    .nav-toggle:checked ~ .nav-toggle-label span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .main-nav { display: flex; gap: 1.75rem; font-size: 0.9375rem; font-weight: 500; }
+    .main-nav a { color: #1F2937; text-decoration: none; transition: color 0.2s; }
+    .main-nav a:hover { color: #B45309; }
+    .intro-strip {
+      padding: 1.25rem 5%;
+      background: #fff;
+      border-bottom: 1px solid #E5E7EB;
+      text-align: center;
+    }
+    .intro-strip p { margin: 0; font-size: 0.9375rem; color: #4B5563; }
+    .intro-strip a { color: #0F766E; font-weight: 500; text-decoration: none; }
+    .intro-strip a:hover { text-decoration: underline; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 72vh;
+      align-items: center;
+      gap: 3rem;
+      padding: 2.5rem 5% 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-title .line { opacity: 0; transform: translateY(14px); animation: heroFade 0.8s cubic-bezier(0.22,1,0.36,1) forwards; }
+    .hero-title .line:nth-child(1) { animation-delay: 0.15s; }
+    .hero-title .line:nth-child(2) { animation-delay: 0.35s; }
+    .hero-title .line:nth-child(3) { animation-delay: 0.55s; }
+    @keyframes heroFade { to { opacity: 1; transform: translateY(0); } }
+    .hero-text h1 { font-family: Playfair Display, serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400; line-height: 1.12; margin: 0 0 0.5rem; letter-spacing: -0.02em; }
+    .hero-text .tagline { font-size: 1.125rem; color: #4B5563; margin-bottom: 1.5rem; }
+    .btn { display: inline-block; padding: 0.875rem 1.75rem; text-decoration: none; font-weight: 500; border-radius: 4px; transition: all 0.25s; font-size: 0.9375rem; }
+    .btn-primary { background: #B45309; color: #fff; border: none; }
+    .btn-primary:hover { background: #924208; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(180,83,9,0.25); }
+    .hero-visual { border-radius: 8px; min-height: 340px; overflow: hidden; background: #E5E7EB; box-shadow: 0 24px 48px -12px rgba(0,0,0,0.12); }
+    .hero-visual img { width: 100%; height: 100%; min-height: 340px; object-fit: cover; display: block; }
+    .section { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #0F766E; margin-bottom: 0.75rem; }
+    .section h2 { font-family: Playfair Display, serif; font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 1rem; font-weight: 400; }
+    .section > p { margin-bottom: 1.5rem; color: #4B5563; max-width: 52ch; font-size: 1rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .card { background: #fff; border: 1px solid #E5E7EB; border-radius: 8px; padding: 1.75rem; transition: all 0.3s ease; }
+    .card:hover { border-color: #0F766E; box-shadow: 0 12px 32px -8px rgba(15,118,110,0.12); transform: translateY(-2px); }
+    .card img { width: 48px; height: 48px; object-fit: contain; margin-bottom: 0.75rem; }
+    .card h3 { font-family: Playfair Display, serif; font-size: 1.2rem; margin: 0 0 0.5rem; color: #0F766E; font-weight: 400; }
+    .card p { margin: 0; font-size: 0.875rem; color: #4B5563; line-height: 1.5; }
+    .btn-secondary { background: transparent; color: #B45309; border: 1.5px solid #B45309; }
+    .btn-secondary:hover { background: #B45309; color: #fff; }
+    .testimonial {
+      padding: 4rem 5%;
+      background: #fff;
+      border-top: 1px solid #E5E7EB;
+    }
+    .testimonial-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .testimonial blockquote { font-family: Playfair Display, serif; font-size: clamp(1.25rem, 2vw, 1.5rem); font-style: italic; color: #1F2937; margin: 0 0 1rem; line-height: 1.5; }
+    .testimonial cite { font-size: 0.875rem; color: #0F766E; font-style: normal; font-weight: 500; }
+    .pricing-teaser {
+      padding: 4rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .pricing-teaser h2 { font-family: Playfair Display, serif; font-size: clamp(1.4rem, 2.5vw, 1.75rem); margin: 0 0 0.5rem; font-weight: 400; }
+    .pricing-teaser p { margin: 0; color: #4B5563; font-size: 0.9375rem; }
+    .team { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; background: #fff; border-top: 1px solid #E5E7EB; }
+    .team .section-label { color: #B45309; }
+    .team h2 { font-family: Playfair Display, serif; font-size: clamp(1.4rem, 2.5vw, 1.75rem); margin-bottom: 1.5rem; font-weight: 400; }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .team-card { text-align: center; transition: transform 0.25s; }
+    .team-card:hover { transform: translateY(-4px); }
+    .team-card img { width: 100%; max-width: 200px; aspect-ratio: 1; object-fit: cover; border-radius: 8px; margin: 0 auto 0.75rem; display: block; box-shadow: 0 12px 32px -8px rgba(0,0,0,0.1); }
+    .team-card strong { font-size: 0.9375rem; font-weight: 600; color: #1F2937; }
+    .cta-strip {
+      padding: 3.5rem 5%;
+      background: #0F766E;
+      color: #fff;
+      text-align: center;
+    }
+    .cta-strip h2 { font-family: Playfair Display, serif; font-size: clamp(1.5rem, 3vw, 2rem); margin: 0 0 0.75rem; font-weight: 400; }
+    .cta-strip p { margin: 0 0 1.5rem; opacity: 0.9; font-size: 1rem; }
+    .cta-strip .btn { background: #fff; color: #0F766E; border: none; }
+    .cta-strip .btn:hover { background: #F9F8F6; color: #0F766E; }
+    .site-footer {
+      padding: 3rem 5% 2rem;
+      background: #1F2937;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9375rem;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: 2.5rem; margin-bottom: 2rem; }
+    .footer-grid h3 { font-family: Playfair Display, serif; font-size: 1rem; font-weight: 400; margin: 0 0 0.75rem; color: #fff; }
+    .footer-grid p { margin: 0 0 0.5rem; }
+    .footer-grid a { color: rgba(255,255,255,0.85); text-decoration: none; }
+    .footer-grid a:hover { color: #fff; text-decoration: underline; }
+    .footer-links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-bottom { padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.8125rem; color: rgba(255,255,255,0.6); text-align: center; }
+    @media (max-width: 900px) {
+      .nav-toggle-label { display: flex; }
+      .main-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: min(300px, 85vw);
+        height: 100vh;
+        background: #F9F8F6;
+        flex-direction: column;
+        padding: 5rem 1.5rem 2rem;
+        box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+        z-index: 101;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        gap: 0;
+      }
+      .main-nav a { padding: 0.875rem 0; border-bottom: 1px solid #E5E7EB; font-size: 1rem; }
+      .nav-toggle:checked ~ .main-nav { transform: translateX(0); }
+      .hero { grid-template-columns: 1fr; text-align: center; gap: 2rem; padding: 2rem 5% 3rem; }
+      .hero .btn { margin: 0 auto; }
+      .hero-visual { min-height: 260px; order: -1; }
+      .section > p { max-width: none; }
+      .team-grid { grid-template-columns: 1fr; }
+      .pricing-teaser { grid-template-columns: 1fr; text-align: center; }
+      .pricing-teaser .btn { margin: 0 auto; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { align-items: center; }
+    }
+    @media (max-width: 600px) {
+      .hero-visual { min-height: 220px; }
+      .section, .team { padding: 3rem 5%; }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#"><img src="../content/images/logo-moto-pilates-mat-9.png" alt="Pilates Studio Elena Șeremet" class="logo"></a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Deschide meniul">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="main-nav">
+        <a href="#">Acasă</a>
+        <a href="#">Despre noi</a>
+        <a href="#">Servicii</a>
+        <a href="#">Prețuri</a>
+        <a href="#">Program</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <div class="intro-strip">
+    <p>Studioul nostru oferă un ambient curat și primitor. <a href="#">Despre noi</a></p>
+  </div>
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="hero-title">
+        <span class="line">body</span><br>
+        <span class="line">&</span><br>
+        <span class="line">mind</span>
+      </h1>
+      <p class="tagline">Conectează-te la cea mai bună formă.</p>
+      <a href="#" class="btn btn-primary">Hai la o clasă</a>
+    </div>
+    <div class="hero-visual">
+      <img src="../Assets/image1.jpg" alt="Pilates studio" onerror="this.onerror=null; this.src='../content/images/IR6_7124-scaled.jpg';">
+    </div>
+  </section>
+  <section class="section">
+    <p class="section-label">Servicii</p>
+    <h2>Descoperă clasa potrivită pentru tine</h2>
+    <p>Te invităm să-ți descoperi forța interioară prin mișcări controlate și conștiente pentru un echilibru profund și o stare de bine completă.</p>
+    <div class="cards">
+      <div class="card">
+        <img src="../content/images/Classes.svg" alt="">
+        <h3>Pilates Mat</h3>
+        <p>Clase în grup, variate și adaptate nivelului tău.</p>
+      </div>
+      <div class="card">
+        <img src="../content/images/illustration-woman-2.svg" alt="">
+        <h3>Sedințe private</h3>
+        <p>Antrenament personalizat, unul la unul.</p>
+      </div>
+      <div class="card">
+        <img src="../content/images/hatha.svg" alt="">
+        <h3>Yogalates</h3>
+        <p>Fuziune de yoga și pilates pentru flexibilitate și liniște.</p>
+      </div>
+    </div>
+    <p style="margin-top: 2rem;"><a href="#" class="btn btn-secondary">Vezi programul</a></p>
+  </section>
+  <section class="testimonial">
+    <div class="testimonial-inner">
+      <blockquote>„Aici vei găsi un loc al relaxării, al energiei pozitive și al evoluției constante.”</blockquote>
+      <cite>— Pilates Studio Elena Șeremet</cite>
+    </div>
+  </section>
+  <section class="pricing-teaser">
+    <div>
+      <h2>Abonamente flexibile</h2>
+      <p>4, 8 sau 12 ședințe – alege varianta care ți se potrivește.</p>
+    </div>
+    <a href="#" class="btn btn-primary">Vezi prețuri</a>
+  </section>
+  <section class="team">
+    <p class="section-label">Echipa</p>
+    <h2>Echipa noastră</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="../content/images/Elena-scaled.jpg" alt="Elena Șeremet">
+        <strong>Elena Șeremet</strong>
+      </div>
+      <div class="team-card">
+        <img src="../content/images/Gabriela-scaled-e1756931846824-849x1024.jpg" alt="Gabriela Ostafe">
+        <strong>Gabriela Ostafe</strong>
+      </div>
+      <div class="team-card">
+        <img src="../content/images/Adelina-scaled.jpg" alt="Adelina Csolti">
+        <strong>Adelina Csolti</strong>
+      </div>
+    </div>
+  </section>
+  <section class="cta-strip">
+    <h2>Programează-te online</h2>
+    <p>Rezervă locul la clasele preferate în câteva click-uri.</p>
+    <a href="#" class="btn">Rezervă acum</a>
+  </section>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <h3>Contact</h3>
+          <p>Bd. 1 Decembrie 1918, nr. 58</p>
+          <p>București, Sector 3</p>
+          <p><a href="tel:+40755247412">+40 755 247 412</a></p>
+        </div>
+        <div>
+          <h3>Program</h3>
+          <p>Luni – Vineri: 8:30 – 21:00</p>
+          <p>Sâmbătă: 9:00 – 14:00</p>
+          <p>Duminică: Închis</p>
+        </div>
+        <div class="footer-links">
+          <h3>Linkuri</h3>
+          <a href="#">Prețuri</a>
+          <a href="#">Program</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <p class="footer-bottom">© Pilates Studio Elena Șeremet. Toate drepturile rezervate.</p>
+    </div>
+  </footer>
+</body>
+</html>

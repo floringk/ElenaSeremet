@@ -1,0 +1,240 @@
+{
+  "url": "https://elenaseremet.ro/fit-pilates",
+  "title": "Fit Pilates – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Fit Pilates"
+    },
+    {
+      "type": "p",
+      "text": "Fit Pilateseste o clasă dinamică, energică, care combină principiile Pilates cu exerciții de tonifiere și rezistență pentru întregul corp. Ideală pentru cei care vor să își crească nivelul de energie, să își definească musculatura și să-și îmbunătățească rezistența fizică."
+    },
+    {
+      "type": "h2",
+      "text": "Ce înveți în timpul unei clase"
+    },
+    {
+      "type": "p",
+      "text": "Folosind greutatea propriului corp, uneori mici accesorii (mingi, gantere, cercuri), clasele de Fit Pilates îmbină mișcări de Pilates tradițional cu exerciții de intensitate moderată spre ridicată. Vei lucra toate grupele musculare — cu focus pe trunchi, picioare și brațe — într-un ritm alert, dar controlat."
+    },
+    {
+      "type": "p",
+      "text": "Accentul se pune pe precizie, respirație și control, dar cu un plus de provocare cardio. Fit Pilates este o clasă ideală pentru cei care vor o versiune mai activă a Pilates-ului clasic, fără a compromite tehnica sau echilibrul corporal."
+    },
+    {
+      "type": "h2",
+      "text": "Când ai nevoie de Fit Pilates?"
+    },
+    {
+      "type": "h3",
+      "text": "Vrei mai multă forță și tonus"
+    },
+    {
+      "type": "p",
+      "text": "Dacă îți dorești un antrenament care să îți tonifieze corpul în mod echilibrat, să îți definească musculatura și să îți crească rezistența, Fit Pilates este alegerea potrivită."
+    },
+    {
+      "type": "h3",
+      "text": "Ai nevoie de energie și ritm"
+    },
+    {
+      "type": "p",
+      "text": "Te simți fără vlagă, ai o perioadă mai statică sau vrei o clasă care să te „trezească”? Această clasă este plină de energie, ritm și focus exact ce ai nevoie ca să te reactivezi fizic și mental."
+    },
+    {
+      "type": "h3",
+      "text": "Vrei varietate în antrenamente"
+    },
+    {
+      "type": "p",
+      "text": "Dacă simți că ai intrat într-o rutină sau vrei să adaugi diversitate în programul tău, Fit Pilates aduce echilibru între control și intensitate fără să pierzi componenta de conștientizare corporală."
+    },
+    {
+      "type": "h2",
+      "text": "Beneficiile clasei Fit Pilates"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Definirea musculaturii și creșterea tonusului general",
+        "Arderea caloriilor într-un mod controlat, fără impact"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Îmbunătățirea echilibrului și coordonării",
+        "Creșterea rezistenței fizice și a mobilității"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Activarea musculaturii profunde, în special zona core",
+        "Antrenament complet: fizic, mental și postural"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Instructorii noștri sunt mai mult decât profesioniști"
+    },
+    {
+      "type": "p",
+      "text": "Lasă-te inspirat de energia și dedicarea echipei noastre! Instructorii noștri sunt aici nu doar să te ghideze, ci să te motiveze, să te susțină și să îți insufle încredere în fiecare pas al călătoriei tale. Cu experiență vastă și pasiune autentică pentru mișcare și sănătate, aceștia sunt dedicați să îți ofere cele mai bune rezultate."
+    },
+    {
+      "type": "h2",
+      "text": "Înscrie-te acum!"
+    },
+    {
+      "type": "p",
+      "text": "Activează-ți abonamentul și alătură-te unui studio curat, primitor și complet dedicat stării tale de bine.Get a Ativo membership now, and join a squeaky clean and spacious club!"
+    },
+    {
+      "type": "h3",
+      "text": "Vreau sa:"
+    },
+    {
+      "type": "h3",
+      "text": "Alege tipul de abonament:"
+    },
+    {
+      "type": "h3",
+      "text": "Eu sunt:"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/hatha.svg",
+      "alt": "",
+      "local_path": "images/hatha.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/iStock-1243246735-1.jpg",
+      "alt": "",
+      "local_path": "images/iStock-1243246735-1.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": [
+    {
+      "action": null,
+      "method": "post",
+      "inputs": [
+        {
+          "name": "post_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "referer_title",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "queried_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Slăbește"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Intră în formă"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Simte-te mai energic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Devino mai puternic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Eliberează stresul"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Tonifică musculatura"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 4 ședințe"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 8 ședințe"
+        },
+        {
+          "name": "form_fields[field_6925b28]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0bf7f81]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_10db230]",
+          "type": "email",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_5d66238]",
+          "type": "tel",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_9d967ff]",
+          "type": "date",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0b2a4b5]",
+          "type": "textarea",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_3171375]",
+          "type": "checkbox",
+          "label": "Abonament 12 ședințe"
+        }
+      ]
+    }
+  ]
+}

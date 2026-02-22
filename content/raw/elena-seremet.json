@@ -1,0 +1,63 @@
+{
+  "url": "https://elenaseremet.ro/elena-seremet",
+  "title": "Elena Șeremet – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "ECHIPA NOASTRĂ DE EXPERȚI"
+    },
+    {
+      "type": "h2",
+      "text": "Elena Șeremet"
+    },
+    {
+      "type": "h6",
+      "text": "Fondator | Instructor Pilates"
+    },
+    {
+      "type": "p",
+      "text": "Eu sunt Elena și mă bucur să impărtăsesc cu tine istoria mea și cum am luat decizia de a deschide acest studio de Pilates."
+    },
+    {
+      "type": "p",
+      "text": "În urmă cu aproximativ opt ani, am primit un diagnostic care mi-a schimbat viața: spondilită anchilozantă – o afecțiune autoimună care îmi afecta profund coloana și articulațiile. Am fost copleșită de durere și frustrare, iar acceptarea acestei realități a fost extrem de greu de suportat. Deși aveam un stil de viață activ și sănătos, am simțit că viața mea este constrânsă de limitările fizice și am fost nevoită să caut soluții dincolo de medicamente și tratamente convenționale. Am încercat multe metode pentru a mă reechilibra și a scăpa de dureri. De la multe terapii tradiționale, până la exerciții fizice intense, totul părea o luptă fără rezultate durabile. A fost un proces lung si frustrant, dar și o lecție importantă pentru mine. Mi-am dat seama că echilibrul nu vine din forțare, ci din ascultarea propriului corp și găsirea unei mișcări care să îmi ofere libertate, nu limitare. Astfelam descoperit Pilates. Această practică a devenit nu doar o metodă de a-mi gestiona durerea, ci și o sursă de inspirație și speranță, oferindu-mi nu doar ușurare fizică, ci și o nouă perspectivă asupra vieții."
+    },
+    {
+      "type": "p",
+      "text": "Pentru a înțelege și mai bine cum funcționează corpul, am continuat să studiez și astfel am absolvit și Facultatea de Kinetoterapie."
+    },
+    {
+      "type": "p",
+      "text": "Studioul l-am deschis motivată fiind de dorința de a împărtăși aceste experiențe și de a ajutacât mai multe persoane să își atingă potențialul maxim și să găsească în Pilates o sursă de putere și regenerare.Astazi, prinPILATES STUDIO by Elena Șeremetvreau să ofer oamenilor un spațiu unde să poată explora aceleași beneficii, combinând cunoștințele din Pilates cu principiile kinetoterapiei pentru o experiență completă de vindecare și transformare. Scopul este să creăm un mediu în care fiecare exercițiu este adaptat nevoilor specifice fiecărei persoane, combinând eficiența kinetoterapiei cu beneficiile mișcării conștiente."
+    },
+    {
+      "type": "p",
+      "text": "Viziunea mea este să transform Pilates într-un instrument de îmbunătățire a vieții, oferind nu doar soluții pentru durere, ci și o cale spre o mai bună înțelegere a propriei sănătăți. Cred în puterea mișcării de a schimba vieți și îmi doresc să creez un spațiu accesibil și primitor pentru toți cei care caută să își regăsească echilibrul și bunăstarea. Valorile care stau la baza studioului meu sunt empatia, profesionalismul și angajamentul față de fiecare persoană care pășește pe ușile noastre.Îmi doresc ca fiecare vizitator să plece nu doar cu o stare de bine, ci și cu speranță și încredere în viitorul lui."
+    },
+    {
+      "type": "p",
+      "text": "Pasiunea mea pentru Pilates și angajamentul de a face diferența în viețile altora sunt sursa mea de putere și motivație în fiecare zi."
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/IR6_7124-scaled.jpg",
+      "alt": "",
+      "local_path": "images/IR6_7124-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": []
+}

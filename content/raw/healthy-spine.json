@@ -1,0 +1,240 @@
+{
+  "url": "https://elenaseremet.ro/healthy-spine",
+  "title": "Healthy Spine – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Healthy Spine"
+    },
+    {
+      "type": "p",
+      "text": "Healthy Spineeste o clasă dedicată sănătății și mobilității coloanei vertebrale. Prin exerciții controlate, adaptate nevoilor tale, îți vei întări musculatura de susținere, îți vei corecta postura și vei reduce disconfortul din zona cervicală, toracală și lombară."
+    },
+    {
+      "type": "h2",
+      "text": "Ce înveți în timpul unei clase?"
+    },
+    {
+      "type": "p",
+      "text": "Fiecare sesiune este construită cu grijă pentru a lucra treptat toate zonele coloanei: gât, umeri, spate și zona lombară. Mișcările se concentrează pe alinierea corectă a corpului, mobilitate articulară și tonifierea musculaturii profunde. Prin exerciții de respirație, activare a centrului și stretching blând, vei învăța cum să-ți susții corpul cu mai multă ușurință și siguranță."
+    },
+    {
+      "type": "p",
+      "text": "Clasa este potrivită pentru orice vârstă și nivel, indiferent dacă vii pentru prevenție sau pentru a gestiona disconfortul deja existent. Scopul este simplu: o coloană mobilă, stabilă și eliberată de tensiuni cronice."
+    },
+    {
+      "type": "h2",
+      "text": "Când ai nevoie de Healthy Spine?"
+    },
+    {
+      "type": "h3",
+      "text": "Dureri de spate recurente"
+    },
+    {
+      "type": "p",
+      "text": "Te confrunți cu disconfort lombar, cervical sau în zona omoplaților? Această clasă te ajută să corectezi dezechilibrele și să reduci tensiunea acumulată din statul prelungit la birou sau din poziții greșite."
+    },
+    {
+      "type": "h3",
+      "text": "Postură incorectă"
+    },
+    {
+      "type": "p",
+      "text": "Ai observat că stai cocoșat, ai umerii tensionați sau simți dezechilibru între partea dreaptă și stângă a corpului? Healthy Spine te ajută să-ți recapeți alinierea posturală naturală."
+    },
+    {
+      "type": "h3",
+      "text": "Nevoie de mobilitate și eliberare"
+    },
+    {
+      "type": "p",
+      "text": "Dacă te simți „înțepenit” sau ai pierdut din mobilitatea de bază, exercițiile blânde și fluide din această clasă vor reda elasticitatea și confortul coloanei în mișcare."
+    },
+    {
+      "type": "h2",
+      "text": "Beneficiile clasei Healthy Spine"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Ameliorează durerile de spate și gât",
+        "Îmbunătățește mobilitatea coloanei vertebrale"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Corectează postura și alinierea corporală",
+        "Activează musculatura profundă de susținere"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Reduce tensiunea din zona cervicală, toracală și lombară",
+        "Contribuie la prevenirea afecțiunilor discale"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Instructorii noștri sunt mai mult decât profesioniști"
+    },
+    {
+      "type": "p",
+      "text": "Lasă-te inspirat de energia și dedicarea echipei noastre! Instructorii noștri sunt aici nu doar să te ghideze, ci să te motiveze, să te susțină și să îți insufle încredere în fiecare pas al călătoriei tale. Cu experiență vastă și pasiune autentică pentru mișcare și sănătate, aceștia sunt dedicați să îți ofere cele mai bune rezultate."
+    },
+    {
+      "type": "h2",
+      "text": "Înscrie-te acum!"
+    },
+    {
+      "type": "p",
+      "text": "Activează-ți abonamentul și alătură-te unui studio curat, primitor și complet dedicat stării tale de bine."
+    },
+    {
+      "type": "h3",
+      "text": "Vreau sa:"
+    },
+    {
+      "type": "h3",
+      "text": "Alege tipul de abonament:"
+    },
+    {
+      "type": "h3",
+      "text": "Eu sunt:"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/hatha.svg",
+      "alt": "",
+      "local_path": "images/hatha.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/iStock-1243246735-1.jpg",
+      "alt": "",
+      "local_path": "images/iStock-1243246735-1.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": [
+    {
+      "action": null,
+      "method": "post",
+      "inputs": [
+        {
+          "name": "post_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "referer_title",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "queried_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Slăbește"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Intră în formă"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Simte-te mai energic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Devino mai puternic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Eliberează stresul"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Tonifică musculatura"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 4 ședințe"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 8 ședințe"
+        },
+        {
+          "name": "form_fields[field_6925b28]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0bf7f81]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_10db230]",
+          "type": "email",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_5d66238]",
+          "type": "tel",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_9d967ff]",
+          "type": "date",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0b2a4b5]",
+          "type": "textarea",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_3171375]",
+          "type": "checkbox",
+          "label": "Abonament 12 ședințe"
+        }
+      ]
+    }
+  ]
+}

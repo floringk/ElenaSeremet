@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Model 2 – Modern Soft Minimal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, sans-serif; background: #FFFFFF; color: #111827; line-height: 1.6; }
+    .site-header {
+      padding: 1.25rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-header .logo { height: 48px; width: auto; display: block; }
+    .site-header nav { display: flex; gap: 2rem; font-size: 0.9375rem; font-weight: 500; }
+    .site-header nav a { color: #111827; text-decoration: none; transition: color 0.2s; }
+    .site-header nav a:hover { color: #6366F1; }
+    .hero {
+      position: relative;
+      min-height: 78vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 5%;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 55%),
+                  radial-gradient(ellipse 60% 50% at 85% 70%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: -1; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+    .hero-title .line { opacity: 0; transform: translateY(16px); animation: heroFade 0.8s cubic-bezier(0.22,1,0.36,1) forwards; position: relative; z-index: 2; }
+    .hero-title .line:nth-child(1) { animation-delay: 0.15s; }
+    .hero-title .line:nth-child(2) { animation-delay: 0.35s; }
+    .hero-title .line:nth-child(3) { animation-delay: 0.55s; }
+    @keyframes heroFade { to { opacity: 1; transform: translateY(0); } }
+    .hero h1 { font-family: Poppins, sans-serif; font-size: clamp(2.75rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1; margin: 0 0 1rem; position: relative; z-index: 2; letter-spacing: -0.03em; }
+    .hero .tagline { font-size: 1.25rem; color: #374151; margin-bottom: 2rem; position: relative; z-index: 2; max-width: 28ch; }
+    .btn { display: inline-block; padding: 1rem 2.25rem; text-decoration: none; font-weight: 500; border-radius: 9999px; transition: all 0.25s; position: relative; z-index: 2; }
+    .btn-primary { background: #6366F1; color: #fff; border: none; box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99, 102, 241, 0.4); }
+    .section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #F8FAFC;
+    }
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6366F1; margin-bottom: 0.75rem; text-align: center; }
+    .section h2 { font-family: Poppins, sans-serif; font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 1rem; text-align: center; font-weight: 700; }
+    .section > p { text-align: center; margin-bottom: 2.5rem; max-width: 52ch; margin-left: auto; margin-right: auto; color: #6B7280; font-size: 1.0625rem; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; margin-top: 2rem; }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: all 0.35s ease;
+      text-align: center;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.2); }
+    .card img { width: 64px; height: 64px; object-fit: contain; margin: 0 auto 1.25rem; display: block; }
+    .card h3 { font-family: Poppins, sans-serif; font-size: 1.125rem; margin: 0 0 0.5rem; color: #6366F1; font-weight: 600; }
+    .card p { margin: 0; font-size: 0.9375rem; color: #4B5563; line-height: 1.55; }
+    .btn-secondary { background: #fff; color: #EC4899; border: 2px solid #EC4899; }
+    .btn-secondary:hover { background: #EC4899; color: #fff; transform: translateY(-1px); }
+    .team {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #fff;
+    }
+    .team .section-label { color: #EC4899; }
+    .team h2 { font-family: Poppins, sans-serif; font-size: clamp(1.5rem, 2.5vw, 1.875rem); margin-bottom: 2rem; text-align: center; font-weight: 700; }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .team-card { text-align: center; transition: transform 0.3s; }
+    .team-card:hover { transform: translateY(-4px); }
+    .team-card img { width: 100%; max-width: 220px; aspect-ratio: 1; object-fit: cover; border-radius: 20px; margin: 0 auto 1rem; display: block; box-shadow: 0 12px 32px -8px rgba(0,0,0,0.1); }
+    .team-card strong { font-size: 1rem; font-weight: 600; }
+    @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="#"><img src="../content/images/logo-moto-pilates-mat-9.png" alt="Pilates Studio Elena Șeremet" class="logo"></a>
+    <nav>
+      <a href="#">Acasă</a>
+      <a href="#">Despre noi</a>
+      <a href="#">Servicii</a>
+      <a href="#">Prețuri</a>
+      <a href="#">Program</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <div class="hero-bg"><img src="../content/images/NX6A7960-scaled.jpg" alt=""></div>
+    <h1 class="hero-title">
+      <span class="line">body</span><br>
+      <span class="line">&</span><br>
+      <span class="line">mind</span>
+    </h1>
+    <p class="tagline">Conectează-te la cea mai bună formă.</p>
+    <a href="#" class="btn btn-primary">Hai la o clasă</a>
+  </section>
+  <section class="section">
+    <p class="section-label">Servicii</p>
+    <h2>Descoperă clasa potrivită pentru tine</h2>
+    <p>Te invităm să-ți descoperi forța interioară prin mișcări controlate și conștiente pentru un echilibru profund și o stare de bine completă.</p>
+    <div class="cards">
+      <div class="card">
+        <img src="../content/images/Classes.svg" alt="">
+        <h3>Pilates Mat</h3>
+        <p>Clase în grup, variate și adaptate nivelului tău.</p>
+      </div>
+      <div class="card">
+        <img src="../content/images/illustration-woman-2.svg" alt="">
+        <h3>Sedințe private</h3>
+        <p>Antrenament personalizat, unul la unul.</p>
+      </div>
+      <div class="card">
+        <img src="../content/images/hatha.svg" alt="">
+        <h3>Yogalates</h3>
+        <p>Fuziune de yoga și pilates pentru flexibilitate și liniște.</p>
+      </div>
+    </div>
+  </section>
+  <section class="team">
+    <p class="section-label">Echipa</p>
+    <h2>Echipa noastră</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="../content/images/Elena-scaled.jpg" alt="Elena Șeremet">
+        <strong>Elena Șeremet</strong>
+      </div>
+      <div class="team-card">
+        <img src="../content/images/Gabriela-scaled-e1756931846824-849x1024.jpg" alt="Gabriela Ostafe">
+        <strong>Gabriela Ostafe</strong>
+      </div>
+      <div class="team-card">
+        <img src="../content/images/Adelina-scaled.jpg" alt="Adelina Csolti">
+        <strong>Adelina Csolti</strong>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,102 @@
+{
+  "url": "https://elenaseremet.ro/masaj-si-drenaj",
+  "title": "Masaj si Drenaj – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Masaj si Drenaj"
+    },
+    {
+      "type": "p",
+      "text": "Redescoperă echilibrul și starea de bine cu terapiile noastre de masaj și drenaj limfatic. Programele noastre sunt create pentru a îmbunătăți circulația, a reduce tensiunea musculară și a sprijini detoxifierea naturală a organismului."
+    },
+    {
+      "type": "h2",
+      "text": "Experimentează standardul nostru de excelență în masaj"
+    },
+    {
+      "type": "p",
+      "text": "Terapeuții noștri cu experiență îți oferă ședințe personalizate, axate pe tehnici avansate de masaj terapeutic, relaxare profundă și drenaj limfatic. Fiecare sesiune este gândită să răspundă nevoilor tale individuale, promovând recuperarea fizică, flexibilitatea și echilibrul interior."
+    },
+    {
+      "type": "p",
+      "text": "Specializați în terapii manuale, drenaj limfatic, tehnici de relaxare și eliberarea tensiunii musculare, echipa noastră îți oferă o experiență autentică de refacere și revitalizare."
+    },
+    {
+      "type": "p",
+      "text": "Vei învăța să îți asculți corpul, să eliberezi stresul acumulat și să îți recâștigi energia naturală prin metode dovedite, într-un spațiu sigur și relaxant dedicat sănătății tale."
+    },
+    {
+      "type": "h2",
+      "text": "Informații despre program"
+    },
+    {
+      "type": "h5",
+      "text": "Ce include ședința:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Masaj de relaxare sau terapeutic",
+        "Drenaj limfatic manual",
+        "Tehnici de eliberare a tensiunii și mobilitate",
+        "Recomandări pentru menținerea rezultatelor acasă"
+      ]
+    },
+    {
+      "type": "h5",
+      "text": "Beneficii principale:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Stimularea circulației limfatice și sanguine",
+        "Reducerea inflamațiilor și a retenției de apă",
+        "Relaxare musculară profundă",
+        "Sprijin pentru sistemul imunitar"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Programări și tarife"
+    },
+    {
+      "type": "p",
+      "text": "Pentru a programa o ședință sau pentru mai multe detalii, ne poți contacta la:"
+    },
+    {
+      "type": "p",
+      "text": "+407 552 474 12"
+    },
+    {
+      "type": "p",
+      "text": "elena@elenaseremet.ro"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/02/illustration-woman-2.svg",
+      "alt": "",
+      "local_path": "images/illustration-woman-2.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/06/iStock-1153165563-1.jpg",
+      "alt": "",
+      "local_path": "images/iStock-1153165563-1.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": []
+}

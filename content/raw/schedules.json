@@ -1,0 +1,182 @@
+{
+  "url": "https://elenaseremet.ro/schedules",
+  "title": "Program – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Program"
+    },
+    {
+      "type": "p",
+      "text": "Există o clasă pentru toată lumea, vino să o găsești pe a ta. Conduse de instructori extraordinari, cursurile noastre de pilates oferă comunitate, energie, motivație, experiență și rezultate excelente!"
+    },
+    {
+      "type": "h3",
+      "text": "Vezi programul complet aici:"
+    },
+    {
+      "type": "h2",
+      "text": "Program Saltea"
+    },
+    {
+      "type": "h2",
+      "text": "Program Reformer"
+    },
+    {
+      "type": "h3",
+      "text": "Acesta esteRegulamentulPilates Studio"
+    },
+    {
+      "type": "p",
+      "text": "Pentru desfășurarea optimă a activităților, protejarea sănătății membrilor și respectarea ordinii și siguranței, vă rugăm să luați la cunoștință următorul regulament:"
+    },
+    {
+      "type": "h3",
+      "text": "1. Programare și Abonament"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Participarea la clase se face cu programare în aplicația GMA (gym management app). Pentru crearea contului in aplicația GMA se va folosi codul sălii: elenaseremet",
+        "Programul disponibil în aplicația GMA afisează clasele disponibile (la care se pot face si rezervări) pentru 1 săptămână. Odată ce o zi trece și se pierde, aceasta va fi înlocuită automat cu o zi suplimentară astfel încat programul să reflecte mereu o saptamană completă.",
+        "Programul va fi afișat și sub formă de poză atât pe siteelenaseremet.rocât și pe story pe contul de Instagramelenaseremet.pilatesstudio.",
+        "Calitatea de abonat se dobândește la achiziția unui abonament și după completarea unei fișe de membru sau crearea contului in GMA.",
+        "Abonamentul este valabil 35 zile din ziua achiziționării.",
+        "O ședință durează aproximativ 50 de minute.",
+        "Numărul maxim de participante la o clasă la saltea este 14, iar cel minim este 4. Numărul maxim de participante la o clasă la Reformer este 4, iar cel minim este 2.",
+        "Ședințele achiziționate, dar neefectuate, nu se reportează de pe o lună pe alta.",
+        "Pentru orice informații legate de rezervări sau alte întrebări vă rugăm să ne contactați pe WhatsApp la numărul de telefon 0755247412. De luni până vineri răspundem mesajelor în intervalul 17.30-21.00, sâmbăta și duminica în intervalul 16.00 – 20.00."
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "2. Politica de anulare și reprogramare"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Claselepot fi anulate cu cel puțin 12 ore înaintede începerea acestora pentru a permite altora să rezerve locul. În caz contrar, sesiunea va fi considerată efectuată.",
+        "Dacă cu 10 ore înainte de începerea clasei nu suntminimum 4 rezervări – clasa la saltea / minim 2 rezervari – clasa la Reformer, clasa nu se va susține și se va anula automat, cu notificare pe mail către abonate. (sedința nu va fi retrasă din abonament)",
+        "Se pot efectua rezervări înainte de începerea claselor, în limita locurilor disponibile și dacă clasa nu este deja anulată automat."
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "3. Acces și Conduită"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Accesul în clădire se face apelând interfonul115 + tasta „apel”, cu cel mult15 minuteînainte de începerea ședinței.",
+        "Pantofii de exterior vor fi depozitați în spațiul dedicat acestora, în cușetă sau sub băncuțe.",
+        "Obiectele personale vor fi păstrate în vestiar, în cușetele prevăzute cu cheie.",
+        "Telefonul trebuie setat pe modul silențios.",
+        "Studio-ul nu răspunde pentru obiectele de valoare pierdute sau uitate. Vă rugăm să ajungeți la timp pentru a evita întreruperea clasei. Dacă întârziați, intrați discret și ocupați un loc pregătit."
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "4. Echipament și Igienă"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Se recomandă purtarea echipamentului sportiv adecvat (colanți, șosete antiderapante, pantofi sport pentru interior,etc).",
+        "În timpul antrenamentelor, atat la saltea cât și la aparatul Reformer, utilizarea accesoriilor personale precum brățări, lanțuri sau alte obiecte,este interzisă. Acestea pot duce la uzura echipamentului și pot reprezenta un risc de accidentare. Vă rugăm să vă asigurați că toate accesoriile sunt înlăturate înainte de a începe sesiunea.",
+        "Este recomandat să aduceți unprosop(dimensiune minimă50×100 cm).",
+        "Se recomandă utilizarea dezinfectantului pentru mâini amplasat în zona lavoarului.",
+        "Pentru utilizarea dușului, este necesar să folosițiprodusele proprii de igienă."
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "5. Respect și Siguranță"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "În incinta studioului trebuie păstrată curățenia și respectul față de ceilalți membri.",
+        "Este interzisă plasarea de afișe, reclame sau alte materiale promoționale fără acordul conducerii.",
+        "Pilates Studio by Elena Șeremet își rezervă dreptul de a instala camere de supraveghere în interior.",
+        "Studio-ul se angajează să protejeze datele personale ale membrilor conform legislației în vigoare."
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "6. Sănătate și Siguranță"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Membrii trebuie să fie conștienți că starea lor de sănătate le permite participarea la antrenamente.",
+        "Este interzis accesul în studio sub influența alcoolului sau a altor substanțe interzise.",
+        "Fumatul este strict intezis in toate spatiile studioului, inclusiv in sali, holuri, toalete si alte zone interioare.",
+        "Nu este permisă prezența la antrenamente în cazul suspiciunii de boli contagioase sau viroze respiratorii.",
+        "În cazul în care un membru al echipei studioului observă simptome de boală contagioasă la un participant, acesta poate solicita părăsirea incintei."
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "7. Hidratare și Responsabilitate"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Hidratarea este importantă! Vă încurajăm să folosiți apa din rezervor cu responsabilitate, evitând risipa.",
+        "Se recomandă utilizarearecipientelor reutilizabilepentru apă.",
+        "Dacă folosiți un pahar de unică folosință, asigurați-vă că îl aruncați în locul corespunzător (cos destinat plasticului)."
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "8. Modificarea Regulamentului"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Pilates Studio by Elena Șeremet își rezervă dreptul de a modifica periodic regulamentul, iar abonații vor fi informați despre orice modificare.",
+        "Orice sugestie, sesizare sau solicitare poate fi transmisă prin e-mail laelenaseremet.pilates@gmail.com, în termen demaximum 15 zilede la data producerii evenimentului."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Vă mulțumim pentru înțelegere și colaborare!"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/02/Coordination.svg",
+      "alt": "",
+      "local_path": "images/Coordination.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2026/02/Pilates-Saltea-1-768x1365.jpeg",
+      "alt": "",
+      "local_path": "images/Pilates-Saltea-1-768x1365.jpeg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2026/02/Pilates-Saltea-768x1365.jpeg",
+      "alt": "",
+      "local_path": "images/Pilates-Saltea-768x1365.jpeg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/plugins/elementor/assets/images/placeholder.png",
+      "alt": "",
+      "local_path": "images/placeholder.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": []
+}

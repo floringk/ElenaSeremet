@@ -1,0 +1,70 @@
+{
+  "url": "https://elenaseremet.ro/instructori",
+  "title": "Instructori – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Instructori"
+    },
+    {
+      "type": "h4",
+      "text": "Șeremet Elena"
+    },
+    {
+      "type": "p",
+      "text": "Fondator | Instructor Pilates"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Instructor certificat de pilates mat, reformer și postural.",
+        "Absolventă a Facultății de  Kinetoterapie și motricitate specială – Universitatea Spiru Haret."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Hai să ne cunoaștem"
+    },
+    {
+      "type": "p",
+      "text": "Pilates Studio by Elena Șeremeta luat naștere din pasiune și dorința de a ajuta cât mai multe persoane să descopere echilibrul și bunăstarea. Alături de echipa noastră poți descoperi beneficiile acestei metode de antrenament în cadrul sesiunilor de grup sau a celor individuale."
+    },
+    {
+      "type": "h3",
+      "text": "Adelina Csolti"
+    },
+    {
+      "type": "h3",
+      "text": "Gabriela Ostafe"
+    },
+    {
+      "type": "p",
+      "text": "Nu numai că trăim și respirăm un stil de viață sănătos și activ, ci ajutăm zilnic zeci de femei să-și atingă obiectivele de sănătate și fitness și să-și transforme viața."
+    },
+    {
+      "type": "h6",
+      "text": "Echipa noastră"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/Elena-scaled.jpg",
+      "alt": "",
+      "local_path": "images/Elena-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": []
+}

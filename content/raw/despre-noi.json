@@ -1,0 +1,142 @@
+{
+  "url": "https://elenaseremet.ro/despre-noi",
+  "title": "Despre noi – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Despre noi"
+    },
+    {
+      "type": "h2",
+      "text": "Studioul - locul ideal pentru respirație și relaxare"
+    },
+    {
+      "type": "h6",
+      "text": "Studioul nostru oferă un ambient curat și primitor, cu geamuri mari care lasă lumina naturală să inunde spațiul. Aerul este împrospătat de prezența plantelor, creând o atmosferă calmantă, perfectă pentru a te conecta cu sinele tău. Fiecare detaliu este gândit pentru a susține o experiență de relaxare și revitalizare."
+    },
+    {
+      "type": "h5",
+      "text": "Credem că Pilates este calea către o condiție fizică mai bună și o minte mai liniștită.Credem că controlul asupra corpului tău te ajută să deții controlul asupra vieții tale."
+    },
+    {
+      "type": "h5",
+      "text": "SEDINȚE INDIVIDUALE"
+    },
+    {
+      "type": "h6",
+      "text": "Instruirea privată se concentrează pe nevoile particulare ale fiecărei abonate."
+    },
+    {
+      "type": "h6",
+      "text": "Sunt ședințele individuale pentru tine?"
+    },
+    {
+      "type": "h6",
+      "text": ""
+    },
+    {
+      "type": "h5",
+      "text": "ECHIPA"
+    },
+    {
+      "type": "h6",
+      "text": "Instructorii noștri efectuează în permanența ore de perfecționare astfel încât să poată oferi antrenamente variate și de cea mai înaltă  calitate."
+    },
+    {
+      "type": "h6",
+      "text": ""
+    },
+    {
+      "type": "h2",
+      "text": "Întrebări frecvente"
+    },
+    {
+      "type": "p",
+      "text": "Poartă haine sport confortabile, fără nasturi, capse sau fermoare. Studioul este mixt, așa că te rugăm să te îmbraci corespunzător. Evită pantalonii largi, deoarece includem exerciții de inversiuni și întinderi ample. În timpul antrenamentelor este necesar să porți șosete aderente. Dacă nu ai, le poți achiziționa direct de la studio."
+    },
+    {
+      "type": "p",
+      "text": "Găsești descrierea fiecărei clase în pagina de program. În general, clasele noastre sunt limitate la maximum 14 participanți pentru a beneficia de atenție personalizată și îndrumare directă din partea instructorilor."
+    },
+    {
+      "type": "p",
+      "text": "În funcție de nivelul tău actual, poți începe fie cu clase de inițiere, fie cu cele de nivel intermediar. Instructorii noștri sunt aici să te ghideze către clasa potrivită, pentru a te ajuta să evoluezi în siguranță și eficient."
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/NX6A7960-scaled.jpg",
+      "alt": "",
+      "local_path": "images/NX6A7960-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/06/Classes.svg",
+      "alt": "",
+      "local_path": "images/Classes.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/06/Team.svg",
+      "alt": "",
+      "local_path": "images/Team.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/NX6A7891-scaled.jpg",
+      "alt": "",
+      "local_path": "images/NX6A7891-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/NX6A8005-scaled.jpg",
+      "alt": "",
+      "local_path": "images/NX6A8005-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/NX6A8336-scaled.jpg",
+      "alt": "",
+      "local_path": "images/NX6A8336-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/Pilates-Studio-Elena-Seremet_home3.png",
+      "alt": "",
+      "local_path": "images/Pilates-Studio-Elena-Seremet_home3.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/NX6A8024-scaled.jpg",
+      "alt": "",
+      "local_path": "images/NX6A8024-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/NX6A8099-scaled.jpg",
+      "alt": "",
+      "local_path": "images/NX6A8099-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/NX6A8149-scaled.jpg",
+      "alt": "",
+      "local_path": "images/NX6A8149-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/NX6A8173-scaled.jpg",
+      "alt": "",
+      "local_path": "images/NX6A8173-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/Pilates-Studio-Elena-Seremet_home2-1024x683.png",
+      "alt": "",
+      "local_path": "images/Pilates-Studio-Elena-Seremet_home2-1024x683.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": []
+}

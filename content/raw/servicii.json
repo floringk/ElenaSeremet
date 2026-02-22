@@ -1,0 +1,389 @@
+{
+  "url": "https://elenaseremet.ro/servicii",
+  "title": "Servicii – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Servicii"
+    },
+    {
+      "type": "p",
+      "text": "Studioul nostru recent reamenajat si modernizat vă oferă servicii specializate pentru a va lucra corpul si mintea si a le pastra intr-o stare de echilibru, prin exercitii dePilates, Tonifiere, Yogalates, Stretching,Yoga,Masaj si Drenaj.Ne dorim pentru clientii nostri starea de armonie pe care oricine si-o doreste!"
+    },
+    {
+      "type": "h2",
+      "text": "Despre abordarea noastră"
+    },
+    {
+      "type": "p",
+      "text": "Mișcare inteligentă. Rezultate reale."
+    },
+    {
+      "type": "p",
+      "text": "La Elena Seremet Pilates Studio, fiecare clasă este gândită cu scop: să îți aducă mai multă claritate în mișcare, să te ajute să te simți bine în propriul corp și să obții rezultate reale, sustenabile.Indiferent de vârstă, nivel de experiență sau obiectiv personal, găsești aici sprijinul, ritmul și echilibrul potrivit pentru tine."
+    },
+    {
+      "type": "h2",
+      "text": "Explorează și Pilatesul pe saltea"
+    },
+    {
+      "type": "p",
+      "text": "Conectează-te cu propriul corp prin mișcări fluide și controlate. Alege stilul care ți se potrivește – relaxat sau provocator."
+    },
+    {
+      "type": "h3",
+      "text": "Yogalates & Stretching"
+    },
+    {
+      "type": "p",
+      "text": "Un mix blând între Pilates și exerciții de stretching, perfect pentru mobilitate, postură și relaxare. Ideal după o zi lungă sau ca supliment pentru alte clase."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Mobilitate crescută",
+        "Relaxare activă",
+        "Ideal pentru toate nivelurile"
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Pilates Reformer"
+    },
+    {
+      "type": "p",
+      "text": "Explorează un nivel avansat de control și rezistență cu ajutorul aparatului Reformer o experiență completă de Pilates care tonifică, alungește și echilibrează corpul prin mișcări ghidate și asistate."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Exerciții cu rezistență controlată",
+        "Sprijin excelent pentru aliniere și corectarea posturii",
+        "Ideal pentru tonifiere, mobilitate și reabilitare",
+        "Potrivit atât pentru începători, cât și pentru avansați"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Clasa Pilates"
+    },
+    {
+      "type": "p",
+      "text": "Conectează-te cu propriul corp prin mișcări controlate și fluide.Aceste clase te ajută să dezvolți forță profundă, echilibru și conștientizare corporală prin mișcări executate corect, cu focus pe respirație și postură. Fie că ești la început sau vrei să aprofundezi, vei găsi un ritm care ți se potrivește."
+    },
+    {
+      "type": "h3",
+      "text": "ABC Pilates"
+    },
+    {
+      "type": "p",
+      "text": "Un punct de plecare ideal pentru cei care vor să înțeleagă principiile Pilates. Înveți să respiri corect, să îți controlezi centrul (core-ul) și să te miști în siguranță. Ideală pentru începători și pentru reconectare cu corpul."
+    },
+    {
+      "type": "h3",
+      "text": "Elastic Band"
+    },
+    {
+      "type": "p",
+      "text": "Folosește banda elastică pentru a adăuga rezistență controlată. Antrenamentul este blând, dar profund perfect pentru tonifiere ușoară, mobilitate și stabilitate articulară. Potrivit pentru toate nivelurile."
+    },
+    {
+      "type": "h3",
+      "text": "Healthy Spine"
+    },
+    {
+      "type": "p",
+      "text": "O clasă dedicată sănătății coloanei vertebrale. Prin exerciții corect alese, reduci tensiunile și îmbunătățești mobilitatea spatelui, gâtului și umerilor. Recomandată pentru cei care petrec mult timp la birou sau resimt disconfort."
+    },
+    {
+      "type": "h3",
+      "text": "Fit Pilates"
+    },
+    {
+      "type": "p",
+      "text": "Un format dinamic și energic, în care exercițiile clasice de Pilates sunt combinate cu ritm susținut. Vei lucra forță, rezistență și coordonare, fără a pierde controlul și tehnica. Pentru cei care caută provocare."
+    },
+    {
+      "type": "h3",
+      "text": "Pilates Props"
+    },
+    {
+      "type": "p",
+      "text": "Accesorii precum inele, mingi, benzi sau foam roller aduc varietate și feedback în practica ta. Această clasă dezvoltă controlul și precizia mișcării, activând zone greu accesibile în antrenamentele clasice."
+    },
+    {
+      "type": "h3",
+      "text": "Postural"
+    },
+    {
+      "type": "p",
+      "text": "Accent pe alinierea corporală, corectarea dezechilibrelor și tonifierea musculaturii posturale. Exercițiile sunt lente, conștiente și orientate spre readucerea corpului în echilibru. Ideală și în scop preventiv sau recuperator."
+    },
+    {
+      "type": "h2",
+      "text": "Întărește-ți corpul, echilibrează-ți mintea"
+    },
+    {
+      "type": "p",
+      "text": "Două clase blânde și conștiente pentru reconectare, respirație corectă și echilibru postural."
+    },
+    {
+      "type": "h3",
+      "text": "Postural"
+    },
+    {
+      "type": "p",
+      "text": "Accent pe alinierea corporală, corectarea dezechilibrelor și tonifierea musculaturii posturale. \n          Exercițiile sunt lente, conștiente și orientate spre readucerea corpului în echilibru.\n          Ideală și în scop preventiv sau recuperator."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Corectarea posturii",
+        "Întărirea spatelui și abdomenului",
+        "Potrivită pentru recuperare și prevenție"
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Yoga"
+    },
+    {
+      "type": "p",
+      "text": "O clasă ce combină mișcări fluide și respirație conștientă pentru a reduce stresul, \n          a îmbunătăți mobilitatea și a echilibra sistemul nervos. Potrivită pentru toate nivelurile de experienta."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Flexibilitate crescută",
+        "Relaxare și respirație profundă",
+        "Minte clară, corp echilibrat"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Results From Hatha Yoga"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Improves your core strength",
+        "Yoga can contribute to healthy bone density"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Certain hatha yoga poses contribute to cardiovascular health",
+        "By supporting the lymphatic system, Hatha yoga strengthens your immune system"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "You will be able to direct and master your own energy",
+        "You will be able to reach your highest potential"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Antrenează-ți forța, coordonarea și rezistența"
+    },
+    {
+      "type": "p",
+      "text": "Două clase complementare care îți transformă corpul: mai puternic, mai energic, mai echilibrat.Alege formatul care ți se potrivește – dinamic și intens sau complet și echilibrat."
+    },
+    {
+      "type": "h3",
+      "text": "Circuit Pilates"
+    },
+    {
+      "type": "p",
+      "text": "Circuit Pilateseste ideal pentru cei care vor să combine exerciții de forță cu mișcări cardio. Formatul în stații aduce varietate și intensitate, menținând un ritm antrenant și echilibrat pentru întregul corp."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Tonifiere globală",
+        "Rezistență crescută",
+        "Ritm accelerat, dar controlat"
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Total Body"
+    },
+    {
+      "type": "p",
+      "text": "Total Body Pilateseste o clasă care lucrează toate grupele musculare într-un mod echilibrat. Accentul este pus pe mișcări fluide și controlate, ce întăresc, mobilizează și revitalizează întregul corp."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Focus pe postură și aliniere",
+        "Tonifiere uniformă",
+        "Adaptat pentru toate nivelurile"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Instructorii noștri sunt mai mult decât profesioniști"
+    },
+    {
+      "type": "p",
+      "text": "Lasă-te inspirat de energia și dedicarea echipei noastre! Instructorii noștri sunt aici nu doar să te ghideze, ci să te motiveze, să te susțină și să îți insufle încredere în fiecare pas al călătoriei tale. Cu experiență vastă și pasiune autentică pentru mișcare și sănătate, aceștia sunt dedicați să îți ofere cele mai bune rezultate."
+    },
+    {
+      "type": "h2",
+      "text": "Nu știi de unde să începi?"
+    },
+    {
+      "type": "p",
+      "text": "Programează o primă clasă sau contactează-ne si te ajutăm să alegi ce ți se potrivește."
+    },
+    {
+      "type": "h3",
+      "text": "Vreau sa:"
+    },
+    {
+      "type": "h3",
+      "text": "Alege tipul de abonament:"
+    },
+    {
+      "type": "h3",
+      "text": "Eu sunt:"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/hatha.svg",
+      "alt": "",
+      "local_path": "images/hatha.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/iStock-1243246735-1.jpg",
+      "alt": "",
+      "local_path": "images/iStock-1243246735-1.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": [
+    {
+      "action": null,
+      "method": "post",
+      "inputs": [
+        {
+          "name": "post_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "referer_title",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "queried_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Slăbește"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Intră în formă"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Simte-te mai energic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Devino mai puternic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Eliberează stresul"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Tonifică musculatura"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 4 ședințe"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 8 ședințe"
+        },
+        {
+          "name": "form_fields[field_6925b28]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0bf7f81]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_10db230]",
+          "type": "email",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_5d66238]",
+          "type": "tel",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_9d967ff]",
+          "type": "date",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0b2a4b5]",
+          "type": "textarea",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_3171375]",
+          "type": "checkbox",
+          "label": "Abonament 12 ședințe"
+        }
+      ]
+    }
+  ]
+}

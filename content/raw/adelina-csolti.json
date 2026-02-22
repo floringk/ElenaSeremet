@@ -1,0 +1,39 @@
+{
+  "url": "https://elenaseremet.ro/adelina-csolti",
+  "title": "Adelina Csolti – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Adelina Csolti"
+    },
+    {
+      "type": "h6",
+      "text": "Kinetoterapeut, coach postural"
+    },
+    {
+      "type": "p",
+      "text": "Licenţiată în Kinetoterapie şi cu un master în Recuperare – Reeducare Motrică şi Somato-funcţională la UNEFS ( Universitatea Naţională de Educaţie Fizică şi Sport ). Ȋi place să îmbine latura sportivă cu cea de recuperare şi prevenţie, iar de-a lungul carierei de sportiv (gimnastică aerobică) a înţeles cât contează ca mişcările să fie făcute corect şi mai mult de atât, conştient. Aşa că, prin tot ceea ce face, Adelina vrea să redea starea de bine și de echilibru îmbunătățind postura şi tonusul muscular."
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/Adelina-scaled.jpg",
+      "alt": "",
+      "local_path": "images/Adelina-scaled.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": []
+}

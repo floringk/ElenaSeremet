@@ -1,0 +1,244 @@
+{
+  "url": "https://elenaseremet.ro/yoga-3",
+  "title": "Yoga – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Hatha YOGA"
+    },
+    {
+      "type": "p",
+      "text": "Hatha yoga este știința utilizării posturilor pentru a dezvălui legătura dintre corp și respirație. Aceste posturi, numite asane, îți permit să-ți înțelegi corpul la un nivel mai profund."
+    },
+    {
+      "type": "h2",
+      "text": "Hatha Yoga"
+    },
+    {
+      "type": "p",
+      "text": "Hatha yoga este științautilizării posturilorpentru a dezvălui legătura dintre corp și respirație. Aceste posturi, numiteasane, vă permit să vă înțelegeți corpulla un nivel mai profund."
+    },
+    {
+      "type": "p",
+      "text": "Beneficiile Hatha yoga includ ajutarea oamenilor să ajungă la un echilibru natural mai profund între sănătate și bunăstare."
+    },
+    {
+      "type": "p",
+      "text": "Cursurile de Hatha yoga variazăde la cele de bază la cele mai avansate, primim cu brațele deschise toate nivelurile, de la începători la yoghini experimentați."
+    },
+    {
+      "type": "h2",
+      "text": "Când ai putea avea nevoie de Hatha Yoga"
+    },
+    {
+      "type": "h3",
+      "text": "Emotional"
+    },
+    {
+      "type": "p",
+      "text": "Ai nevoie de o modalitate de a-ți transforma constrângerile emoționale într-o formă mai fluidă și mai accesibilă."
+    },
+    {
+      "type": "h3",
+      "text": "Pacea Interioara"
+    },
+    {
+      "type": "p",
+      "text": "Îți dorești pacea interioară care vine din faptul că știi că viața ta nu este în afara controlului tău."
+    },
+    {
+      "type": "h3",
+      "text": "Inner Self"
+    },
+    {
+      "type": "p",
+      "text": "Îți dorești o practică care să te aducă la un nivel înalt de conștientizare a sinelui tău interior."
+    },
+    {
+      "type": "h2",
+      "text": "Rezultate cu  Hatha Yoga"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Yoga Îmbunătățește forța abdomenului",
+        "Yoga poate contribui la o densitate osoasă sănătoasă"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Anumite poziții de hatha yoga contribuie la sănătatea cardiovasculară",
+        "Prin susținerea sistemului limfatic, Hatha yoga întărește sistemul imunitar"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Vei putea să-ți dirijezi și să-ți stăpânești propria energie",
+        "Vei putea să-ți atingi cel mai înalt potențial"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Instructorii noștri sunt mai mult decât simpli antrenori"
+    },
+    {
+      "type": "p",
+      "text": "Pe măsură ce te bucuri de energia antrenamentelor noastre de grup, vei primi și atenția și inspirația oferite de antrenorii noștri personali experimentați. Sunt plini de viața pe care o promit și te împing mereu înainte cu o dragoste fermă."
+    },
+    {
+      "type": "h2",
+      "text": "Alatura-te Astazi"
+    },
+    {
+      "type": "p",
+      "text": "Get a Ativo membership now, and join a squeaky clean and spacious club!"
+    },
+    {
+      "type": "h3",
+      "text": "Vreau sa:"
+    },
+    {
+      "type": "h3",
+      "text": "Alege tipul de abonament:"
+    },
+    {
+      "type": "h3",
+      "text": "Eu sunt:"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/hatha.svg",
+      "alt": "",
+      "local_path": "images/hatha.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/iStock-1243246735-1.jpg",
+      "alt": "",
+      "local_path": "images/iStock-1243246735-1.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": [
+    {
+      "action": null,
+      "method": "post",
+      "inputs": [
+        {
+          "name": "post_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "referer_title",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "queried_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Slăbește"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Intră în formă"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Simte-te mai energic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Devino mai puternic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Eliberează stresul"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Tonifică musculatura"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 4 ședințe"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 8 ședințe"
+        },
+        {
+          "name": "form_fields[field_6925b28]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0bf7f81]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_10db230]",
+          "type": "email",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_5d66238]",
+          "type": "tel",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_9d967ff]",
+          "type": "date",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0b2a4b5]",
+          "type": "textarea",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_3171375]",
+          "type": "checkbox",
+          "label": "Abonament 12 ședințe"
+        }
+      ]
+    }
+  ]
+}

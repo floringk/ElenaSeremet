@@ -1,0 +1,30 @@
+{
+  "url": "https://elenaseremet.ro/inregistrare-clienti",
+  "title": "Inregistrare Clienti – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Inscrie-te acum!"
+    },
+    {
+      "type": "h2",
+      "text": "Esti deja client? Intra in contul tau aici:"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": []
+}

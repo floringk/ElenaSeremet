@@ -1,0 +1,232 @@
+{
+  "url": "https://elenaseremet.ro/elastic-band",
+  "title": "Elastic Band – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "PilatesElastic Band"
+    },
+    {
+      "type": "p",
+      "text": "Pilates Elastic Bandeste o clasă concepută pentru a-ți îmbunătăți controlul corporal, forța și flexibilitatea cu ajutorul benzilor elastice. Exercițiile sunt adaptabile și potrivite pentru toate nivelurile, oferind o abordare eficientă și blândă asupra musculaturii."
+    },
+    {
+      "type": "h2",
+      "text": "Ce înveți în timpul unei clase"
+    },
+    {
+      "type": "p",
+      "text": "Clasa de Elastic Band îmbină exercițiile de Pilates cu utilizarea benzilor elastice pentru a adăuga un plus de rezistență mișcărilor controlate.În timpul unei sesiuni, vei învăța cum să activezi musculatura profundă, să îți îmbunătățești stabilitatea și să lucrezi într-un mod echilibrat asupra încheieturilor și posturilor.Prin repetarea conștientă a mișcărilor și controlul respirației, corpul tău devine mai aliniat, mai puternic și mai flexibil. Această clasă este ideală dacă îți dorești un antrenament sigur, blând și eficient, care construiește forță și echilibru fără impact asupra articulațiilor."
+    },
+    {
+      "type": "h2",
+      "text": "Când ai nevoie de Pilates cu bandă elastică?"
+    },
+    {
+      "type": "h3",
+      "text": "Conectare emoțională"
+    },
+    {
+      "type": "p",
+      "text": "Ai nevoie să eliberezi tensiunile acumulate în corp și minte. Exercițiile cu bandă elastică îți permit să regăsești o formă de mișcare fluidă, echilibrată și conștientă, care aduce liniște și claritate interioară."
+    },
+    {
+      "type": "h3",
+      "text": "Echilibru mental"
+    },
+    {
+      "type": "p",
+      "text": "Simți nevoia de stabilitate emoțională și mentală într-o perioadă agitată. Practica regulată cu bandă elastică susține o stare de calm și control, ajutându-te să rămâi ancorat în corpul tău."
+    },
+    {
+      "type": "h3",
+      "text": "Reconectare cu sinele"
+    },
+    {
+      "type": "p",
+      "text": "Cauți o activitate care să îți redea încrederea în propriul corp și să te ajute să te (re)descoperi. Prin mișcări lente și controlate, Pilates cu bandă elastică te aduce mai aproape de sinele tău autentic."
+    },
+    {
+      "type": "h2",
+      "text": "Rezultate posibile"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Tonifiere blândă și profundă a musculaturii",
+        "Creșterea mobilității și a amplitudinii mișcărilor"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Îmbunătățirea controlului postural",
+        "Reducerea tensiunilor din umeri, zona cervicală și spate"
+      ]
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Conexiune mai clară între respirație, mișcare și corp",
+        "Activarea musculaturii profunde fără impact pe articulații"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Instructorii noștri sunt mai mult decât profesioniști"
+    },
+    {
+      "type": "p",
+      "text": "Lasă-te inspirat de energia și dedicarea echipei noastre! Instructorii noștri sunt aici nu doar să te ghideze, ci să te motiveze, să te susțină și să îți insufle încredere în fiecare pas al călătoriei tale. Cu experiență vastă și pasiune autentică pentru mișcare și sănătate, aceștia sunt dedicați să îți ofere cele mai bune rezultate."
+    },
+    {
+      "type": "h2",
+      "text": "Alatura-te astazi"
+    },
+    {
+      "type": "h3",
+      "text": "Vreau sa:"
+    },
+    {
+      "type": "h3",
+      "text": "Alege tipul de abonament:"
+    },
+    {
+      "type": "h3",
+      "text": "Eu sunt:"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/hatha.svg",
+      "alt": "",
+      "local_path": "images/hatha.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/iStock-1243246735-1.jpg",
+      "alt": "",
+      "local_path": "images/iStock-1243246735-1.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": [
+    {
+      "action": null,
+      "method": "post",
+      "inputs": [
+        {
+          "name": "post_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "referer_title",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "queried_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Slăbește"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Intră în formă"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Simte-te mai energic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Devino mai puternic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Eliberează stresul"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Tonifică musculatura"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 4 ședințe"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 8 ședințe"
+        },
+        {
+          "name": "form_fields[field_6925b28]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0bf7f81]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_10db230]",
+          "type": "email",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_5d66238]",
+          "type": "tel",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_9d967ff]",
+          "type": "date",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0b2a4b5]",
+          "type": "textarea",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_3171375]",
+          "type": "checkbox",
+          "label": "Abonament 12 ședințe"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Model 4 – Boutique Warm Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'DM Sans', sans-serif; background: #FFF7F5; color: #1F2937; line-height: 1.6; }
+    .site-header {
+      padding: 1.25rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .site-header .logo { height: 52px; width: auto; display: block; }
+    .site-header nav { display: flex; gap: 2rem; font-size: 0.9375rem; font-weight: 500; }
+    .site-header nav a { color: #1F2937; text-decoration: none; transition: color 0.2s; }
+    .site-header nav a:hover { color: #DB2777; }
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 5%;
+      overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: -2; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(219,39,119,0.2) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.5) 100%);
+    }
+    .hero-title .line { opacity: 0; transform: translateY(14px); animation: heroFade 0.8s cubic-bezier(0.22,1,0.36,1) forwards; }
+    .hero-title .line:nth-child(1) { animation-delay: 0.2s; }
+    .hero-title .line:nth-child(2) { animation-delay: 0.4s; }
+    .hero-title .line:nth-child(3) { animation-delay: 0.6s; }
+    @keyframes heroFade { to { opacity: 1; transform: translateY(0); } }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.75rem, 6vw, 4.5rem); font-weight: 400; line-height: 1.15; margin: 0 0 1rem; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.35); }
+    .hero .tagline { font-size: 1.25rem; color: rgba(255,255,255,0.95); margin-bottom: 2rem; text-shadow: 0 1px 12px rgba(0,0,0,0.25); }
+    .btn { display: inline-block; padding: 1rem 2.25rem; text-decoration: none; font-weight: 600; border-radius: 10px; transition: all 0.3s; }
+    .btn-primary { background: #DB2777; color: #fff; border: none; box-shadow: 0 8px 28px rgba(219, 39, 119, 0.35); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(219, 39, 119, 0.45); background: #be185d; }
+    .section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #FFFFFF;
+    }
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #F59E0B; margin-bottom: 0.75rem; }
+    .section h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 1rem; font-weight: 400; }
+    .section p { margin-bottom: 2rem; color: #4B5563; font-size: 1.0625rem; max-width: 52ch; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; margin-top: 2rem; }
+    .card {
+      background: #FFF7F5;
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      transition: all 0.35s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -12px rgba(219, 39, 119, 0.15); border-color: rgba(219, 39, 119, 0.3); }
+    .card img { width: 56px; height: 56px; object-fit: contain; margin-bottom: 1.25rem; }
+    .card h3 { font-family: 'DM Serif Display', serif; font-size: 1.25rem; margin: 0 0 0.5rem; color: #DB2777; font-weight: 400; }
+    .card p { margin: 0; font-size: 0.9375rem; color: #4B5563; line-height: 1.55; }
+    .btn-secondary { background: transparent; color: #F59E0B; border: 2px solid #F59E0B; }
+    .btn-secondary:hover { background: #F59E0B; color: #fff; transform: translateY(-1px); }
+    .team {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #FFF7F5;
+    }
+    .team .section-label { color: #DB2777; text-align: center; }
+    .team h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.5rem, 2.5vw, 1.875rem); margin-bottom: 2rem; text-align: center; font-weight: 400; }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .team-card { text-align: center; transition: transform 0.3s; }
+    .team-card:hover { transform: translateY(-4px); }
+    .team-card img { width: 100%; max-width: 220px; aspect-ratio: 1; object-fit: cover; border-radius: 16px; margin: 0 auto 1rem; display: block; box-shadow: 0 12px 32px -8px rgba(0,0,0,0.12); }
+    .team-card strong { font-size: 1rem; font-weight: 600; }
+    @media (max-width: 768px) { .team-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="#"><img src="../content/images/logo-moto-pilates-mat-9.png" alt="Pilates Studio Elena Șeremet" class="logo"></a>
+    <nav>
+      <a href="#">Acasă</a>
+      <a href="#">Despre noi</a>
+      <a href="#">Servicii</a>
+      <a href="#">Prețuri</a>
+      <a href="#">Program</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <div class="hero-bg"><img src="../content/images/IR6_7124-scaled.jpg" alt=""></div>
+    <div class="hero-overlay"></div>
+    <h1 class="hero-title">
+      <span class="line">body</span><br>
+      <span class="line">&</span><br>
+      <span class="line">mind</span>
+    </h1>
+    <p class="tagline">Conectează-te la cea mai bună formă.</p>
+    <a href="#" class="btn btn-primary">Hai la o clasă</a>
+  </section>
+  <section class="section">
+    <p class="section-label">Servicii</p>
+    <h2>Descoperă clasa potrivită pentru tine</h2>
+    <p>Te invităm să-ți descoperi forța interioară prin mișcări controlate și conștiente pentru un echilibru profund și o stare de bine completă.</p>
+    <div class="cards">
+      <div class="card">
+        <img src="../content/images/Classes.svg" alt="">
+        <h3>Pilates Mat</h3>
+        <p>Clase în grup, variate și adaptate nivelului tău.</p>
+      </div>
+      <div class="card">
+        <img src="../content/images/Team.svg" alt="">
+        <h3>Sedințe private</h3>
+        <p>Antrenament personalizat, unul la unul.</p>
+      </div>
+      <div class="card">
+        <img src="../content/images/hatha.svg" alt="">
+        <h3>Yogalates</h3>
+        <p>Fuziune de yoga și pilates pentru flexibilitate și liniște.</p>
+      </div>
+    </div>
+    <p style="margin-top: 2.5rem;"><a href="#" class="btn btn-secondary">Vezi programul</a></p>
+  </section>
+  <section class="team">
+    <p class="section-label">Echipa</p>
+    <h2>Echipa noastră</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="../content/images/Elena-scaled.jpg" alt="Elena Șeremet">
+        <strong>Elena Șeremet</strong>
+      </div>
+      <div class="team-card">
+        <img src="../content/images/Gabriela-scaled-e1756931846824-849x1024.jpg" alt="Gabriela Ostafe">
+        <strong>Gabriela Ostafe</strong>
+      </div>
+      <div class="team-card">
+        <img src="../content/images/Adelina-scaled.jpg" alt="Adelina Csolti">
+        <strong>Adelina Csolti</strong>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

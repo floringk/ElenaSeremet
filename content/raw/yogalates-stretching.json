@@ -1,0 +1,270 @@
+{
+  "url": "https://elenaseremet.ro/yogalates-stretching",
+  "title": "Yogalates & Stretching – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Yogalates & Stretching"
+    },
+    {
+      "type": "p",
+      "text": "Combinația ideală între flexibilitate, forță blândă și echilibru mental."
+    },
+    {
+      "type": "h2",
+      "text": ""
+    },
+    {
+      "type": "p",
+      "text": "Descoperă Yogalates & Stretching"
+    },
+    {
+      "type": "p",
+      "text": "Această clasă îmbină armonios elemente din Pilates și Yoga, oferind un antrenament blând, dar profund. Vei experimenta exerciții de mobilitate, stretching activ și pasiv, dar și activarea zonelor profunde prin mișcări controlate și fluide."
+    },
+    {
+      "type": "p",
+      "text": "Este clasa ideală pentru momentele în care simți nevoia de eliberare fizică și relaxare mentală, fără a renunța la eficiență. Practicată constant, contribuie la alungirea musculaturii, îmbunătățirea posturii și calmarea sistemului nervos."
+    },
+    {
+      "type": "h2",
+      "text": "Descoperă beneficiile Yogalates & Stretching"
+    },
+    {
+      "type": "h3",
+      "text": "Flexibilitate crescută"
+    },
+    {
+      "type": "p",
+      "text": "Ajută la alungirea musculaturii și creșterea amplitudinii în mișcare."
+    },
+    {
+      "type": "h3",
+      "text": "Relaxare activă"
+    },
+    {
+      "type": "p",
+      "text": "Scade tensiunea fizică și mentală, oferind claritate și echilibru."
+    },
+    {
+      "type": "h3",
+      "text": "Conexiune corp–minte"
+    },
+    {
+      "type": "p",
+      "text": "Sprijină concentrarea și respirația conștientă în fiecare exercițiu."
+    },
+    {
+      "type": "h2",
+      "text": "Informații despre program"
+    },
+    {
+      "type": "h2",
+      "text": "Informații despre program"
+    },
+    {
+      "type": "h5",
+      "text": "Ce vei învăța:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Tehnici de stretching activ și pasiv",
+        "Respirație controlată și conștientă",
+        "Mișcări fluide de tip yoga și pilates",
+        "Eliberarea tensiunilor musculare"
+      ]
+    },
+    {
+      "type": "h5",
+      "text": "Beneficii principale:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Flexibilitate și mobilitate îmbunătățite",
+        "Reducerea stresului și a rigidității corporale",
+        "Postură mai echilibrată",
+        "Activare ușoară a musculaturii profunde"
+      ]
+    },
+    {
+      "type": "h5",
+      "text": "Rezultate obținute:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Senzație de „corp ușor”",
+        "Claritate mentală după fiecare sesiune",
+        "Coloană mai mobilă și alungită",
+        "Relaxare activă și tonus blând"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Instructorii noștri sunt mai mult decât profesioniști"
+    },
+    {
+      "type": "p",
+      "text": "Lasă-te inspirat de energia și dedicarea echipei noastre! Instructorii noștri sunt aici nu doar să te ghideze, ci să te motiveze, să te susțină și să îți insufle încredere în fiecare pas al călătoriei tale. Cu experiență vastă și pasiune autentică pentru mișcare și sănătate, aceștia sunt dedicați să îți ofere cele mai bune rezultate."
+    },
+    {
+      "type": "h2",
+      "text": ""
+    },
+    {
+      "type": "p",
+      "text": "Alătură-te nouă!"
+    },
+    {
+      "type": "p",
+      "text": "Înscrie-te acum și începe călătoria către o versiune mai sănătoasă și mai echilibrată a ta!"
+    },
+    {
+      "type": "h3",
+      "text": "Vreau sa:"
+    },
+    {
+      "type": "h3",
+      "text": "Alege tipul de abonament:"
+    },
+    {
+      "type": "h3",
+      "text": "Eu sunt:"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/hatha.svg",
+      "alt": "",
+      "local_path": "images/hatha.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/iStock-1243246735-1.jpg",
+      "alt": "",
+      "local_path": "images/iStock-1243246735-1.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": [
+    {
+      "action": null,
+      "method": "post",
+      "inputs": [
+        {
+          "name": "post_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "referer_title",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "queried_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Slăbește"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Intră în formă"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Simte-te mai energic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Devino mai puternic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Eliberează stresul"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Tonifică musculatura"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 4 ședințe"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 8 ședințe"
+        },
+        {
+          "name": "form_fields[field_6925b28]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0bf7f81]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_10db230]",
+          "type": "email",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_5d66238]",
+          "type": "tel",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_9d967ff]",
+          "type": "date",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0b2a4b5]",
+          "type": "textarea",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_3171375]",
+          "type": "checkbox",
+          "label": "Abonament 12 ședințe"
+        }
+      ]
+    }
+  ]
+}

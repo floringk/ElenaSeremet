@@ -1,0 +1,47 @@
+{
+  "url": "https://elenaseremet.ro/gabriela-ostafe",
+  "title": "Gabriela Ostafe – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Gabriela Ostafe"
+    },
+    {
+      "type": "h6",
+      "text": "Instructor Certificat Pilates MatInstructor Certificat Pilates ReformerInstructor Acreditat de Hatha Yoga 200 TTC recunoscut international de catre Yoga Alliance US"
+    },
+    {
+      "type": "p",
+      "text": "Deși am o pregătire tehnică și am lucrat în IT cea mai mare parte a vieții, nu am neglijat niciodată activitățile fizice. În ultimii ani, am învățat și practicat sporturi precum înot, schi, qi-gong, dans și multe ore de yoga. Dar revelația a venit când am întâlnit metoda pilates, completă și curată ca apa unui izvor de munte. Am început prin a mă ajuta exersând zilnic, am aprofundat acest domeniu și acum sunt fericită că pot ajuta alți oameni să se simtă mai bine, să se miște mai ușor, să se bucure din plin de viață."
+    },
+    {
+      "type": "p",
+      "text": "SuntInstructor certificat de Pilates Mat,Instructor certificat de Pilates ReformerșiInstructor acreditat de Hatha Yoga (200 TTC), recunoscut internațional de către Yoga Alliance US. În calitate de practicant și instructor certificat, susțin bunăstarea care vine din activitatea fizică regulată."
+    },
+    {
+      "type": "p",
+      "text": "Am ales să ofer altora ceea ce am primit la rândul meu:antrenamente de pilates făcute cu dăruire, empatie și inimă deschisă, combinate cu clasele de yoga în care se eliberează stresul, se reduce anxietatea și crește claritatea mentală."
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2024/09/Gabriela-scaled-e1756931846824-849x1024.jpg",
+      "alt": "",
+      "local_path": "images/Gabriela-scaled-e1756931846824-849x1024.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": []
+}

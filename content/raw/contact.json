@@ -1,0 +1,105 @@
+{
+  "url": "https://elenaseremet.ro/contact",
+  "title": "Contact – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Contact"
+    },
+    {
+      "type": "h2",
+      "text": "Trimite solicitarea ta"
+    },
+    {
+      "type": "h5",
+      "text": ""
+    },
+    {
+      "type": "h6",
+      "text": "Echipa noastră este pregatită să-ți răspundă la orice întrebări ai putea avea."
+    },
+    {
+      "type": "h6",
+      "text": "Lasă mesajul tau aici și vei fi contactat!"
+    },
+    {
+      "type": "h5",
+      "text": "Adresa"
+    },
+    {
+      "type": "p",
+      "text": "Bulevardul 1 Decembrie 1918 nr. 58, București 032468+ (40)755247412"
+    },
+    {
+      "type": "p",
+      "text": "Luni-Vineri: 8:30 – 21:00Sâmbătă: 9:00 – 13:00"
+    },
+    {
+      "type": "p",
+      "text": "Duminică: Închis"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": [
+    {
+      "action": null,
+      "method": "post",
+      "inputs": [
+        {
+          "name": "post_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "referer_title",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "queried_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_fields[name]",
+          "type": "text",
+          "label": "Nume Prenume"
+        },
+        {
+          "name": "form_fields[email]",
+          "type": "email",
+          "label": "Adresa email:"
+        },
+        {
+          "name": "form_fields[field_922ffe0]",
+          "type": "tel",
+          "label": "Număr de telefon:"
+        },
+        {
+          "name": "form_fields[message]",
+          "type": "textarea",
+          "label": "Mesajul tău:"
+        }
+      ]
+    }
+  ]
+}

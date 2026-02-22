@@ -1,0 +1,258 @@
+{
+  "url": "https://elenaseremet.ro/tonifiere",
+  "title": "Tonifiere – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Antrenamente pentru Tonifiere"
+    },
+    {
+      "type": "p",
+      "text": "Îmbunătățește-ți forma fizică prin clase dinamice, eficiente și accesibile tuturor."
+    },
+    {
+      "type": "h2",
+      "text": "Descoperă antrenamentele pentru Tonifiere"
+    },
+    {
+      "type": "p",
+      "text": "Clasele de tonifiere sunt concepute pentru a stimula musculatura, a modela silueta și a crește rezistența generală. Antrenamentele sunt variate, adaptate fiecărui nivel de fitness, și oferă o combinație optimă de exerciții funcționale."
+    },
+    {
+      "type": "p",
+      "text": "Vei lucra toate grupele musculare prin exerciții fluide, cu accent pe control, respirație și formă corectă. În plus, ritmul susținut contribuie la activarea metabolismului și la o stare de energie durabilă."
+    },
+    {
+      "type": "h2",
+      "text": "Găsește clasa care te pune în mișcare"
+    },
+    {
+      "type": "h3",
+      "text": "Circuit Training"
+    },
+    {
+      "type": "p",
+      "text": "Circuit Trainingeste ideal pentru cei care vor să combine exerciții de forță cu mișcări cardio. Formatul în stații aduce varietate și intensitate, menținând un ritm antrenant și echilibrat pentru întregul corp."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Tonifiere globală",
+        "Rezistență crescută",
+        "Ritm accelerat, dar controlat"
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Total Body Workout"
+    },
+    {
+      "type": "p",
+      "text": "Total Body Workouteste o clasă care lucrează toate grupele musculare într-un mod echilibrat. Accentul este pus pe mișcări fluide și controlate, ce întăresc, mobilizează și revitalizează întregul corp."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Focus pe postură și aliniere",
+        "Tonifiere uniformă",
+        "Adaptat pentru toate nivelurile"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Informații despre program"
+    },
+    {
+      "type": "h2",
+      "text": "Ce vei învăța:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Tehnici sigure pentru tonifiere musculară",
+        "Exerciții funcționale inspirate din Pilates",
+        "Activarea grupelor musculare majore",
+        "Mișcări adaptate nivelului tău"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Beneficii principale:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Siluetă definită, fără creștere excesivă de masă",
+        "Forță funcțională și stabilitate",
+        "Antrenament complet, fără monotonie",
+        "Îmbunătățirea rezistenței generale"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Rezultate obținute:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Tonus muscular vizibil",
+        "Energie și vitalitate zilnică",
+        "Arderea eficientă a caloriilor",
+        "O formă fizică generală îmbunătățită"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Alatura-te astazi!"
+    },
+    {
+      "type": "p",
+      "text": "Gaseste clasele si pachetele potrivite pentru tine!"
+    },
+    {
+      "type": "h3",
+      "text": "Vreau sa:"
+    },
+    {
+      "type": "h3",
+      "text": "Alege tipul de abonament:"
+    },
+    {
+      "type": "h3",
+      "text": "Eu sunt:"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/hatha.svg",
+      "alt": "",
+      "local_path": "images/hatha.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/iStock-1243246735-1.jpg",
+      "alt": "",
+      "local_path": "images/iStock-1243246735-1.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": [
+    {
+      "action": null,
+      "method": "post",
+      "inputs": [
+        {
+          "name": "post_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "referer_title",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "queried_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Slăbește"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Intră în formă"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Simte-te mai energic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Devino mai puternic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Eliberează stresul"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Tonifică musculatura"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 4 ședințe"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 8 ședințe"
+        },
+        {
+          "name": "form_fields[field_6925b28]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0bf7f81]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_10db230]",
+          "type": "email",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_5d66238]",
+          "type": "tel",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_9d967ff]",
+          "type": "date",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0b2a4b5]",
+          "type": "textarea",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_3171375]",
+          "type": "checkbox",
+          "label": "Abonament 12 ședințe"
+        }
+      ]
+    }
+  ]
+}

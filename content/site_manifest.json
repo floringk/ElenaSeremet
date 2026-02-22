@@ -1,0 +1,173 @@
+{
+  "base_url": "https://elenaseremet.ro",
+  "pages": [
+    {
+      "url": "https://elenaseremet.ro/",
+      "slug": "index",
+      "type": "home",
+      "file": "raw/index.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/preturi",
+      "slug": "preturi",
+      "type": "preturi",
+      "file": "raw/preturi.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/gabriela-ostafe",
+      "slug": "gabriela-ostafe",
+      "type": "page",
+      "file": "raw/gabriela-ostafe.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/pilates-props",
+      "slug": "pilates-props",
+      "type": "page",
+      "file": "raw/pilates-props.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/abcpilates",
+      "slug": "abcpilates",
+      "type": "page",
+      "file": "raw/abcpilates.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/healthy-spine",
+      "slug": "healthy-spine",
+      "type": "page",
+      "file": "raw/healthy-spine.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/tonifiere",
+      "slug": "tonifiere",
+      "type": "servicii",
+      "file": "raw/tonifiere.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/yogalates-stretching",
+      "slug": "yogalates-stretching",
+      "type": "servicii",
+      "file": "raw/yogalates-stretching.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/fit-pilates",
+      "slug": "fit-pilates",
+      "type": "page",
+      "file": "raw/fit-pilates.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/servicii",
+      "slug": "servicii",
+      "type": "page",
+      "file": "raw/servicii.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/postural",
+      "slug": "postural",
+      "type": "servicii",
+      "file": "raw/postural.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/instructori",
+      "slug": "instructori",
+      "type": "echipa",
+      "file": "raw/instructori.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/adelina-csolti",
+      "slug": "adelina-csolti",
+      "type": "page",
+      "file": "raw/adelina-csolti.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/personal-training",
+      "slug": "personal-training",
+      "type": "page",
+      "file": "raw/personal-training.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/inregistrare-clienti",
+      "slug": "inregistrare-clienti",
+      "type": "inregistrare",
+      "file": "raw/inregistrare-clienti.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/schedules",
+      "slug": "schedules",
+      "type": "program",
+      "file": "raw/schedules.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/pilates-mat",
+      "slug": "pilates-mat",
+      "type": "servicii",
+      "file": "raw/pilates-mat.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/elastic-band",
+      "slug": "elastic-band",
+      "type": "page",
+      "file": "raw/elastic-band.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/despre-noi",
+      "slug": "despre-noi",
+      "type": "despre-noi",
+      "file": "raw/despre-noi.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/yoga",
+      "slug": "yoga",
+      "type": "servicii",
+      "file": "raw/yoga.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/contact",
+      "slug": "contact",
+      "type": "contact",
+      "file": "raw/contact.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/total-body",
+      "slug": "total-body",
+      "type": "page",
+      "file": "raw/total-body.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/yoga-3",
+      "slug": "yoga-3",
+      "type": "servicii",
+      "file": "raw/yoga-3.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/sedinte-private",
+      "slug": "sedinte-private",
+      "type": "servicii",
+      "file": "raw/sedinte-private.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/circuit",
+      "slug": "circuit",
+      "type": "page",
+      "file": "raw/circuit.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/elena-seremet",
+      "slug": "elena-seremet",
+      "type": "page",
+      "file": "raw/elena-seremet.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/masaj-si-drenaj",
+      "slug": "masaj-si-drenaj",
+      "type": "servicii",
+      "file": "raw/masaj-si-drenaj.json"
+    },
+    {
+      "url": "https://elenaseremet.ro/pilates-reformer",
+      "slug": "pilates-reformer",
+      "type": "servicii",
+      "file": "raw/pilates-reformer.json"
+    }
+  ]
+}

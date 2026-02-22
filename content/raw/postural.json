@@ -1,0 +1,270 @@
+{
+  "url": "https://elenaseremet.ro/postural",
+  "title": "Postural – Pilates Studio by Elena Șeremet",
+  "meta": {
+    "description": ""
+  },
+  "blocks": [
+    {
+      "type": "h1",
+      "text": "Postural Pilates"
+    },
+    {
+      "type": "p",
+      "text": "Recâștigă-ți echilibrul și starea de bine printr-o postură corectă și mișcări controlate."
+    },
+    {
+      "type": "h2",
+      "text": "Descoperă Postural Pilates"
+    },
+    {
+      "type": "p",
+      "text": "Clasa Postural este concepută pentru cei care își doresc să îmbunătățească alinierea corporală, să reducă durerile cauzate de postură incorectă și să își întărească musculatura de susținere a coloanei."
+    },
+    {
+      "type": "p",
+      "text": "Sub îndrumarea atentă a instructorilor, vei învăța să conștientizezi poziția corpului, să corectezi dezechilibrele musculare și să creezi o bază solidă pentru mișcare eficientă și fără disconfort."
+    },
+    {
+      "type": "p",
+      "text": "Exercițiile sunt lente, controlate, și pun accent pe respirație, aliniere și stabilitate. Rezultatul? O postură elegantă, o coloană sănătoasă și o senzație generală de echilibru."
+    },
+    {
+      "type": "h2",
+      "text": "Descoperă beneficiile Postural Pilates"
+    },
+    {
+      "type": "h3",
+      "text": "Coloană susținută"
+    },
+    {
+      "type": "p",
+      "text": "Întărește musculatura profundă care stabilizează și protejează coloana vertebrală."
+    },
+    {
+      "type": "h3",
+      "text": "Aliniere corectă"
+    },
+    {
+      "type": "p",
+      "text": "Corectează dezechilibrele posturale pentru o poziție corporală sănătoasă și estetică."
+    },
+    {
+      "type": "h3",
+      "text": "Confort și mobilitate"
+    },
+    {
+      "type": "p",
+      "text": "Redu tensiunile și disconfortul, recâștigând libertatea în mișcare."
+    },
+    {
+      "type": "h2",
+      "text": "Informații despre program"
+    },
+    {
+      "type": "h2",
+      "text": "Informații despre program"
+    },
+    {
+      "type": "h5",
+      "text": "Ce vei învăța:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Alinierea corectă a coloanei",
+        "Activarea musculaturii posturale",
+        "Conștientizarea poziției corporale",
+        "Tehnici de respirație și relaxare"
+      ]
+    },
+    {
+      "type": "h5",
+      "text": "Beneficii principale:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Reducerea durerilor de spate și gât",
+        "Îmbunătățirea mobilității articulare",
+        "Corectarea dezechilibrelor musculare",
+        "Creșterea stabilității și echilibrului"
+      ]
+    },
+    {
+      "type": "h5",
+      "text": "Rezultate obținute:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Postură corectă și armonioasă",
+        "Tonifiere profundă fără suprasolicitare",
+        "Mișcare fluidă și controlată",
+        "O stare de bine susținută zi de zi"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Instructorii noștri sunt mai mult decât profesioniști"
+    },
+    {
+      "type": "p",
+      "text": "Lasă-te inspirat de energia și dedicarea echipei noastre! Instructorii noștri sunt aici nu doar să te ghideze, ci să te motiveze, să te susțină și să îți insufle încredere în fiecare pas al călătoriei tale. Cu experiență vastă și pasiune autentică pentru mișcare și sănătate, aceștia sunt dedicați să îți ofere cele mai bune rezultate."
+    },
+    {
+      "type": "h2",
+      "text": ""
+    },
+    {
+      "type": "p",
+      "text": "Alătură-te nouă!"
+    },
+    {
+      "type": "p",
+      "text": "Înscrie-te acum și începe călătoria către o versiune mai sănătoasă și mai echilibrată a ta!"
+    },
+    {
+      "type": "h3",
+      "text": "Vreau sa:"
+    },
+    {
+      "type": "h3",
+      "text": "Alege tipul de abonament:"
+    },
+    {
+      "type": "h3",
+      "text": "Eu sunt:"
+    }
+  ],
+  "images": [
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9.png"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/hatha.svg",
+      "alt": "",
+      "local_path": "images/hatha.svg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/iStock-1243246735-1.jpg",
+      "alt": "",
+      "local_path": "images/iStock-1243246735-1.jpg"
+    },
+    {
+      "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
+      "alt": "",
+      "local_path": "images/logo-moto-pilates-mat-9-1024x277.png"
+    }
+  ],
+  "forms": [
+    {
+      "action": null,
+      "method": "post",
+      "inputs": [
+        {
+          "name": "post_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "referer_title",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "queried_id",
+          "type": "hidden",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": ""
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Slăbește"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Intră în formă"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Simte-te mai energic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Devino mai puternic"
+        },
+        {
+          "name": "form_fields[field_c57f6ec][]",
+          "type": "checkbox",
+          "label": "Eliberează stresul"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Tonifică musculatura"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 4 ședințe"
+        },
+        {
+          "name": "form_fields[field_6331503]",
+          "type": "radio",
+          "label": "Abonament 8 ședințe"
+        },
+        {
+          "name": "form_fields[field_6925b28]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0bf7f81]",
+          "type": "text",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_10db230]",
+          "type": "email",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_5d66238]",
+          "type": "tel",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_9d967ff]",
+          "type": "date",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_0b2a4b5]",
+          "type": "textarea",
+          "label": "Abonament 12 ședințe"
+        },
+        {
+          "name": "form_fields[field_3171375]",
+          "type": "checkbox",
+          "label": "Abonament 12 ședințe"
+        }
+      ]
+    }
+  ]
+}
