@@ -1,15 +1,30 @@
 # ElenaSeremet
-Redesign of Elene Seremet Website
+Redesign of Elena Seremet website.
+
+## Tech stack
+
+- Next.js (App Router) + React
+- TypeScript
+- Global styling in `app/globals.css`
+
+## Local development
+
+1. Install dependencies:
+   - `npm install`
+2. Start dev server:
+   - `npm run dev`
+3. Open:
+   - `http://localhost:3000`
+
+## Routes
+
+- `/` Home
+- `/despre`
+- `/servicii`
+- `/preturi`
+- `/program`
+- `/contact`
 
 ## Vercel deployment
 
-The project is set up for static deployment on [Vercel](https://vercel.com).
-
-1. Push the repo to GitHub/GitLab/Bitbucket or import it in Vercel.
-2. In Vercel, import the project; use the **root** of the repo (no subfolder). No build command or output directory is required.
-3. After deploy:
-   - **/** → mockups homepage (model list)
-   - **/model-1** … **/model-6** → each mockup
-   - **/content/** and **/Assets/** serve images and assets.
-
-**Local preview with same URLs:** run `npx vercel dev` in the project root, then open `http://localhost:3000`.
+The project is configured for Next.js deployment on [Vercel](https://vercel.com).
