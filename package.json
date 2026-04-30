@@ -6,21 +6,36 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "validate:content": "node scripts/validate-content.mjs",
+    "import:pages": "tsx scripts/import-legacy-pages.ts"
   },
   "dependencies": {
-    "next": "16.0.1",
+    "@payloadcms/db-postgres": "^3.84.1",
+    "@payloadcms/next": "^3.84.1",
+    "@payloadcms/richtext-lexical": "^3.84.1",
+    "@supabase/supabase-js": "^2.105.1",
+    "dotenv": "^17.4.2",
+    "next": "^16.2.2",
+    "nodemailer": "^8.0.7",
+    "payload": "^3.84.1",
+    "pg": "^8.20.0",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "sharp": "^0.34.5",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "24.9.1",
+    "@types/nodemailer": "^8.0.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "callsites": "^4.2.0",
     "es-abstract": "^1.24.2",
     "eslint": "9.39.1",
     "eslint-config-next": "16.0.1",
+    "tsx": "^4.21.0",
     "typescript": "5.9.3"
   }
 }

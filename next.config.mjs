@@ -1,7 +1,16 @@
-import type { NextConfig } from "next";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { withPayload } from "@payloadcms/next/withPayload";
 
-const nextConfig: NextConfig = {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   poweredByHeader: false,
+  // Next may pick a parent folder if multiple lockfiles exist; keep resolution inside this app
+  turbopack: {
+    root: __dirname
+  },
   async redirects() {
     return [
       { source: "/despre", destination: "/despre-noi", permanent: true },
@@ -16,4 +25,4 @@ const nextConfig: NextConfig = {
   }
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);

@@ -2,11 +2,23 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { navLinks } from "@/lib/site-data";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const navId = useId();
+
+  useEffect(() => {
+    if (!open) return;
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   return (
     <header className="site-header">
@@ -22,16 +34,18 @@ export function SiteHeader() {
           />
         </Link>
         <button
+          type="button"
           className="menu-btn focus-ring"
           aria-expanded={open}
-          aria-label="Deschide meniul"
+          aria-controls={navId}
+          aria-label={open ? "Inchide meniul" : "Deschide meniul"}
           onClick={() => setOpen((value) => !value)}
         >
           <span />
           <span />
           <span />
         </button>
-        <nav className={`main-nav ${open ? "open" : ""}`} aria-label="Navigatie principala">
+        <nav id={navId} className={`main-nav ${open ? "open" : ""}`} aria-label="Navigatie principala">
           {navLinks.map((item) => (
             <Link key={item.href} href={item.href} className="focus-ring" onClick={() => setOpen(false)}>
               {item.label}

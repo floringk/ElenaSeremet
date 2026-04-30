@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Placeholders so `server-only` / `serverEnv` can load during `next build` (not used to call real services in CI)
+      SUPABASE_URL: https://ci-placeholder.supabase.co
+      SUPABASE_SERVICE_ROLE_KEY: ci-placeholder-service-role-key-for-builds-only
+      SMTP_HOST: localhost
+      SMTP_USER: ci
+      SMTP_PASS: ci
+      MAIL_FROM: ci@example.com
+      MAIL_TO: ci@example.com
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: ci
+      ADMIN_SESSION_SECRET: ci-build-admin-session-secret-min-32-chars
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: rm -rf .next && npm run build
