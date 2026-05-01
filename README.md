@@ -40,6 +40,63 @@ Dynamic legacy slugs are generated from `mockups/content/site_manifest.json` and
 - `/content/*` paths are served from `mockups/content/*` by `app/content/[...path]/route.ts`.
 - Redirect aliases are configured in `next.config.mjs` (for example `/despre` -> `/despre-noi` and `/program` -> `/schedules`).
 
+## Assets (site chrome)
+
+Files in **`public/`** are served at the site root (`/favicon.ico`, `/og-default.jpg`, etc.). Page-level imagery stays under **`mockups/content/images/`** and is exposed at **`/content/images/...`** via `app/content/[...path]/route.ts`.
+
+| File | Purpose |
+| --- | --- |
+| `public/favicon.ico` | Browser tab icon |
+| `public/apple-touch-icon.png` | iOS “Add to Home Screen” (180×180) |
+| `public/og-default.jpg` | Default Open Graph / Twitter image when a page has no hero |
+| `public/manifest.webmanifest` | Minimal install/manifest metadata |
+
+Regenerate chrome raster assets from the legacy hero source image:
+
+```bash
+node scripts/bootstrap-public-assets.mjs
+```
+
+### Designer handoff — what to send
+
+- **Site chrome / brand** → replace files in **`public/`** (keep filenames/URLs stable once live).
+- **Hero and inline images** → **`mockups/content/images/`** (referenced from JSON or CMS).
+- **Naming:** lowercase kebab-case, ASCII only (e.g. `pilates-mat-hero.jpg`).
+- **Formats & sizes (targets):**
+  - Favicon: `.ico` (multi-size) or PNG 32×32 at `public/favicon.ico`.
+  - Apple touch: 180×180 PNG.
+  - OG default: 1200×630 JPG/PNG, ~150–300 KB.
+  - Hero images: ~1600×900 or 16∶9, JPG/WebP, ~250–500 KB.
+  - Inline section images: max ~1200 px wide, JPG/WebP.
+  - Logos: SVG preferred; PNG with transparency as fallback.
+- **With each asset:** intended use (e.g. “OG default”, “Servicii hero”), route(s) where it appears, and **alt text in Romanian**.
+
+Pointers for scripts and performance notes: [`scripts/README.md`](scripts/README.md).
+
+## Content QA
+
+Checklist and route inventory: [`docs/content-qa.md`](docs/content-qa.md). After content edits run `npm run validate:content`.
+
+## Pre-launch checklist (runbook)
+
+Use this before DNS cutover or public announcement:
+
+- [ ] **Vercel env (production):** `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, full SMTP set, `ADMIN_USER`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`; optional `PAYLOAD_SECRET`, `PAYLOAD_DATABASE_URL`, `CONTENT_SOURCE`, `INTERNAL_ALERT_KEY`, `SITE_SAME_AS`.
+- [ ] **DNS:** apex + `www` → hosting; HTTPS valid.
+- [ ] **CI:** `main` / `master` green — lint, TypeScript, production build.
+- [ ] **Smoke on deployed URL:** `/`, a heavy or representative slug (e.g. `/pilates-mat`), `/contact`, `/admin` (login flow), `/sitemap.xml`, `/robots.txt`; confirm `POST /api/track` in Network tab on navigation.
+- [ ] **Contact:** submission sends mail; if Payload DB is live, check `submissions` via `/admin` or CMS.
+- [ ] **Runtime alerts:** in production only, verify error alerting path once (see [`app/actions/report-runtime-error.ts`](app/actions/report-runtime-error.ts)); remove any temporary throw route afterward.
+- [ ] **Lighthouse (mobile):** acceptable scores on `/`, one heavy slug, `/contact` — record in [`scripts/README.md`](scripts/README.md).
+- [ ] **`npm audit`:** triage current findings (see **Dependency audits**); no blind `npm audit fix --force`.
+
+### Git publish (release)
+
+1. Review `git status`; commit in logical groups (assets, SEO/layout, security/docs, content).
+2. Confirm remote: `git remote -v`.
+3. Push: `git push -u origin <branch>` — do **not** force-push rewritten shared history.
+4. Tag when ready: `git tag -a v1.0.0 -m "Initial launch"` then `git push origin v1.0.0`.
+
 ## Release boundaries
 
 Use separate commits for:
@@ -88,6 +145,12 @@ Set:
 
 Contact form submissions are stored in Payload `submissions` when Payload DB env vars are set; otherwise they stay in Supabase `form_submissions`. Page analytics remain in Supabase `page_events`.
 
+### Error alerts and SEO extras (optional)
+
+- Runtime errors trigger **SMTP email alerts** to `MAIL_TO` in **production** only (same mailer as contact; see [`lib/alerts.ts`](lib/alerts.ts), [`app/actions/report-runtime-error.ts`](app/actions/report-runtime-error.ts)).
+- Server-to-server alerts: `POST /api/internal/alert` with header `Authorization: Bearer <INTERNAL_ALERT_KEY>` (set in `.env`).
+- Optional `SITE_SAME_AS` — comma-separated profile URLs for Organization JSON-LD (`sameAs`).
+
 ## Vercel deployment
 
 The project is configured for Next.js deployment on [Vercel](https://vercel.com).
@@ -113,8 +176,11 @@ Commands: `npm run lint`, `npm run typecheck`, `npm run build` (set env vars lik
 ### Security notes
 
 - **Supabase service role** is used only in **server** code ([`lib/supabase-server.ts`](lib/supabase-server.ts), API routes, and server components). It must **never** be exposed to the browser or committed. If you add a public client, use the anon key and **RLS** policies instead.
-- **Admin session** uses an HMAC-signed cookie ([`lib/admin-auth.ts`](lib/admin-auth.ts)). Keep `ADMIN_SESSION_SECRET` long and private; rotate if leaked.
+- **Secrets modules** ([`lib/server-env.ts`](lib/server-env.ts), [`lib/supabase-server.ts`](lib/supabase-server.ts), [`lib/payload.ts`](lib/payload.ts), [`lib/alerts.ts`](lib/alerts.ts)) are server-only; client components must not import them or read secret env vars.
+- **Admin session** uses an HMAC-signed cookie ([`lib/admin-auth.ts`](lib/admin-auth.ts)): `httpOnly`, `secure`, `sameSite: lax`. Keep `ADMIN_SESSION_SECRET` long (≥32 random bytes recommended) and private; rotate if leaked.
+- **Internal alert API** ([`app/api/internal/alert/route.ts`](app/api/internal/alert/route.ts)) requires `INTERNAL_ALERT_KEY`; returns 503 if unset, 401 if the Bearer token does not match.
 - **Rate limiting** on `POST /api/contact` is in-memory per process (see [`app/api/contact/route.ts`](app/api/contact/route.ts)) — for multi-instance production, add an edge or Redis-backed limiter if needed.
+- **Response headers** ([`next.config.mjs`](next.config.mjs)): `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`. No CSP yet (avoid pre-launch regressions).
 
 ### Analytics retention
 
@@ -122,4 +188,4 @@ Commands: `npm run lint`, `npm run typecheck`, `npm run build` (set env vars lik
 
 ### Dependency audits
 
-Run `npm audit` periodically. Some moderate findings may remain in **transitive** packages (for example the Payload / Drizzle / Monaco editor chain). Do **not** run `npm audit fix --force` blindly — it can pin incompatible versions. Prefer upgrading direct dependencies (`next`, `payload`, `@payloadcms/*`) when maintainers release patched releases.
+Run `npm audit` periodically. **Snapshot (2026-05):** reports typically show **~16 moderate** issues, mostly **transitive** (Payload / Drizzle / editor toolchain). Do **not** run `npm audit fix --force` blindly — it can pin incompatible versions. Prefer upgrading direct dependencies (`next`, `payload`, `@payloadcms/*`) when maintainers release patched releases, then re-run `npm audit`.
