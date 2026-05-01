@@ -5,7 +5,14 @@ import { AnalyticsTracker } from "@/components/analytics/AnalyticsTracker";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { absoluteUrl, defaultDescription, defaultOgImagePath, siteName, siteUrl } from "@/lib/seo";
+import {
+  absoluteUrl,
+  buildRootStructuredDataGraph,
+  defaultDescription,
+  defaultOgImagePath,
+  siteName,
+  siteUrl
+} from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -18,6 +25,11 @@ export const metadata: Metadata = {
     template: `%s | ${siteName}`
   },
   description: defaultDescription,
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "any" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }]
+  },
+  manifest: "/manifest.webmanifest",
   alternates: {
     canonical: "/"
   },
@@ -42,23 +54,7 @@ export const metadata: Metadata = {
   }
 };
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "SportsActivityLocation",
-      name: siteName,
-      description: defaultDescription,
-      url: absoluteUrl("/"),
-      image: absoluteUrl(defaultOgImagePath)
-    },
-    {
-      "@type": "WebSite",
-      name: siteName,
-      url: absoluteUrl("/")
-    }
-  ]
-};
+const structuredData = buildRootStructuredDataGraph();
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (

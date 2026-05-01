@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { LegacyPageShell } from "@/components/sections/LegacyPageShell";
 import { PageBlocks } from "@/components/sections/PageBlocks";
 import { getAllSlugs, getNormalizedPage } from "@/lib/content";
-import { buildPageMetadata, defaultDescription } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildBreadcrumbJsonLd, buildPageMetadata, defaultDescription } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -36,8 +37,17 @@ export default async function LegacyPage({ params }: PageProps) {
   }
 
   return (
-    <LegacyPageShell title={page.title} intro={page.intro} heroImagePath={page.heroImagePath} heroAlt={page.heroAlt}>
-      <PageBlocks blocks={page.blocks} withSectionWrappers />
-    </LegacyPageShell>
+    <>
+      <JsonLd data={buildBreadcrumbJsonLd(slug, page.title)} />
+      <LegacyPageShell
+        title={page.title}
+        intro={page.intro}
+        heroImagePath={page.heroImagePath}
+        heroAlt={page.heroAlt}
+        heroPriority={Boolean(page.heroImagePath)}
+      >
+        <PageBlocks blocks={page.blocks} withSectionWrappers />
+      </LegacyPageShell>
+    </>
   );
 }
