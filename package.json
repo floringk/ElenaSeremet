@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "validate:content": "node scripts/validate-content.mjs",
+    "assets:bootstrap": "node scripts/bootstrap-public-assets.mjs",
     "import:pages": "tsx scripts/import-legacy-pages.ts"
   },
   "dependencies": {
@@ -35,6 +36,7 @@
     "es-abstract": "^1.24.2",
     "eslint": "9.39.1",
     "eslint-config-next": "16.0.1",
+    "png-to-ico": "^3.0.1",
     "tsx": "^4.21.0",
     "typescript": "5.9.3"
   }
