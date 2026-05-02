@@ -4,6 +4,15 @@ import { getSupabaseServerClient } from "@/lib/supabase-server";
 
 const MAX_ROWS = 5000;
 
+type PageEventRow = {
+  created_at?: string | null;
+  page_path?: string | null;
+  event_name?: string | null;
+  referrer?: string | null;
+  ip_address?: string | null;
+  user_agent?: string | null;
+};
+
 function csvEscape(value: string): string {
   if (/[",\n\r]/.test(value)) {
     return `"${value.replace(/"/g, '""')}"`;
@@ -28,11 +37,11 @@ export async function GET() {
     return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
   }
 
-  const rows = data || [];
+  const rows = (data || []) as PageEventRow[];
   const header = ["created_at", "page_path", "event_name", "referrer", "ip_address", "user_agent"];
   const lines = [
     header.join(","),
-    ...rows.map((r) =>
+    ...rows.map((r: PageEventRow) =>
       [
         csvEscape(String(r.created_at ?? "")),
         csvEscape(String(r.page_path ?? "")),

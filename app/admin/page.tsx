@@ -223,7 +223,7 @@ export default async function AdminDashboardPage({
           </div>
 
           <div className="submission-list">
-            {submissions.map((item) => (
+            {submissions.map((item: Submission) => (
               <article key={item.id} className="submission-item">
                 <p>
                   <strong>{item.name}</strong> ({item.email}) {item.phone ? `- ${item.phone}` : ""}

@@ -4,3 +4,7 @@ out/
 dist/
 coverage/
 *.log
+*.tsbuildinfo
+
+# Local installers / IDE archives (not part of the web app)
+Assets/

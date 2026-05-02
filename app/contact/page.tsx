@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useCallback, useRef, useState } from "react";
 
 type Status = "idle" | "loading" | "success" | "success_partial" | "error";
 
@@ -11,55 +11,47 @@ type ApiShape = {
   message?: string;
 };
 
+type ContactPayload = {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  company: string;
+};
+
+const MESSAGE_MAX = 3000;
+
 export default function ContactPage() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [messageLength, setMessageLength] = useState(0);
+  const [canRetry, setCanRetry] = useState(false);
+  const lastPayloadRef = useRef<ContactPayload | null>(null);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const sendPayload = useCallback(async (payload: ContactPayload, form?: HTMLFormElement) => {
     setStatus("loading");
     setMessage("");
     setFieldErrors({});
+    setCanRetry(false);
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const name = String(formData.get("name") || "").trim();
-    const email = String(formData.get("email") || "").trim();
-    const phone = String(formData.get("phone") || "").trim();
-    const body = String(formData.get("message") || "").trim();
-    const company = String(formData.get("company") || "");
-
-    const nextFieldErrors: Record<string, string> = {};
-    if (name.length < 2) nextFieldErrors.name = "Introduceti numele (minim 2 caractere).";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextFieldErrors.email = "Introduceti un email valid.";
-    if (body.length < 10) nextFieldErrors.message = "Mesajul trebuie sa aiba cel putin 10 caractere.";
-    if (Object.keys(nextFieldErrors).length > 0) {
-      setFieldErrors(nextFieldErrors);
-      setStatus("error");
-      setMessage("Verificati campurile marcate.");
-      return;
-    }
-
-    const payload = {
-      name,
-      email,
-      phone,
-      message: body,
-      company
-    };
-
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
     let response: Response;
     try {
       response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        signal: controller.signal
       });
     } catch {
       setStatus("error");
       setMessage("Nu am putut trimite mesajul. Verificati conexiunea si incercati din nou.");
+      setCanRetry(true);
       return;
+    } finally {
+      clearTimeout(timeout);
     }
 
     const data = (await response.json().catch(() => ({}))) as ApiShape;
@@ -82,7 +74,10 @@ export default function ContactPage() {
       return;
     }
 
-    form.reset();
+    if (form) {
+      form.reset();
+      setMessageLength(0);
+    }
 
     if (data.emailSent === false) {
       setStatus("success_partial");
@@ -98,8 +93,49 @@ export default function ContactPage() {
     fetch("/api/track", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "contact_submit", path: "/contact" })
+      body: JSON.stringify({ event: "contact_submit", path: "/contact" }),
+      keepalive: true
     }).catch(() => {});
+  }, []);
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = String(formData.get("name") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const phone = String(formData.get("phone") || "").trim();
+    const body = String(formData.get("message") || "").trim();
+    const company = String(formData.get("company") || "");
+
+    const nextFieldErrors: Record<string, string> = {};
+    if (name.length < 2) nextFieldErrors.name = "Introduceti numele (minim 2 caractere).";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextFieldErrors.email = "Introduceti un email valid.";
+    if (body.length < 10) nextFieldErrors.message = "Mesajul trebuie sa aiba cel putin 10 caractere.";
+    if (Object.keys(nextFieldErrors).length > 0) {
+      setFieldErrors(nextFieldErrors);
+      setStatus("error");
+      setMessage("Verificati campurile marcate.");
+      setCanRetry(false);
+      return;
+    }
+
+    const payload: ContactPayload = {
+      name,
+      email,
+      phone,
+      message: body,
+      company
+    };
+    lastPayloadRef.current = payload;
+    await sendPayload(payload, form);
+  }
+
+  function handleRetry() {
+    const payload = lastPayloadRef.current;
+    if (!payload) return;
+    void sendPayload(payload);
   }
 
   return (
@@ -111,6 +147,7 @@ export default function ContactPage() {
           onSubmit={onSubmit}
           className="contact-form"
           aria-describedby="contact-intro"
+          aria-busy={status === "loading"}
           noValidate
         >
           <label htmlFor="contact-name">
@@ -161,11 +198,17 @@ export default function ContactPage() {
               name="message"
               required
               minLength={10}
-              maxLength={3000}
+              maxLength={MESSAGE_MAX}
               rows={6}
               aria-invalid={Boolean(fieldErrors.message)}
-              aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
+              aria-describedby={["contact-message-hint", fieldErrors.message ? "contact-message-error" : null]
+                .filter(Boolean)
+                .join(" ")}
+              onChange={(e) => setMessageLength(e.target.value.length)}
             />
+            <span id="contact-message-hint" className="muted char-counter" aria-live="polite">
+              {messageLength} / {MESSAGE_MAX}
+            </span>
             {fieldErrors.message ? (
               <span id="contact-message-error" className="form-error" role="alert">
                 {fieldErrors.message}
@@ -180,6 +223,13 @@ export default function ContactPage() {
             {status === "loading" ? "Se trimite..." : "Trimite mesaj"}
           </button>
         </form>
+        {canRetry ? (
+          <p className="form-actions-row">
+            <button type="button" className="btn btn-secondary focus-ring" onClick={handleRetry} disabled={status === "loading"}>
+              Incearca din nou
+            </button>
+          </p>
+        ) : null}
         {message ? (
           <p
             className={
