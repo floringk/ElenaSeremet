@@ -83,6 +83,7 @@ for (const slug of slugs) {
   const filtered = images.filter((img) => {
     if (!img?.local_path) return false;
     if (isStockPlaceholder(img.local_path)) return false;
+    if (isLogoOrSvg(img.local_path)) return false;
     return true;
   });
 
