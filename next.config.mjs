@@ -6,6 +6,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  typescript: {
+    tsconfigPath: "tsconfig.build.json"
+  },
   poweredByHeader: false,
   // Next may pick a parent folder if multiple lockfiles exist; keep resolution inside this app
   turbopack: {
