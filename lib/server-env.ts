@@ -1,7 +1,7 @@
 import "server-only";
 
-/** Used only when `NODE_ENV` is not `production` (e.g. `next dev`, Vitest) so API routes load without `.env.local`. */
-const DEV_FALLBACKS: Record<string, string> = {
+/** Safe placeholders for local dev, CI, and `next build` (not used at runtime on Vercel/production). */
+const PLACEHOLDERS: Record<string, string> = {
   SUPABASE_URL: "https://dev-placeholder.supabase.co",
   SUPABASE_SERVICE_ROLE_KEY: "dev-placeholder-service-role-key",
   SMTP_HOST: "localhost",
@@ -14,13 +14,21 @@ const DEV_FALLBACKS: Record<string, string> = {
   ADMIN_SESSION_SECRET: "dev-admin-session-secret-min-32-characters-long"
 };
 
+function isNextProductionBuild(): boolean {
+  const phase = process.env.NEXT_PHASE;
+  return phase === "phase-production-build" || phase === "phase-export";
+}
+
 function getRequired(name: string): string {
   const value = process.env[name]?.trim();
   if (value) {
     return value;
   }
-  if (process.env.NODE_ENV !== "production" && DEV_FALLBACKS[name]) {
-    return DEV_FALLBACKS[name];
+  if (process.env.NODE_ENV !== "production" && PLACEHOLDERS[name]) {
+    return PLACEHOLDERS[name];
+  }
+  if (isNextProductionBuild() && PLACEHOLDERS[name]) {
+    return PLACEHOLDERS[name];
   }
   throw new Error(`Missing required environment variable: ${name}`);
 }

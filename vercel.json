@@ -2,7 +2,17 @@
   "framework": "nextjs",
   "build": {
     "env": {
-      "CONTENT_SOURCE": "legacy"
+      "CONTENT_SOURCE": "legacy",
+      "SUPABASE_URL": "https://ci-placeholder.supabase.co",
+      "SUPABASE_SERVICE_ROLE_KEY": "ci-placeholder-service-role-key",
+      "SMTP_HOST": "localhost",
+      "SMTP_USER": "preview",
+      "SMTP_PASS": "preview",
+      "MAIL_FROM": "preview@example.com",
+      "MAIL_TO": "preview@example.com",
+      "ADMIN_USER": "admin",
+      "ADMIN_PASSWORD": "preview",
+      "ADMIN_SESSION_SECRET": "ci-build-admin-session-secret-min-32-chars"
     }
   }
 }
