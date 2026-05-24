@@ -109,6 +109,11 @@
   ],
   "images": [
     {
+      "src": "https://elenaseremet.ro/content/new/Elena Seremet Pilates Studio/Elena_Seremet_Pilates_Studio_0458-retouched.jpg",
+      "alt": "Total Body — Pilates Studio Elena Seremet (temporar, de revizuit)",
+      "local_path": "images/new/Elena Seremet Pilates Studio/Elena_Seremet_Pilates_Studio_0458-retouched.jpg"
+    },
+    {
       "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
       "alt": "",
       "local_path": "images/logo-moto-pilates-mat-9.png"
@@ -117,11 +122,6 @@
       "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/hatha.svg",
       "alt": "",
       "local_path": "images/hatha.svg"
-    },
-    {
-      "src": "https://elenaseremet.ro/wp-content/uploads/2021/07/iStock-1243246735-1.jpg",
-      "alt": "",
-      "local_path": "images/iStock-1243246735-1.jpg"
     },
     {
       "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",

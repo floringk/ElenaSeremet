@@ -14,40 +14,32 @@
       "text": "Studioul - locul ideal pentru respirație și relaxare"
     },
     {
-      "type": "h6",
+      "type": "p",
       "text": "Studioul nostru oferă un ambient curat și primitor, cu geamuri mari care lasă lumina naturală să inunde spațiul. Aerul este împrospătat de prezența plantelor, creând o atmosferă calmantă, perfectă pentru a te conecta cu sinele tău. Fiecare detaliu este gândit pentru a susține o experiență de relaxare și revitalizare."
     },
     {
-      "type": "h5",
-      "text": "Credem că Pilates este calea către o condiție fizică mai bună și o minte mai liniștită.Credem că controlul asupra corpului tău te ajută să deții controlul asupra vieții tale."
+      "type": "p",
+      "text": "Credem că Pilates este calea către o condiție fizică mai bună și o minte mai liniștită. Credem că controlul asupra corpului tău te ajută să deții controlul asupra vieții tale."
     },
     {
-      "type": "h5",
-      "text": "SEDINȚE INDIVIDUALE"
+      "type": "h3",
+      "text": "Sedințe individuale"
     },
     {
-      "type": "h6",
+      "type": "p",
       "text": "Instruirea privată se concentrează pe nevoile particulare ale fiecărei abonate."
     },
     {
-      "type": "h6",
+      "type": "p",
       "text": "Sunt ședințele individuale pentru tine?"
     },
     {
-      "type": "h6",
-      "text": ""
+      "type": "h3",
+      "text": "Echipa"
     },
     {
-      "type": "h5",
-      "text": "ECHIPA"
-    },
-    {
-      "type": "h6",
-      "text": "Instructorii noștri efectuează în permanența ore de perfecționare astfel încât să poată oferi antrenamente variate și de cea mai înaltă  calitate."
-    },
-    {
-      "type": "h6",
-      "text": ""
+      "type": "p",
+      "text": "Instructorii noștri efectuează în permanență ore de perfecționare astfel încât să poată oferi antrenamente variate și de cea mai înaltă calitate."
     },
     {
       "type": "h2",
@@ -67,6 +59,11 @@
     }
   ],
   "images": [
+    {
+      "src": "https://elenaseremet.ro/content/new/Elena Seremet Pilates Studio/Elena_Seremet_Pilates_Studio_0159-retouched.jpg",
+      "alt": "Despre noi — Pilates Studio Elena Seremet (temporar, de revizuit)",
+      "local_path": "images/new/Elena Seremet Pilates Studio/Elena_Seremet_Pilates_Studio_0159-retouched.jpg"
+    },
     {
       "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
       "alt": "",

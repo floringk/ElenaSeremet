@@ -65,4 +65,4 @@ For each slug below (and `/`), confirm:
 
 ## QA status
 
-Last structured pass: **2026-05** — `npm run validate:content` clean (0 warnings). Legacy JSON referenced missing stock filenames (`iStock-*.jpg`); **placeholder files** were added under `mockups/content/images/` (copies of `Elena-scaled.jpg`) so builds validate — replace with final licensed stock when available. Spot-check `heroPriority` on routes with heroes. Replace this paragraph after each full manual audit.
+Last structured pass: **2026-05** — `npm run validate:content` clean (0 warnings). **Hero images:** each manifest page has a random photo from `mockups/content/images/new/` (see `npm run images:assign-random`) — alt text marked *temporar, de revizuit*; replace via `docs/image-map.csv` after human review. Spot-check heroes on `/`, `/despre-noi`, `/pilates-reformer`, `/servicii`. Replace this paragraph after each full manual audit.

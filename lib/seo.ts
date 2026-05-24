@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const siteUrl = "https://elenaseremet.ro";
 export const siteName = "Pilates Studio Elena Seremet";
-export const defaultDescription = "Pilates studio cu abordare calm nature inspired.";
+export const defaultDescription =
+  "Studio de Pilates în București — clase mat și reformer, antrenament personalizat și program flexibil. Mișcare conștientă într-un spațiu calm și primitor.";
 /** Default social preview — served from `public/og-default.jpg` (regenerate via `node scripts/bootstrap-public-assets.mjs`). */
 export const defaultOgImagePath = "/og-default.jpg";
 
@@ -99,31 +100,127 @@ export function absoluteUrl(path: string): string {
   return `${base}${p}`;
 }
 
+export function effectivePageDescription(
+  page: { description: string; intro: string | null },
+  fallback: string = defaultDescription
+): string {
+  const d = page.description?.trim();
+  if (d) {
+    return d;
+  }
+  const i = page.intro?.trim();
+  if (i) {
+    return i.length > 200 ? `${i.slice(0, 197)}…` : i;
+  }
+  return fallback;
+}
+
+/** JSON-LD for a service detail page. */
+export function buildServiceJsonLd(input: { name: string; description: string; path: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: input.name,
+    description: input.description,
+    provider: { "@id": `${siteUrl}/#organization` },
+    areaServed: { "@type": "Country", name: "Romania" },
+    url: absoluteUrl(input.path)
+  };
+}
+
+export function buildPersonJsonLd(input: { name: string; path: string; imageUrl?: string | null }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: input.name,
+    url: absoluteUrl(input.path),
+    ...(input.imageUrl ? { image: absoluteUrl(input.imageUrl) } : {}),
+    worksFor: { "@id": `${siteUrl}/#organization` }
+  };
+}
+
+export function buildInstructorListJsonLd(
+  people: { name: string; path: string; imagePath: string | null }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Echipa de instructori",
+    numberOfItems: people.length,
+    itemListElement: people.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Person",
+        name: p.name,
+        url: absoluteUrl(p.path),
+        ...(p.imagePath ? { image: absoluteUrl(p.imagePath) } : {})
+      }
+    }))
+  };
+}
+
+export function buildPricingItemListJsonLd(
+  offers: { name: string; price: string; description?: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Preturi si abonamente",
+    numberOfItems: offers.length,
+    itemListElement: offers.map((o, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Offer",
+        name: o.name,
+        description: o.description,
+        price: o.price,
+        priceCurrency: "RON",
+        url: absoluteUrl("/preturi")
+      }
+    }))
+  };
+}
+
+function truncateDescription(text: string, max = 160): string {
+  const t = text.replace(/\s+/g, " ").trim();
+  if (t.length <= max) return t;
+  return `${t.slice(0, max - 1).trim()}…`;
+}
+
 export function buildPageMetadata(input: {
   title: string;
   description: string;
   path: string;
   ogImagePath?: string | null;
+  noIndex?: boolean;
 }): Metadata {
   const url = absoluteUrl(input.path);
   const imagePath = absoluteUrl(input.ogImagePath || defaultOgImagePath);
+  const description = truncateDescription(input.description);
+  const pageTitle = input.title.includes(siteName) ? input.title : input.title;
+
   return {
-    title: input.title,
-    description: input.description,
+    title: pageTitle,
+    description,
     alternates: { canonical: input.path },
+    robots: input.noIndex
+      ? { index: false, follow: false }
+      : { index: true, follow: true },
     openGraph: {
-      title: input.title,
-      description: input.description,
+      title: pageTitle,
+      description,
       url,
       siteName,
       locale: "ro_RO",
       type: "website",
-      images: [{ url: imagePath, width: 1200, height: 630, alt: input.title }]
+      images: [{ url: imagePath, width: 1200, height: 630, alt: pageTitle }]
     },
     twitter: {
       card: "summary_large_image",
-      title: input.title,
-      description: input.description,
+      title: pageTitle,
+      description,
       images: [imagePath]
     }
   };

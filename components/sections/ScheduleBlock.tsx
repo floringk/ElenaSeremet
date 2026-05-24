@@ -2,12 +2,13 @@ import { schedule } from "@/lib/site-data";
 
 export function ScheduleBlock() {
   return (
-    <div className="card">
+    <ul className="schedule-list">
       {schedule.map((row) => (
-        <p key={row.day}>
-          <strong>{row.day}</strong>: {row.hours}
-        </p>
+        <li key={row.day} className="schedule-list-row">
+          <span className="schedule-list-day">{row.day}</span>
+          <span className="schedule-list-hours">{row.hours}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

@@ -14,14 +14,21 @@ type ContentImage = {
 
 type RawPage = {
   title: string;
-  meta?: { description?: string };
+  meta?: {
+    description?: string;
+    title?: string;
+    ogImage?: string;
+    noIndex?: boolean;
+  };
   blocks: ContentBlock[];
   images: ContentImage[];
 };
 
-type ManifestEntry = {
+export type ManifestEntry = {
   slug: string;
   url?: string;
+  /** From `site_manifest.json`: home | page | servicii | despre-noi | echipa | preturi | contact | program | inregistrare | preturi */
+  type?: string;
 };
 
 type Manifest = {
@@ -33,15 +40,29 @@ export type NormalizedSection = {
   blocks: ContentBlock[];
 };
 
+export type NormalizedContentImage = {
+  src: string;
+  alt: string;
+};
+
 export type NormalizedPage = {
   slug: string;
   title: string;
   description: string;
+  /** SEO title override (CMS or JSON meta.title). */
+  seoTitle: string | null;
+  /** OG image override (falls back to hero). */
+  seoOgImagePath: string | null;
+  seoNoIndex: boolean;
   heroImagePath: string | null;
   heroAlt: string;
   intro: string | null;
   sections: NormalizedSection[];
   blocks: ContentBlock[];
+  /** Manifest `type` for `/slug` */
+  pageType: string;
+  /** Inline gallery paths (excludes hero image). */
+  contentImages: NormalizedContentImage[];
 };
 
 const contentRoot = path.join(process.cwd(), "mockups", "content");
@@ -67,6 +88,41 @@ export function getManifest(): Manifest {
 
 export function getManifestEntries(): ManifestEntry[] {
   return getManifest().pages;
+}
+
+export function getManifestEntryForSlug(slug: string): ManifestEntry | null {
+  const s = slug.trim();
+  return getManifest().pages.find((p) => p.slug === s) ?? null;
+}
+
+/** Slugs whose manifest `type` is `servicii` (detail pages, excludes hub `/servicii`). */
+export function getServiciiDetailSlugs(): { slug: string; title: string }[] {
+  const out: { slug: string; title: string }[] = [];
+  for (const entry of getManifest().pages) {
+    if (entry.type !== "servicii" || entry.slug === "servicii") continue;
+    const raw = getPageBySlug(entry.slug);
+    const title = raw ? getDisplayTitle(raw.title, entry.slug) : entry.slug;
+    out.push({ slug: entry.slug, title });
+  }
+  return out.sort((a, b) => a.title.localeCompare(b.title, "ro"));
+}
+
+/** Exclude brand marks from inline galleries (pairing by section index). */
+function isLogoAssetPath(localPath: string): boolean {
+  const n = localPath.replace(/\\/g, "/");
+  return /(^|\/)logo|moto-pilates-mat|wordmark/i.test(n);
+}
+
+function buildContentImagesFromRaw(page: RawPage): NormalizedContentImage[] {
+  const heroPath = getPrimaryImagePath(page);
+  return page.images
+    .filter((img) => img?.local_path && imageExists(img.local_path))
+    .filter((img) => !isLogoAssetPath(img.local_path))
+    .map((img) => ({
+      src: mapImagePath(img.local_path),
+      alt: (img.alt?.trim() || "").trim()
+    }))
+    .filter((img) => !heroPath || img.src !== heroPath);
 }
 
 /** Manifest-based slug list (used for static path generation without a DB). */
@@ -125,19 +181,48 @@ function publicContentPathExists(publicPath: string): boolean {
   return imageExists(stripped);
 }
 
+/** Prefer a real photo over logos/SVGs so hero banners look intentional. */
+function pickHeroLocalPath(page: RawPage): string | null {
+  const list = (page.images ?? []).filter((img) => img?.local_path && imageExists(img.local_path));
+  if (list.length === 0) {
+    return null;
+  }
+
+  const norm = (p: string) => p.replace(/\\/g, "/");
+  const isRaster = (p: string) => /\.(jpe?g|png|webp|gif)$/i.test(norm(p));
+
+  for (const img of list) {
+    const p = img.local_path;
+    if (isRaster(p) && !isLogoAssetPath(p)) {
+      return p;
+    }
+  }
+  for (const img of list) {
+    if (isRaster(img.local_path)) {
+      return img.local_path;
+    }
+  }
+
+  const legacy = list[1] ?? list[0];
+  return legacy?.local_path ?? null;
+}
+
 export function getPrimaryImagePath(page: RawPage): string | null {
-  const candidate = page.images[1] ?? page.images[0];
-  if (!candidate?.local_path) {
+  const local = pickHeroLocalPath(page);
+  if (!local) {
     return null;
   }
-  if (!imageExists(candidate.local_path)) {
-    return null;
-  }
-  return mapImagePath(candidate.local_path);
+  return mapImagePath(local);
 }
 
 function getHeroAlt(page: RawPage): string {
-  return page.images[1]?.alt || page.images[0]?.alt || page.title;
+  const local = pickHeroLocalPath(page);
+  if (!local) {
+    return page.title;
+  }
+  const img = page.images?.find((i) => i.local_path === local);
+  const alt = img?.alt?.trim();
+  return alt || page.title;
 }
 
 function getDescription(page: RawPage): string {
@@ -145,6 +230,21 @@ function getDescription(page: RawPage): string {
   if (metaDesc) return metaDesc;
   const firstParagraph = page.blocks.find((block) => block.type === "p" && block.text?.trim());
   return firstParagraph?.text?.trim() || "";
+}
+
+function getSeoTitle(page: RawPage): string | null {
+  return page.meta?.title?.trim() || null;
+}
+
+function getSeoOgFromRaw(page: RawPage): string | null {
+  const og = page.meta?.ogImage?.trim();
+  if (!og) return null;
+  if (og.startsWith("/content/")) return og;
+  return mapImagePath(og.replace(/^\/+/, ""));
+}
+
+function getSeoNoIndex(page: RawPage): boolean {
+  return Boolean(page.meta?.noIndex);
 }
 
 function deriveDescriptionFromBlocks(blocks: ContentBlock[]): string {
@@ -249,6 +349,9 @@ async function getNormalizedPageFromPayload(slug: string): Promise<NormalizedPag
   const doc = result.docs[0] as {
     title?: string;
     description?: string | null;
+    metaTitle?: string | null;
+    ogImagePath?: string | null;
+    noIndex?: boolean | null;
     heroImagePath?: string | null;
     heroAlt?: string | null;
     intro?: string | null;
@@ -269,19 +372,33 @@ async function getNormalizedPageFromPayload(slug: string): Promise<NormalizedPag
     heroImagePath = null;
   }
 
+  let seoOgImagePath = normalizeHeroPath(doc.ogImagePath);
+  if (seoOgImagePath && !publicContentPathExists(seoOgImagePath)) {
+    seoOgImagePath = null;
+  }
+
   const heroAlt = String(doc.heroAlt || doc.title || title);
   const intro =
     typeof doc.intro === "string" && doc.intro.trim() ? doc.intro.trim() : getIntro(blocks);
+  const seoTitle =
+    typeof doc.metaTitle === "string" && doc.metaTitle.trim() ? doc.metaTitle.trim() : null;
+
+  const entry = getManifestEntryForSlug(slug);
 
   return {
     slug,
     title,
     description,
+    seoTitle,
+    seoOgImagePath,
+    seoNoIndex: Boolean(doc.noIndex),
     heroImagePath,
     heroAlt,
     intro,
     sections: buildSections(blocks),
-    blocks
+    blocks,
+    pageType: entry?.type ?? "page",
+    contentImages: []
   };
 }
 
@@ -295,15 +412,22 @@ export function getNormalizedPageFromLegacyFiles(slug: string): NormalizedPage |
     blocks.shift();
   }
 
+  const entry = getManifestEntryForSlug(slug);
+
   return {
     slug,
     title,
     description: getDescription(page),
+    seoTitle: getSeoTitle(page),
+    seoOgImagePath: getSeoOgFromRaw(page),
+    seoNoIndex: getSeoNoIndex(page),
     heroImagePath: getPrimaryImagePath(page),
     heroAlt: getHeroAlt(page),
     intro: getIntro(blocks),
     sections: buildSections(blocks),
-    blocks
+    blocks,
+    pageType: entry?.type ?? "page",
+    contentImages: buildContentImagesFromRaw(page)
   };
 }
 
@@ -340,6 +464,37 @@ export async function getNormalizedPage(slug: string): Promise<NormalizedPage | 
   }
 
   return getNormalizedPageFromLegacyFiles(slug);
+}
+
+/** Slugs with noIndex from CMS (for sitemap exclusion). */
+export async function getNoIndexSlugs(): Promise<Set<string>> {
+  const out = new Set<string>();
+  if (!isPayloadConfigured()) {
+    return out;
+  }
+  try {
+    const { getPayloadClient } = await import("./payload");
+    const payload = await getPayloadClient();
+    const result = await payload.find({
+      collection: "pages",
+      where: {
+        and: [{ status: { equals: "published" } }, { noIndex: { equals: true } }]
+      },
+      limit: 500,
+      depth: 0
+    });
+    for (const doc of result.docs) {
+      const s = String((doc as { slug?: string }).slug || "")
+        .trim()
+        .toLowerCase();
+      if (s && s !== "index") {
+        out.add(s);
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+  return out;
 }
 
 /** Merge manifest slugs with published CMS slugs (for sitemap). */

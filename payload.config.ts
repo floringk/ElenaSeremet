@@ -46,7 +46,35 @@ const Pages: CollectionConfig = {
         { label: "Draft", value: "draft" }
       ]
     },
-    { name: "description", type: "textarea" },
+    {
+      name: "description",
+      type: "textarea",
+      admin: {
+        description: "Meta description (max ~160 caractere recomandat)."
+      }
+    },
+    {
+      name: "metaTitle",
+      type: "text",
+      admin: {
+        description: "Titlu SEO. Gol = titlul paginii + numele studioului."
+      }
+    },
+    {
+      name: "ogImagePath",
+      type: "text",
+      admin: {
+        description: "Imagine Open Graph (ex. /content/images/...). Gol = hero."
+      }
+    },
+    {
+      name: "noIndex",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        description: "Ascunde pagina din motoarele de căutare (noindex)."
+      }
+    },
     {
       name: "heroImagePath",
       type: "text",
@@ -111,7 +139,8 @@ const Submissions: CollectionConfig = {
       options: [
         { label: "Pending", value: "pending" },
         { label: "Sent", value: "sent" },
-        { label: "Failed", value: "failed" }
+        { label: "Failed", value: "failed" },
+        { label: "Skipped (no SMTP)", value: "skipped" }
       ]
     },
     { name: "deliveryError", type: "textarea" },
@@ -133,17 +162,55 @@ const Settings: GlobalConfig = {
     update: ({ req }) => Boolean(req.user)
   },
   fields: [
-    { name: "siteTitle", type: "text" },
-    { name: "defaultDescription", type: "textarea" }
+    {
+      name: "siteTitle",
+      type: "text",
+      admin: { description: "Nume site (folosit în șabloane SEO)." }
+    },
+    {
+      name: "defaultDescription",
+      type: "textarea",
+      admin: { description: "Descriere implicită când o pagină nu are meta description." }
+    },
+    {
+      name: "staticRoutes",
+      type: "array",
+      label: "SEO — rute fixe",
+      admin: {
+        description:
+          "Rute din aplicație fără colecția Pages: /contact, /galerie, /inscriere, /admin/login, etc."
+      },
+      fields: [
+        {
+          name: "path",
+          type: "text",
+          required: true,
+          admin: { description: "Ex: /contact" }
+        },
+        { name: "metaTitle", type: "text" },
+        { name: "metaDescription", type: "textarea" },
+        {
+          name: "ogImagePath",
+          type: "text",
+          admin: { description: "Ex: /og-default.jpg sau /content/images/..." }
+        },
+        { name: "noIndex", type: "checkbox", defaultValue: false }
+      ]
+    }
   ]
 };
 
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || "",
+  admin: {
+    suppressHydrationWarning: true
+  },
   routes: {
     admin: "/cms"
   },
   db: postgresAdapter({
+    /** Keeps CMS tables out of `public` so they never collide with `form_submissions` / `page_events` (see scripts/supabase-schema.sql). */
+    schemaName: "payload",
     pool: {
       connectionString: process.env.PAYLOAD_DATABASE_URL || ""
     }

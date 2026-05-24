@@ -5,7 +5,6 @@ const root = process.cwd();
 const contentRoot = path.join(root, "mockups", "content");
 const manifestPath = path.join(contentRoot, "site_manifest.json");
 const rawRoot = path.join(contentRoot, "raw");
-const imagesRoot = path.join(contentRoot, "images");
 
 function readJson(filePath) {
   try {
@@ -56,7 +55,8 @@ for (const page of manifest.pages) {
       warnings.push(`Image #${idx} missing local_path for slug: ${slug}`);
       continue;
     }
-    const localFile = path.join(imagesRoot, path.basename(localPath));
+    const normalized = String(localPath).replace(/^\/+/, "");
+    const localFile = path.join(contentRoot, normalized);
     if (!fs.existsSync(localFile)) {
       warnings.push(`Missing image file for slug ${slug}: ${localPath}`);
     }

@@ -1,15 +1,17 @@
 import nodemailer from "nodemailer";
 import { NextRequest } from "next/server";
 import { z } from "zod";
+import { getSmtpEnv, isSmtpConfigured } from "@/lib/mail";
 import { getPayloadClient } from "@/lib/payload";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
-import { serverEnv } from "@/lib/server-env";
+import { isPayloadConfigured, isSupabaseConfigured } from "@/lib/site-status";
 
 const contactSchema = z.object({
   name: z.string().min(2).max(120),
   email: z.string().email().max(160),
   phone: z.string().max(40).optional().default(""),
   message: z.string().min(10).max(3000),
+  source_page: z.string().max(200).optional().default("/contact"),
   company: z.string().max(200).optional().default("")
 });
 
@@ -37,14 +39,10 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
-function isPayloadStorageEnabled(): boolean {
-  return Boolean(process.env.PAYLOAD_SECRET?.trim() && process.env.PAYLOAD_DATABASE_URL?.trim());
-}
-
 export async function POST(request: NextRequest) {
   const ip = getClientIp(request);
   if (isRateLimited(ip)) {
-    return Response.json({ ok: false, error: "Prea multe cereri. Incearca mai tarziu." }, { status: 429 });
+    return Response.json({ ok: false, error: "Prea multe cereri. Încearcă mai târziu." }, { status: 429 });
   }
 
   const raw = await request.json().catch(() => null);
@@ -58,7 +56,17 @@ export async function POST(request: NextRequest) {
     return Response.json({ ok: true });
   }
 
-  const usePayload = isPayloadStorageEnabled();
+  const sourcePage = data.source_page?.trim() || "/contact";
+  const usePayload = isPayloadConfigured();
+  const useSupabase = isSupabaseConfigured();
+
+  if (!usePayload && !useSupabase) {
+    return Response.json(
+      { ok: false, error: "Salvarea mesajelor nu este configurată. Contactează administratorul site-ului." },
+      { status: 503 }
+    );
+  }
+
   let submissionId: string | null = null;
 
   if (usePayload) {
@@ -71,8 +79,8 @@ export async function POST(request: NextRequest) {
           email: data.email,
           phone: data.phone || undefined,
           message: data.message,
-          sourcePage: "/contact",
-          deliveryStatus: "pending",
+          sourcePage,
+          deliveryStatus: isSmtpConfigured() ? "pending" : "skipped",
           submittedAt: new Date().toISOString(),
           ipAddress: ip
         },
@@ -81,46 +89,60 @@ export async function POST(request: NextRequest) {
       submissionId = String(created.id);
     } catch (error) {
       console.error("[contact] Payload create failed:", error);
-      return Response.json({ ok: false, error: "Nu am putut salva formularul." }, { status: 500 });
+      if (!useSupabase) {
+        return Response.json({ ok: false, error: "Nu am putut salva formularul." }, { status: 500 });
+      }
     }
-  } else {
+  }
+
+  if (!submissionId && useSupabase) {
     const supabase = getSupabaseServerClient();
     const { error: dbError } = await supabase.from("form_submissions").insert({
       name: data.name,
       email: data.email,
       phone: data.phone || null,
       message: data.message,
-      source_page: "/contact",
+      source_page: sourcePage,
       submitted_at: new Date().toISOString(),
       ip_address: ip
     });
 
     if (dbError) {
+      console.error("[contact] Supabase insert failed:", dbError);
       return Response.json({ ok: false, error: "Nu am putut salva formularul." }, { status: 500 });
     }
   }
 
+  if (!isSmtpConfigured()) {
+    return Response.json({
+      ok: true,
+      saved: true,
+      emailSent: false,
+      message:
+        "Mesajul a fost înregistrat. Echipa îl poate vedea în panoul de administrare. Notificarea pe email va fi activată la publicare."
+    });
+  }
+
+  const smtp = getSmtpEnv();
   const transporter = nodemailer.createTransport({
-    host: serverEnv.smtpHost,
-    port: serverEnv.smtpPort,
-    secure: serverEnv.smtpSecure,
+    host: smtp.host,
+    port: smtp.port,
+    secure: smtp.secure,
     auth: {
-      user: serverEnv.smtpUser,
-      pass: serverEnv.smtpPass
+      user: smtp.user,
+      pass: smtp.pass
     }
   });
 
-  let emailSent = true;
   try {
     await transporter.sendMail({
-      from: serverEnv.mailFrom,
-      to: serverEnv.mailTo,
-      subject: `Form contact nou - ${data.name}`,
-      text: `Nume: ${data.name}\nEmail: ${data.email}\nTelefon: ${data.phone || "-"}\n\nMesaj:\n${data.message}`
+      from: smtp.from,
+      to: smtp.to,
+      subject: `Formular contact — ${data.name} (${sourcePage})`,
+      text: `Pagină: ${sourcePage}\nNume: ${data.name}\nEmail: ${data.email}\nTelefon: ${data.phone || "-"}\n\nMesaj:\n${data.message}`
     });
   } catch (error) {
     console.error("[contact] SMTP send failed:", error);
-    emailSent = false;
     if (usePayload && submissionId) {
       try {
         const payload = await getPayloadClient();
@@ -139,8 +161,10 @@ export async function POST(request: NextRequest) {
     }
     return Response.json({
       ok: true,
+      saved: true,
       emailSent: false,
-      message: "Mesajul a fost inregistrat, dar notificarea email nu a putut fi trimisa."
+      message:
+        "Mesajul a fost înregistrat, dar notificarea email nu a putut fi trimisă. Echipa îl poate vedea în sistem."
     });
   }
 
@@ -158,5 +182,5 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  return Response.json({ ok: true, emailSent });
+  return Response.json({ ok: true, saved: true, emailSent: true });
 }

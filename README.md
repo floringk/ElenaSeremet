@@ -24,6 +24,12 @@ Redesign of Elena Seremet website.
 7. Open the CMS:
    - `http://localhost:3000/cms` (separate from the custom analytics dashboard at `/admin`)
 
+## App structure (layouts)
+
+- **`app/(site)/`** — public site (header, footer, preview banner). Own root `<html>` / `<body>`.
+- **`app/(payload)/`** — Payload CMS at `/cms`. Own root document via `@payloadcms/next` `RootLayout` (do not wrap with site chrome).
+- There is **no** top-level `app/layout.tsx` so the admin panel is not nested inside `<main>`.
+
 ## Routes
 
 - `/` Home
@@ -72,6 +78,28 @@ node scripts/bootstrap-public-assets.mjs
 - **With each asset:** intended use (e.g. “OG default”, “Servicii hero”), route(s) where it appears, and **alt text in Romanian**.
 
 Pointers for scripts and performance notes: [`scripts/README.md`](scripts/README.md).
+
+**Front-end finish & client handoff (before production DevOps):** [`docs/PLAN-FRONT-CLIENT-HANDOFF.md`](docs/PLAN-FRONT-CLIENT-HANDOFF.md) — design, image mapping (`docs/image-map.csv`), responsive QA, Vercel preview for non-technical approval.
+
+### SEO editable in Payload CMS (`/cms`)
+
+When `PAYLOAD_SECRET` and `PAYLOAD_DATABASE_URL` are set:
+
+- **Pages** collection — per slug: `metaTitle`, `description`, `ogImagePath`, `noIndex`, plus content fields.
+- **Globals → Site Settings** — `defaultDescription` and **SEO — rute fixe** for `/contact`, `/galerie`, `/inscriere`, etc.
+
+Import legacy JSON into CMS: `npm run import:pages`. Public site uses CMS when `CONTENT_SOURCE=auto` (default) or `cms`.
+
+**CMS login** (`/cms/login`) — separate from `/admin` (which uses `ADMIN_USER` / `ADMIN_PASSWORD`):
+
+- `PAYLOAD_ADMIN_EMAIL` / `PAYLOAD_ADMIN_PASSWORD` in `.env` are **only** for the setup scripts below — they are **not** checked when you type a password in the browser.
+- CMS accounts live in Postgres schema **`payload`**, table **`users`**. Supabase Table Editor defaults to **`public`** (`form_submissions`, `page_events`, …) — switch the schema dropdown to **`payload`** to see CMS tables.
+
+1. Set `PAYLOAD_SECRET`, `PAYLOAD_DATABASE_URL`, `PAYLOAD_ADMIN_EMAIL`, `PAYLOAD_ADMIN_PASSWORD` in `.env`.
+2. Run `npm run cms:create-admin` once (creates `payload.*` tables if missing, then the first user).
+3. Sign in at `http://localhost:3000/cms/login` with the **same** email/password you put in step 1.
+
+If login fails or an old user exists (`admin@admin.com`, etc.): `npm run cms:reset-admin` — deletes all CMS users and recreates one from your `.env` values.
 
 ## Content QA
 

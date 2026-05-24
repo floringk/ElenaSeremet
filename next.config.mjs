@@ -32,7 +32,8 @@ const nextConfig = {
       { source: "/pricing", destination: "/preturi", permanent: true },
       { source: "/prices", destination: "/preturi", permanent: true },
       { source: "/schedule", destination: "/schedules", permanent: true },
-      { source: "/contact-us", destination: "/contact", permanent: true }
+      { source: "/contact-us", destination: "/contact", permanent: true },
+      { source: "/inregistrare-clienti", destination: "/inscriere", permanent: true }
     ];
   }
 };

@@ -9,8 +9,13 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "validate:content": "node scripts/validate-content.mjs",
+    "images:assign-random": "node scripts/assign-random-new-images.mjs",
     "assets:bootstrap": "node scripts/bootstrap-public-assets.mjs",
-    "import:pages": "tsx scripts/import-legacy-pages.ts"
+    "postinstall": "node scripts/patch-payload-loadenv.cjs",
+    "import:pages": "tsx scripts/import-legacy-pages.ts",
+    "cms:create-admin": "node scripts/patch-payload-loadenv.cjs && tsx scripts/create-payload-admin.ts",
+    "cms:reset-admin": "node scripts/patch-payload-loadenv.cjs && tsx scripts/reset-payload-admin.ts",
+    "cms:fix-home-hero": "node scripts/patch-payload-loadenv.cjs && tsx scripts/fix-home-hero.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.84.1",

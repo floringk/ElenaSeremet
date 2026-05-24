@@ -1,8 +1,6 @@
 import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
-import { getPayload } from "payload";
-import config from "../payload.config";
 
 type RawBlock = {
   type: string;
@@ -12,7 +10,7 @@ type RawBlock = {
 
 type RawPage = {
   title: string;
-  meta?: { description?: string };
+  meta?: { description?: string; title?: string; noIndex?: boolean };
   blocks: RawBlock[];
   images?: { local_path: string; alt?: string }[];
 };
@@ -54,14 +52,41 @@ function mapBlocks(blocks: RawBlock[]) {
   });
 }
 
+function isLogoAssetPath(localPath: string): boolean {
+  const n = localPath.replace(/\\/g, "/");
+  return /(^|\/)logo|moto-pilates-mat|wordmark|Design-fara-titlu/i.test(n);
+}
+
+/** Same rules as lib/content.ts pickHeroLocalPath — first raster photo, not logo. */
 function heroFromImages(images: RawPage["images"]) {
   if (!Array.isArray(images) || images.length === 0) {
     return { heroImagePath: undefined as string | undefined, heroAlt: undefined as string | undefined };
   }
-  const primary = images[1] ?? images[0];
+
+  const list = images.filter((img) => img?.local_path?.trim());
+  const isRaster = (p: string) => /\.(jpe?g|png|webp|gif)$/i.test(p.replace(/\\/g, "/"));
+
+  let picked =
+    list.find((img) => isRaster(img.local_path) && !isLogoAssetPath(img.local_path)) ?? null;
+  if (!picked) {
+    picked = list.find((img) => isRaster(img.local_path)) ?? null;
+  }
+  if (!picked) {
+    picked = list[0] ?? null;
+  }
+
+  const local = picked?.local_path?.trim();
+  if (!local) {
+    return { heroImagePath: undefined, heroAlt: undefined };
+  }
+
+  const heroImagePath = local.startsWith("/content/")
+    ? local
+    : `/content/${local.replace(/^\/+/, "")}`;
+
   return {
-    heroImagePath: primary?.local_path || undefined,
-    heroAlt: primary?.alt || undefined
+    heroImagePath,
+    heroAlt: picked?.alt?.trim() || undefined
   };
 }
 
@@ -84,6 +109,8 @@ async function main() {
     process.exit(1);
   }
 
+  const { getPayload } = await import("payload");
+  const { default: config } = await import("../payload.config");
   const payload = await getPayload({ config });
   const slugs = new Set<string>();
   for (const p of manifest.pages) {
@@ -116,11 +143,16 @@ async function main() {
       blocks.find((b) => b.type === "p" && b.text?.trim())?.text?.trim() ||
       "";
 
+    const displayTitle = (raw.title?.trim() || slug).split(" – ")[0].trim();
+
     const doc = {
       title: raw.title?.trim() || slug,
       slug,
       status: "published" as const,
       description,
+      metaTitle: raw.meta?.title?.trim() || displayTitle,
+      ogImagePath: heroImagePath,
+      noIndex: Boolean(raw.meta?.noIndex),
       heroImagePath,
       heroAlt,
       intro: introFromBlocks(blocks),
@@ -155,7 +187,7 @@ async function main() {
   }
 
   console.log(`Done. Created ${created}, updated ${updated}.`);
-  process.exit(0);
+  await payload.destroy();
 }
 
 main().catch((err) => {

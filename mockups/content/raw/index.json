@@ -2,7 +2,7 @@
   "url": "https://elenaseremet.ro/",
   "title": "Pilates Studio by Elena Șeremet – Pilates Studio by Elena Șeremet",
   "meta": {
-    "description": ""
+    "description": "Studio de Pilates în București — clase Reformer, Mat și Yoga. Conectează-te la cea mai bună formă."
   },
   "blocks": [
     {
@@ -19,7 +19,7 @@
     },
     {
       "type": "p",
-      "text": "Conectează-tela cea mai bună formă."
+      "text": "Conectează-te la cea mai bună formă."
     },
     {
       "type": "h2",
@@ -163,6 +163,11 @@
     }
   ],
   "images": [
+    {
+      "src": "https://elenaseremet.ro/content/images/NX6A7960-scaled.jpg",
+      "alt": "Clasă de Pilates pe saltele în studio Elena Seremet, București",
+      "local_path": "images/NX6A7960-scaled.jpg"
+    },
     {
       "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
       "alt": "",

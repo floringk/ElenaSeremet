@@ -1,9 +1,11 @@
 export const navLinks = [
-  { href: "/", label: "Acasa" },
+  { href: "/", label: "Acasă" },
   { href: "/despre-noi", label: "Despre noi" },
   { href: "/servicii", label: "Servicii" },
-  { href: "/preturi", label: "Preturi" },
+  { href: "/galerie", label: "Galerie" },
+  { href: "/preturi", label: "Prețuri" },
   { href: "/schedules", label: "Program" },
+  { href: "/inscriere", label: "Înscriere" },
   { href: "/contact", label: "Contact" }
 ];
 
@@ -11,19 +13,22 @@ export const services = [
   {
     title: "Pilates Mat",
     description: "Clase in grup, variate si adaptate nivelului tau.",
-    icon: "/content/images/Classes.svg"
+    icon: "/content/images/Classes.svg",
+    href: "/pilates-mat"
   },
   {
     title: "Sedinte private",
     description: "Antrenament personalizat, unu la unu.",
-    icon: "/content/images/illustration-woman-2.svg"
+    icon: "/content/images/illustration-woman-2.svg",
+    href: "/sedinte-private"
   },
   {
     title: "Yogalates",
     description: "Fuziune de yoga si pilates pentru flexibilitate si liniste.",
-    icon: "/content/images/hatha.svg"
+    icon: "/content/images/hatha.svg",
+    href: "/yogalates-stretching"
   }
-];
+] as const;
 
 export const pricingPlans = [
   { name: "4 sedinte", value: "280 RON", note: "Flexibil pentru ritm usor." },
@@ -38,7 +43,22 @@ export const schedule = [
 ];
 
 export const team = [
-  { name: "Elena Seremet", image: "/content/images/Elena-scaled.jpg" },
-  { name: "Gabriela Ostafe", image: "/content/images/Gabriela-scaled-e1756931846824-849x1024.jpg" },
-  { name: "Adelina Csolti", image: "/content/images/Adelina-scaled.jpg" }
-];
+  {
+    name: "Elena Seremet",
+    image: "/content/images/Elena-scaled.jpg",
+    href: "/elena-seremet"
+  },
+  {
+    name: "Gabriela Ostafe",
+    image: "/content/images/Gabriela-scaled-e1756931846824-849x1024.jpg",
+    href: "/gabriela-ostafe"
+  },
+  {
+    name: "Adelina Csolti",
+    image: "/content/images/Adelina-scaled.jpg",
+    href: "/adelina-csolti"
+  }
+] as const;
+
+/** Instructor bios linked from the team grid */
+export const instructorProfileSlugs = ["elena-seremet", "gabriela-ostafe", "adelina-csolti"] as const;

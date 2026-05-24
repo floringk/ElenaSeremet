@@ -148,6 +148,11 @@
   ],
   "images": [
     {
+      "src": "https://elenaseremet.ro/content/new/Elena Seremet Pilates Studio/Elena_Seremet_Pilates_Studio_0275-retouched.jpg",
+      "alt": "Program — Pilates Studio Elena Seremet (temporar, de revizuit)",
+      "local_path": "images/new/Elena Seremet Pilates Studio/Elena_Seremet_Pilates_Studio_0275-retouched.jpg"
+    },
+    {
       "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9.png",
       "alt": "",
       "local_path": "images/logo-moto-pilates-mat-9.png"
@@ -166,11 +171,6 @@
       "src": "https://elenaseremet.ro/wp-content/uploads/2026/02/Pilates-Saltea-768x1365.jpeg",
       "alt": "",
       "local_path": "images/Pilates-Saltea-768x1365.jpeg"
-    },
-    {
-      "src": "https://elenaseremet.ro/wp-content/plugins/elementor/assets/images/placeholder.png",
-      "alt": "",
-      "local_path": "images/placeholder.png"
     },
     {
       "src": "https://elenaseremet.ro/wp-content/uploads/2025/05/logo-moto-pilates-mat-9-1024x277.png",
