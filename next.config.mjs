@@ -10,6 +10,10 @@ const nextConfig = {
     tsconfigPath: "tsconfig.build.json"
   },
   poweredByHeader: false,
+  /** Images live in public/content after sync; keep mockups/ off serverless bundles. */
+  outputFileTracingExcludes: {
+    "/*": ["./mockups/**"]
+  },
   // Next may pick a parent folder if multiple lockfiles exist; keep resolution inside this app
   turbopack: {
     root: __dirname

@@ -13,3 +13,4 @@ coverage/
 # Local installers / IDE archives (not part of the web app)
 Assets/
 .vercel
+public/content/
