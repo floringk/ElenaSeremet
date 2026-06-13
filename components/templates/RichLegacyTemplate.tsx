@@ -6,7 +6,7 @@ import { MembershipSignupForm } from "@/components/membership/MembershipSignupFo
 import { ServiceLeadCta } from "@/components/templates/ServiceLeadCta";
 import { Reveal } from "@/components/ui/Reveal";
 import { getServiceChipLabel } from "@/lib/service-chip";
-import type { NormalizedPage } from "@/lib/content";
+import type { ContentBlock, NormalizedPage } from "@/lib/content";
 
 type RichLegacyTemplateProps = {
   page: NormalizedPage;
@@ -27,6 +27,35 @@ function isReservationSection(heading: string): boolean {
   return normalized.includes("rezerva") && normalized.includes("loc");
 }
 
+function isMembershipSection(heading: string): boolean {
+  const normalized = normalizeHeading(heading);
+  if (normalized.includes("alatura") || normalized.includes("inscriere")) {
+    return true;
+  }
+  return isReservationSection(heading);
+}
+
+function isLegacyMembershipLabelBlock(block: ContentBlock): boolean {
+  if (block.type !== "h3" && block.type !== "p") {
+    return false;
+  }
+  const text = normalizeHeading(block.text || "");
+  if (!text) {
+    return false;
+  }
+  if (text.includes("vreau sa") || text.includes("alege tipul") || text.includes("eu sunt")) {
+    return true;
+  }
+  if (text.includes("ativo membership") || text.includes("squeaky clean")) {
+    return true;
+  }
+  return false;
+}
+
+function sectionHasLegacyMembershipLabels(blocks: ContentBlock[]): boolean {
+  return blocks.some(isLegacyMembershipLabelBlock);
+}
+
 function isSvgPath(src: string): boolean {
   const base = src.split("?")[0] ?? "";
   return base.toLowerCase().endsWith(".svg");
@@ -38,6 +67,11 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
   const heroPath = page.heroImagePath;
   const heroSvg = heroPath ? isSvgPath(heroPath) : false;
   const chip = isService ? getServiceChipLabel(page.slug) : null;
+  const membershipFormRendered =
+    isService &&
+    page.sections.some(
+      (sec) => isMembershipSection(sec.heading) || sectionHasLegacyMembershipLabels(sec.blocks)
+    );
 
   return (
     <section className={`page-section rich-legacy ${isService ? "rich-legacy--service" : ""}`}>
@@ -122,6 +156,14 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
           const toneClass =
             isService && (idx % 2 === 0 ? "rich-section--tone-a" : "rich-section--tone-b");
 
+          const showMembershipForm =
+            isService &&
+            (isMembershipSection(sec.heading) || sectionHasLegacyMembershipLabels(sec.blocks));
+
+          const sectionBlocks = showMembershipForm
+            ? sec.blocks.filter((block) => !isLegacyMembershipLabelBlock(block))
+            : sec.blocks;
+
           return (
             <Reveal key={`${sec.heading}-${idx}`} delay={(idx % 4) as 0 | 1 | 2 | 3}>
               <section
@@ -137,12 +179,13 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
                   {sec.heading !== "Introducere" ? (
                     <h2 className="rich-section-heading">{sec.heading}</h2>
                   ) : null}
-                  <PageBlocks blocks={sec.blocks} withSectionWrappers={false} />
-                  {isService && isReservationSection(sec.heading) ? (
+                  <PageBlocks blocks={sectionBlocks} withSectionWrappers={false} />
+                  {showMembershipForm ? (
                     <div className="service-lead-block">
                       <MembershipSignupForm
                         sourcePage={`/${page.slug}`}
                         compact
+                        title="Alătură-te astăzi"
                         id={`membership-${page.slug}`}
                       />
                       <ServiceLeadCta />
@@ -161,6 +204,22 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
             </Reveal>
           );
         })}
+
+        {isService && !membershipFormRendered ? (
+          <Reveal>
+            <section className="rich-section rich-section--tone-a">
+              <div className="rich-section-copy">
+                <MembershipSignupForm
+                  sourcePage={`/${page.slug}`}
+                  compact
+                  title="Alătură-te astăzi"
+                  id={`membership-${page.slug}-footer`}
+                />
+                <ServiceLeadCta />
+              </div>
+            </section>
+          </Reveal>
+        ) : null}
       </div>
     </section>
   );

@@ -13,12 +13,15 @@ type Status = "idle" | "loading" | "success" | "error";
 type MembershipSignupFormProps = {
   sourcePage?: string;
   compact?: boolean;
+  /** Overrides default compact/full heading */
+  title?: string;
   id?: string;
 };
 
 export function MembershipSignupForm({
   sourcePage = "/inscriere",
   compact = false,
+  title,
   id = "inscriere-studio"
 }: MembershipSignupFormProps) {
   const [status, setStatus] = useState<Status>("idle");
@@ -104,7 +107,9 @@ export function MembershipSignupForm({
           </p>
         </header>
       ) : (
-        <h3 className="membership-signup-title membership-signup-title--compact">Înscriere rapidă</h3>
+        <h3 className="membership-signup-title membership-signup-title--compact">
+          {title || "Înscriere rapidă"}
+        </h3>
       )}
       <form
         onSubmit={onSubmit}

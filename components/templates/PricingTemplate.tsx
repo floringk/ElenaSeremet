@@ -1,6 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
 
-import { PageBlocks } from "@/components/sections/PageBlocks";
 import { Reveal } from "@/components/ui/Reveal";
 import type { NormalizedPage } from "@/lib/content";
 import { splitPriceValue } from "@/lib/format-price";
@@ -64,9 +64,23 @@ export function PricingTemplate({ page }: PricingTemplateProps) {
           })}
         </div>
 
-        <div className="pricing-template-copy">
-          <PageBlocks blocks={page.blocks} withSectionWrappers />
-        </div>
+        <Reveal>
+          <div className="pricing-page-cta surface-soft card">
+            <h2 className="rich-section-heading">Gata să începi?</h2>
+            <p>
+              Abonamentele Pilates Studio by Elena Șeremet te ajută să îți atingi obiectivele de fitness,
+              sănătate și wellbeing.
+            </p>
+            <div className="pricing-page-cta-actions">
+              <Link href="/inscriere" className="btn btn-primary">
+                Înscrie-te acum
+              </Link>
+              <Link href="/contact" className="btn btn-secondary">
+                Întreabă-ne
+              </Link>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
