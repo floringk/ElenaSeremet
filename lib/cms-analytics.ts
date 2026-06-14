@@ -1,6 +1,6 @@
 import "server-only";
 
-import { getSupabaseServerClient } from "@/lib/supabase-server";
+import { createClient } from "@supabase/supabase-js";
 import { isSupabaseConfigured } from "@/lib/site-status";
 
 export type CmsAnalyticsSummary = {
@@ -21,13 +21,26 @@ function daysAgoIso(days: number): string {
   return d.toISOString();
 }
 
+function getSupabaseForAnalytics() {
+  const url = process.env.SUPABASE_URL?.trim();
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  if (!url || !key) {
+    return null;
+  }
+  return createClient(url, key, { auth: { persistSession: false } });
+}
+
 export async function getCmsAnalyticsSummary(): Promise<CmsAnalyticsSummary> {
   if (!isSupabaseConfigured()) {
     return EMPTY;
   }
 
+  const supabase = getSupabaseForAnalytics();
+  if (!supabase) {
+    return EMPTY;
+  }
+
   try {
-    const supabase = getSupabaseServerClient();
     const since7 = daysAgoIso(7);
     const since30 = daysAgoIso(30);
 
