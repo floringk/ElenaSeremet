@@ -18,6 +18,15 @@ const nextConfig = {
   turbopack: {
     root: __dirname
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.supabase.co",
+        pathname: "/storage/v1/object/public/**"
+      }
+    ]
+  },
   async headers() {
     return [
       {
@@ -40,7 +49,10 @@ const nextConfig = {
       { source: "/prices", destination: "/preturi", permanent: true },
       { source: "/schedule", destination: "/schedules", permanent: true },
       { source: "/contact-us", destination: "/contact", permanent: true },
-      { source: "/inregistrare-clienti", destination: "/inscriere", permanent: true }
+      { source: "/inregistrare-clienti", destination: "/inscriere", permanent: true },
+      { source: "/wp-content/:path*", destination: "/", permanent: false },
+      { source: "/wp-admin/:path*", destination: "/cms", permanent: false },
+      { source: "/wp-login.php", destination: "/cms/login", permanent: false }
     ];
   }
 };

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { buildMetadataForRoute } from "@/lib/page-metadata";
-import { getAlbums, getTotalGalleryImageCount } from "@/lib/new-gallery";
+import { getAlbumCoverImage, getAlbums, getTotalGalleryImageCount } from "@/lib/new-gallery";
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadataForRoute("/galerie", {
@@ -32,15 +33,32 @@ export default function GalleryIndexPage() {
         </header>
 
         {albums.length > 0 ? (
-          <ul className="gallery-album-list">
-            {albums.map((a) => (
-              <li key={a.slug}>
-                <Link href={`/galerie/${a.slug}`} className="gallery-album-card focus-ring">
-                  <span className="gallery-album-title">{a.label}</span>
-                  <span className="muted gallery-album-count">{a.count} fotografii</span>
-                </Link>
-              </li>
-            ))}
+          <ul className="gallery-album-grid">
+            {albums.map((a) => {
+              const cover = getAlbumCoverImage(a.slug);
+              return (
+                <li key={a.slug}>
+                  <Link href={`/galerie/${a.slug}`} className="gallery-album-tile focus-ring">
+                    {cover ? (
+                      <Image
+                        src={cover.src}
+                        alt={cover.alt}
+                        width={640}
+                        height={480}
+                        className="gallery-album-tile-img"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    ) : (
+                      <div className="gallery-album-tile-placeholder" aria-hidden />
+                    )}
+                    <span className="gallery-album-tile-overlay">
+                      <span className="gallery-album-title">{a.label}</span>
+                      <span className="gallery-album-count">{a.count} fotografii</span>
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         ) : null}
       </div>

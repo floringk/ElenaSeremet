@@ -106,3 +106,9 @@ export function getAlbumImages(slug: string): AlbumImage[] {
 export function getTotalGalleryImageCount(): number {
   return getAlbums().reduce((sum, a) => sum + a.count, 0);
 }
+
+/** First image in album — used as gallery index cover. */
+export function getAlbumCoverImage(slug: string): AlbumImage | null {
+  const images = getAlbumImages(slug);
+  return images[0] ?? null;
+}

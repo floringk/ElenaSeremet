@@ -15,7 +15,11 @@
     "import:pages": "tsx scripts/import-legacy-pages.ts",
     "cms:create-admin": "node scripts/patch-payload-loadenv.cjs && tsx scripts/create-payload-admin.ts",
     "cms:reset-admin": "node scripts/patch-payload-loadenv.cjs && tsx scripts/reset-payload-admin.ts",
-    "cms:fix-home-hero": "node scripts/patch-payload-loadenv.cjs && tsx scripts/fix-home-hero.ts"
+    "cms:fix-home-hero": "node scripts/patch-payload-loadenv.cjs && tsx scripts/fix-home-hero.ts",
+    "cms:sync-hero-paths": "node scripts/patch-payload-loadenv.cjs && tsx scripts/import-media-to-payload.ts",
+    "cms:clear-media-refs": "node scripts/patch-payload-loadenv.cjs && tsx scripts/clear-cms-media-refs.ts",
+    "cms:import-media": "npm run cms:sync-hero-paths",
+    "cms:import-membership": "node scripts/patch-payload-loadenv.cjs && tsx scripts/import-membership-to-payload.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.84.1",

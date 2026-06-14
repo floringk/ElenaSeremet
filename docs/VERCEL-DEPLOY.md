@@ -8,22 +8,62 @@ Pentru **domeniul live** `elenaseremet.ro` — același deploy, plus DNS (etapă
 
 ---
 
+## Panou unificat CMS
+
+| URL | Rol |
+|-----|-----|
+| `/cms` | **Sursă unică** — pagini, media, formulare contact, înscrieri, statistici trafic |
+| `/admin` | Redirect → `/cms` (bookmark vechi) |
+| `/admin/login` | Redirect → `/cms/login` |
+
+**Login client:** user Payload creat cu `npm run cms:create-admin` (email + parolă setate în env la creare).
+
+---
+
+## Ghid rapid pentru client (non-tehnic)
+
+1. Deschide **`/cms`** și autentifică-te.
+2. **Pages** — editează text, titlu SEO, descriere; salvează.
+3. **Imagini hero/OG** — câmpuri text cu path public (ex. `/content/images/NX6A7960-scaled.jpg`). Fișierele sunt în `mockups/content/images/`, sincronizate la build.
+4. **Submissions** — mesaje formular contact.
+5. **Membership Signups** — înscrieri abonament.
+6. Dashboard sus — vizite 7/30 zile; link export CSV trafic.
+
+**Previzualizare draft:** `https://site.ro/pagina?preview=true`
+
+**Sync path-uri din CSV:** `npm run cms:sync-hero-paths` (citește `docs/image-map.csv`).
+
+---
+
+## Imagini (mod actual: path-uri)
+
+- CMS: `heroImagePath`, `ogImagePath` — text, nu upload.
+- Fișiere: `mockups/content/images/` → `public/content/` la build.
+- Mapare pagini: [`docs/image-map.csv`](docs/image-map.csv).
+
+### Storage Supabase + S3 (viitor, opțional)
+
+Când vrei upload drag-and-drop în CMS:
+
+1. Rulează [`scripts/supabase-storage-setup.sql`](scripts/supabase-storage-setup.sql)
+2. Adaugă `@payloadcms/storage-s3` + colecția Media în Payload
+3. Env: `SUPABASE_STORAGE_BUCKET`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_ENDPOINT`
+
+---
+
 ## Impedimente / atenții
 
 | Subiect | Situație |
 |---------|----------|
 | **Variabile de mediu** | Obligatorii la build **și** runtime. Fără ele, `npm run build` pe Vercel eșuează (vezi lista). |
-| **SMTP** | Opțional pentru funcționare: formularele se salvează în DB fără email. Poți lăsa SMTP gol sau placeholder la preview. |
-| **Imagini** | Site-ul servește multe fișiere din `mockups/content/images/` — repo mare, primul deploy poate dura mai mult. |
-| **Payload CMS** | Funcționează pe Vercel dacă setezi `PAYLOAD_SECRET` + `PAYLOAD_DATABASE_URL` (Supabase Postgres). |
-| **`.env` local** | Nu se urcă pe Git — copiezi manual în Vercel → Settings → Environment Variables. |
-| **Secrets în Git** | Nu comite `.env`. |
+| **SMTP** | Opțional: formularele se salvează în DB fără email. |
+| **Imagini** | Path-uri `/content/images/...` în CMS; sync la build din `mockups/content/images/`. |
+| **Payload CMS** | `PAYLOAD_SECRET` + `PAYLOAD_DATABASE_URL` (Supabase Postgres). |
+| **`.env` local** | Nu se urcă pe Git — copiezi manual în Vercel. |
 
 ---
 
 ## Variabile minime (Vercel → Production + Preview)
-
-Copiază din `.env` local sau `.env.example`:
 
 ### Obligatorii (build + site)
 
@@ -38,67 +78,51 @@ MAIL_TO=preview@example.com
 ADMIN_USER=admin
 ADMIN_PASSWORD=...
 ADMIN_SESSION_SECRET=...   # min 32 caractere random
+NEXT_PUBLIC_SITE_URL=https://elenaseremet.ro
 ```
 
-> La **preview**, SMTP poate fi placeholder (formularele merg în DB, fără email).
-
-### Recomandate (CMS + conținut)
+### CMS (fără storage S3)
 
 ```
-PAYLOAD_SECRET=...         # generezi tu (random 32+ chars)
-PAYLOAD_DATABASE_URL=...   # connection string Postgres Supabase
-CONTENT_SOURCE=auto        # CMS dacă e configurat, altfel JSON
+PAYLOAD_SECRET=
+PAYLOAD_DATABASE_URL=
+CONTENT_SOURCE=auto
 ```
 
-### Opționale
+### Marketing (opțional)
 
 ```
-INTERNAL_ALERT_KEY=
-SITE_SAME_AS=
+NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+SITE_SAME_AS=https://instagram.com/...,https://facebook.com/...
 ```
 
 ---
 
-## Pași deploy (prima dată)
+## Pași deploy
 
-1. **Git** — push pe GitHub/GitLab (branch `main`).
-2. **Vercel** — [vercel.com/new](https://vercel.com/new) → Import repo `ESSite`.
-3. **Framework** — Next.js (detectat automat; există `vercel.json`).
-4. **Environment Variables** — adaugă lista de mai sus (Production + Preview).
-5. **Deploy** — aștepți build verde → **Visit**.
-6. **Smoke test**:
-   - `/` — hero + navigare
-   - `/pilates-mat` — pagină serviciu + formular înscriere
-   - `/contact` — trimite mesaj → verifică Supabase / admin
-   - `/cms/login` — admin CMS (dacă Payload e configurat)
-   - `/sitemap.xml`, `/robots.txt`
+1. Push pe GitHub → Vercel build automat.
+2. Smoke test: `/`, `/preturi`, `/yoga`, `/contact`, `/inscriere`, `/cms`.
+3. Editează o pagină în CMS → verifică pe site (fără redeploy).
 
 ---
 
-## După deploy
+## Go-live domeniu `elenaseremet.ro`
 
-- **CMS**: `https://<proiect>.vercel.app/cms` — user din `payload.users` (nu din `.env` direct).
-- **Admin analytics**: `https://<proiect>.vercel.app/admin` — `ADMIN_USER` / `ADMIN_PASSWORD`.
-- **Import pagini** (o dată, local sau script): `npm run import:pages` (cu aceleași env DB).
-
----
-
-## Când vrei domeniul real
-
-1. Vercel → Project → **Domains** → adaugi `elenaseremet.ro` (+ `www`).
-2. La DNS (provider domeniu) — înregistrările indicate de Vercel (A/CNAME).
-3. Aștepți propagare (min–ore).
-4. Opțional: redirect `www` → apex sau invers.
+1. Vercel → **Domains** → adaugă `elenaseremet.ro` + `www`.
+2. DNS la provider — A/CNAME conform Vercel.
+3. `NEXT_PUBLIC_SITE_URL=https://elenaseremet.ro` pe Production.
+4. **Google Search Console** — verifică domeniul, trimite sitemap: `https://elenaseremet.ro/sitemap.xml`.
+5. Redirects WordPress vechi sunt în `next.config.mjs` (`redirects`).
 
 ---
 
-## Comenzi locale înainte de push
+## Comenzi locale
 
 ```bash
 npm run lint
 npm run typecheck
 npm run build
 npm run validate:content
+npm run cms:sync-hero-paths   # path-uri hero din image-map.csv
+npm run cms:import-membership # o dată, migrare istoric
 ```
-
-Dacă `build` trece local cu env complet, șanse mari să treacă și pe Vercel.

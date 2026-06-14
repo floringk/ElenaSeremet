@@ -134,7 +134,7 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         </div>
       </section>
 
-      <section className="surface-soft page-section home-services">
+      <section className="surface-soft page-section home-section home-services">
         <div className="container">
           <Reveal>
             <p className="section-label">Servicii</p>
@@ -167,7 +167,7 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         </div>
       </section>
 
-      <section className="page-section home-testimonial">
+      <section className="page-section home-section home-testimonial">
         <div className="container">
           <Reveal>
             <div className="model5-testimonial-inner">
@@ -180,7 +180,7 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         </div>
       </section>
 
-      <section className="surface-soft page-section home-pricing-teaser">
+      <section className="surface-soft page-section home-section home-pricing-teaser">
         <div className="container model5-pricing-teaser-inner">
           <Reveal className="model5-pricing-teaser-copy">
             <h2>Abonamente flexibile</h2>
@@ -195,7 +195,7 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         </div>
       </section>
 
-      <section className="page-section home-team">
+      <section className="page-section home-section home-team">
         <div className="container">
           <Reveal>
             <p className="section-label">Echipă</p>
@@ -230,7 +230,7 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         </div>
       </section>
 
-      <section className="cta-strip page-section">
+      <section className="cta-strip page-section home-section">
         <div className="container cta-strip-inner">
           <Reveal>
             <h2>Programează-te</h2>

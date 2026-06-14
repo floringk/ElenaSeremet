@@ -10,12 +10,14 @@ export type RouteSeoEntry = {
 
 export type SiteSettings = {
   siteTitle: string | null;
+  siteUrl: string | null;
   defaultDescription: string | null;
   staticRoutes: RouteSeoEntry[];
 };
 
 const EMPTY: SiteSettings = {
   siteTitle: null,
+  siteUrl: null,
   defaultDescription: null,
   staticRoutes: []
 };
@@ -45,6 +47,7 @@ async function fetchSiteSettings(): Promise<SiteSettings> {
 
     const d = doc as {
       siteTitle?: string;
+      siteUrl?: string;
       defaultDescription?: string;
       staticRoutes?: Array<{
         path?: string;
@@ -72,6 +75,7 @@ async function fetchSiteSettings(): Promise<SiteSettings> {
 
     return {
       siteTitle: d.siteTitle?.trim() || null,
+      siteUrl: d.siteUrl?.trim() || null,
       defaultDescription: d.defaultDescription?.trim() || null,
       staticRoutes
     };

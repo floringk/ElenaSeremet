@@ -22,6 +22,41 @@ const Users: CollectionConfig = {
   ]
 };
 
+/** Kept for DB compatibility (prior media import). Hidden — images use heroImagePath text fields. */
+const Media: CollectionConfig = {
+  slug: "media",
+  upload: {
+    staticDir: path.resolve(process.cwd(), "media"),
+    mimeTypes: ["image/*"],
+    adminThumbnail: "thumbnail"
+  },
+  admin: {
+    hidden: true,
+    useAsTitle: "alt"
+  },
+  access: {
+    read: () => true,
+    create: ({ req }) => Boolean(req.user),
+    update: ({ req }) => Boolean(req.user),
+    delete: ({ req }) => req.user?.role === "admin"
+  },
+  fields: [
+    { name: "alt", type: "text", required: true },
+    {
+      name: "category",
+      type: "select",
+      defaultValue: "hero",
+      options: [
+        { label: "Hero", value: "hero" },
+        { label: "Inline", value: "inline" },
+        { label: "Team", value: "team" },
+        { label: "Open Graph", value: "og" },
+        { label: "Gallery", value: "gallery" }
+      ]
+    }
+  ]
+};
+
 const Pages: CollectionConfig = {
   slug: "pages",
   admin: {
@@ -61,6 +96,12 @@ const Pages: CollectionConfig = {
       }
     },
     {
+      name: "ogImage",
+      type: "upload",
+      relationTo: "media",
+      admin: { hidden: true }
+    },
+    {
       name: "ogImagePath",
       type: "text",
       admin: {
@@ -76,10 +117,16 @@ const Pages: CollectionConfig = {
       }
     },
     {
+      name: "heroImage",
+      type: "upload",
+      relationTo: "media",
+      admin: { hidden: true }
+    },
+    {
       name: "heroImagePath",
       type: "text",
       admin: {
-        description: "Example: /content/images/NX6A7960-scaled.jpg"
+        description: "Cale publică (ex. /content/images/NX6A7960-scaled.jpg)."
       }
     },
     { name: "heroAlt", type: "text" },
@@ -117,7 +164,8 @@ const Pages: CollectionConfig = {
 const Submissions: CollectionConfig = {
   slug: "submissions",
   admin: {
-    useAsTitle: "name"
+    useAsTitle: "name",
+    defaultColumns: ["name", "email", "sourcePage", "submittedAt", "deliveryStatus"]
   },
   access: {
     read: ({ req }) => Boolean(req.user),
@@ -154,6 +202,37 @@ const Submissions: CollectionConfig = {
   ]
 };
 
+const MembershipSignups: CollectionConfig = {
+  slug: "membership-signups",
+  labels: {
+    singular: "Membership Signup",
+    plural: "Membership Signups"
+  },
+  admin: {
+    useAsTitle: "sourcePage",
+    defaultColumns: ["wantGoal", "subscriptionType", "memberKind", "sourcePage", "submittedAt"]
+  },
+  access: {
+    read: ({ req }) => Boolean(req.user),
+    create: () => false,
+    update: ({ req }) => req.user?.role === "admin",
+    delete: ({ req }) => req.user?.role === "admin"
+  },
+  fields: [
+    { name: "wantGoal", type: "text", required: true },
+    { name: "subscriptionType", type: "text", required: true },
+    { name: "memberKind", type: "text", required: true },
+    { name: "sourcePage", type: "text", required: true, defaultValue: "/inscriere" },
+    { name: "ipAddress", type: "text" },
+    {
+      name: "submittedAt",
+      type: "date",
+      required: true,
+      defaultValue: () => new Date().toISOString()
+    }
+  ]
+};
+
 const Settings: GlobalConfig = {
   slug: "settings",
   label: "Site Settings",
@@ -168,6 +247,13 @@ const Settings: GlobalConfig = {
       admin: { description: "Nume site (folosit în șabloane SEO)." }
     },
     {
+      name: "siteUrl",
+      type: "text",
+      admin: {
+        description: "URL public (ex. https://elenaseremet.ro). Fallback: NEXT_PUBLIC_SITE_URL."
+      }
+    },
+    {
       name: "defaultDescription",
       type: "textarea",
       admin: { description: "Descriere implicită când o pagină nu are meta description." }
@@ -178,7 +264,7 @@ const Settings: GlobalConfig = {
       label: "SEO — rute fixe",
       admin: {
         description:
-          "Rute din aplicație fără colecția Pages: /contact, /galerie, /inscriere, /admin/login, etc."
+          "Rute din aplicație fără colecția Pages: /contact, /galerie, /inscriere, etc."
       },
       fields: [
         {
@@ -189,6 +275,12 @@ const Settings: GlobalConfig = {
         },
         { name: "metaTitle", type: "text" },
         { name: "metaDescription", type: "textarea" },
+        {
+          name: "ogImage",
+          type: "upload",
+          relationTo: "media",
+          admin: { hidden: true }
+        },
         {
           name: "ogImagePath",
           type: "text",
@@ -203,20 +295,23 @@ const Settings: GlobalConfig = {
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || "",
   admin: {
-    suppressHydrationWarning: true
+    suppressHydrationWarning: true,
+    components: {
+      beforeDashboard: ["@/components/cms/AdminDashboard#AdminDashboard"]
+    }
   },
   routes: {
     admin: "/cms"
   },
   db: postgresAdapter({
-    /** Keeps CMS tables out of `public` so they never collide with `form_submissions` / `page_events` (see scripts/supabase-schema.sql). */
+    /** Keeps CMS tables out of `public` so they never collide with `form_submissions` / `page_events`. */
     schemaName: "payload",
     pool: {
       connectionString: process.env.PAYLOAD_DATABASE_URL || ""
     }
   }),
   editor: lexicalEditor(),
-  collections: [Users, Pages, Submissions],
+  collections: [Users, Media, Pages, Submissions, MembershipSignups],
   globals: [Settings],
   typescript: {
     outputFile: path.resolve(process.cwd(), "payload-types.ts")

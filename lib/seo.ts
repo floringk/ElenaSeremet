@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 
-export const siteUrl = "https://elenaseremet.ro";
+/** Public site URL — env override for preview/staging; production should set NEXT_PUBLIC_SITE_URL. */
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://elenaseremet.ro"
+).replace(/\/$/, "");
 export const siteName = "Pilates Studio Elena Seremet";
 export const defaultDescription =
   "Studio de Pilates în București — clase mat și reformer, antrenament personalizat și program flexibil. Mișcare conștientă într-un spațiu calm și primitor.";

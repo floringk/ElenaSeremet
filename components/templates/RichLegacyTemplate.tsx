@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { PageBlocks } from "@/components/sections/PageBlocks";
 import { ScheduleBlock } from "@/components/sections/ScheduleBlock";
+import { ScheduleRegulations } from "@/components/sections/ScheduleRegulations";
 import { MembershipSignupForm } from "@/components/membership/MembershipSignupForm";
 import { ServiceLeadCta } from "@/components/templates/ServiceLeadCta";
 import { Reveal } from "@/components/ui/Reveal";
@@ -131,7 +132,11 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
           </Reveal>
         ) : null}
 
-        {heroPath && !isService ? (
+        {page.slug === "schedules" ? (
+          <ScheduleRegulations sections={page.sections} />
+        ) : null}
+
+        {page.slug !== "schedules" && heroPath && !isService ? (
           <Reveal>
             <div className="page-hero-block">
               <Image
@@ -147,7 +152,8 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
           </Reveal>
         ) : null}
 
-        {page.sections.map((sec, idx) => {
+        {page.slug !== "schedules"
+          ? page.sections.map((sec, idx) => {
           const img = images[idx];
           const hasImg = Boolean(img);
           const flip = Boolean(hasImg && idx % 2 === 1);
@@ -203,7 +209,8 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
               </section>
             </Reveal>
           );
-        })}
+        })
+          : null}
 
         {isService && !membershipFormRendered ? (
           <Reveal>

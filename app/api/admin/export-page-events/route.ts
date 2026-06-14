@@ -1,4 +1,7 @@
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+import config from "@payload-config";
+import { getPayload } from "payload";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
 
@@ -20,9 +23,22 @@ function csvEscape(value: string): string {
   return value;
 }
 
+async function isAuthorized(): Promise<boolean> {
+  if (await isAdminAuthenticated()) {
+    return true;
+  }
+  try {
+    const payload = await getPayload({ config });
+    const hdrs = await headers();
+    const { user } = await payload.auth({ headers: hdrs });
+    return Boolean(user);
+  } catch {
+    return false;
+  }
+}
+
 export async function GET() {
-  const authed = await isAdminAuthenticated();
-  if (!authed) {
+  if (!(await isAuthorized())) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 

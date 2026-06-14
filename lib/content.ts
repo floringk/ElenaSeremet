@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
+import { resolveMediaUrl } from "@/lib/media-url";
+
 export type ContentBlock = {
   type: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "ul";
   text?: string;
@@ -330,16 +332,25 @@ function normalizeHeroPath(raw: unknown): string | null {
   return mapImagePath(s.replace(/^\/+/, ""));
 }
 
-async function getNormalizedPageFromPayload(slug: string): Promise<NormalizedPage | null> {
+type PageLoadOptions = {
+  includeDraft?: boolean;
+};
+
+async function getNormalizedPageFromPayload(
+  slug: string,
+  options?: PageLoadOptions
+): Promise<NormalizedPage | null> {
   const { getPayloadClient } = await import("./payload");
   const payload = await getPayloadClient();
   const result = await payload.find({
     collection: "pages",
-    where: {
-      and: [{ slug: { equals: slug } }, { status: { equals: "published" } }]
-    },
+    where: options?.includeDraft
+      ? { slug: { equals: slug } }
+      : {
+          and: [{ slug: { equals: slug } }, { status: { equals: "published" } }]
+        },
     limit: 1,
-    depth: 0
+    depth: 1
   });
 
   if (!result.docs.length) {
@@ -350,8 +361,10 @@ async function getNormalizedPageFromPayload(slug: string): Promise<NormalizedPag
     title?: string;
     description?: string | null;
     metaTitle?: string | null;
+    ogImage?: unknown;
     ogImagePath?: string | null;
     noIndex?: boolean | null;
+    heroImage?: unknown;
     heroImagePath?: string | null;
     heroAlt?: string | null;
     intro?: string | null;
@@ -368,13 +381,19 @@ async function getNormalizedPageFromPayload(slug: string): Promise<NormalizedPag
     (typeof doc.description === "string" && doc.description.trim()) || deriveDescriptionFromBlocks(blocks);
 
   let heroImagePath = normalizeHeroPath(doc.heroImagePath);
-  if (heroImagePath && !publicContentPathExists(heroImagePath)) {
-    heroImagePath = null;
+  if (!heroImagePath) {
+    heroImagePath = resolveMediaUrl(doc.heroImage, null);
+  }
+  if (heroImagePath?.startsWith("/content/") && !publicContentPathExists(heroImagePath)) {
+    heroImagePath = resolveMediaUrl(doc.heroImage, null);
   }
 
   let seoOgImagePath = normalizeHeroPath(doc.ogImagePath);
-  if (seoOgImagePath && !publicContentPathExists(seoOgImagePath)) {
-    seoOgImagePath = null;
+  if (!seoOgImagePath) {
+    seoOgImagePath = resolveMediaUrl(doc.ogImage, heroImagePath);
+  }
+  if (seoOgImagePath?.startsWith("/content/") && !publicContentPathExists(seoOgImagePath)) {
+    seoOgImagePath = heroImagePath;
   }
 
   const heroAlt = String(doc.heroAlt || doc.title || title);
@@ -437,18 +456,21 @@ export function getNormalizedPageFromLegacyFiles(slug: string): NormalizedPage |
  * - cms: CMS only
  * - legacy: JSON files only
  */
-export async function getNormalizedPage(slug: string): Promise<NormalizedPage | null> {
+export async function getNormalizedPage(
+  slug: string,
+  options?: PageLoadOptions
+): Promise<NormalizedPage | null> {
   const mode = (process.env.CONTENT_SOURCE || "auto").toLowerCase();
 
-  if (mode === "legacy") {
+  if (mode === "legacy" && !options?.includeDraft) {
     return getNormalizedPageFromLegacyFiles(slug);
   }
 
-  const useCms = mode === "cms" || mode === "auto";
+  const useCms = mode === "cms" || mode === "auto" || options?.includeDraft;
 
   if (useCms && isPayloadConfigured()) {
     try {
-      const fromPayload = await getNormalizedPageFromPayload(slug);
+      const fromPayload = await getNormalizedPageFromPayload(slug, options);
       if (fromPayload) {
         return fromPayload;
       }

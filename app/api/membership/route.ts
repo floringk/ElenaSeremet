@@ -5,7 +5,9 @@ import {
   MEMBERSHIP_WANT_GOALS,
   MEMBERSHIP_SUBSCRIPTION_VALUES
 } from "@/lib/membership-signup";
+import { getPayloadClient } from "@/lib/payload";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
+import { isPayloadConfigured, isSupabaseConfigured } from "@/lib/site-status";
 
 const wantValues = MEMBERSHIP_WANT_GOALS.map((x) => x.value) as [string, ...string[]];
 const kindValues = MEMBERSHIP_KINDS.map((x) => x.value) as [string, ...string[]];
@@ -57,19 +59,59 @@ export async function POST(request: NextRequest) {
     return Response.json({ ok: true });
   }
 
-  const supabase = getSupabaseServerClient();
-  const { error: dbError } = await supabase.from("membership_signups").insert({
-    want_goal: data.want_goal,
-    subscription_type: data.subscription_type,
-    member_kind: data.member_kind,
-    source_page: data.source_page || "/inscriere",
-    submitted_at: new Date().toISOString(),
-    ip_address: ip
-  });
+  const usePayload = isPayloadConfigured();
+  const useSupabase = isSupabaseConfigured();
 
-  if (dbError) {
-    console.error("[membership] insert failed:", dbError);
-    return Response.json({ ok: false, error: "Nu am putut salva înscrierea." }, { status: 500 });
+  if (!usePayload && !useSupabase) {
+    return Response.json(
+      { ok: false, error: "Salvarea înscrierii nu este configurată. Contactează administratorul site-ului." },
+      { status: 503 }
+    );
+  }
+
+  const sourcePage = data.source_page || "/inscriere";
+  const submittedAt = new Date().toISOString();
+
+  if (usePayload) {
+    try {
+      const payload = await getPayloadClient();
+      await payload.create({
+        collection: "membership-signups",
+        data: {
+          wantGoal: data.want_goal,
+          subscriptionType: data.subscription_type,
+          memberKind: data.member_kind,
+          sourcePage,
+          submittedAt,
+          ipAddress: ip
+        },
+        overrideAccess: true
+      });
+    } catch (error) {
+      console.error("[membership] Payload create failed:", error);
+      if (!useSupabase) {
+        return Response.json({ ok: false, error: "Nu am putut salva înscrierea." }, { status: 500 });
+      }
+    }
+  }
+
+  if (useSupabase) {
+    const supabase = getSupabaseServerClient();
+    const { error: dbError } = await supabase.from("membership_signups").insert({
+      want_goal: data.want_goal,
+      subscription_type: data.subscription_type,
+      member_kind: data.member_kind,
+      source_page: sourcePage,
+      submitted_at: submittedAt,
+      ip_address: ip
+    });
+
+    if (dbError) {
+      console.error("[membership] Supabase insert failed:", dbError);
+      if (!usePayload) {
+        return Response.json({ ok: false, error: "Nu am putut salva înscrierea." }, { status: 500 });
+      }
+    }
   }
 
   return Response.json({ ok: true });

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
 import type { ReactNode } from "react";
 import { AnalyticsTracker } from "@/components/analytics/AnalyticsTracker";
+import { CookieConsent } from "@/components/analytics/CookieConsent";
+import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PreviewBanner } from "@/components/layout/PreviewBanner";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -18,6 +20,8 @@ import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora", display: "swap" });
+
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID?.trim() || "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -67,10 +71,12 @@ export default function SiteLayout({ children }: Readonly<{ children: ReactNode 
           Sari la conținut
         </a>
         <AnalyticsTracker />
+        {gtmId ? <GoogleTagManager gtmId={gtmId} /> : null}
         <SiteHeader />
         <PreviewBanner />
         <main id="main-content">{children}</main>
         <SiteFooter />
+        <CookieConsent />
       </body>
     </html>
   );
