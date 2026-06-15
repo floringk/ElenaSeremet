@@ -29,10 +29,124 @@ export type ProgramData = {
 const DEFAULT_GMA_NOTE =
   "Rezervările se fac în aplicația GMA (cod sală: elenaseremet). Programul afișează clasele disponibile pentru o săptămână.";
 
+/** Demo schedule shown when CMS has no sessions yet (replace via CMS → Program clase). */
+export const TEMPLATE_PROGRAM_SESSIONS: ProgramSession[] = [
+  {
+    day: "luni",
+    startTime: "09:00",
+    endTime: "10:00",
+    title: "Pilates Mat — Începători",
+    instructor: "Elena Seremet",
+    track: "saltea",
+    level: "Începători",
+    note: null
+  },
+  {
+    day: "luni",
+    startTime: "09:00",
+    endTime: "10:00",
+    title: "Pilates Reformer",
+    instructor: "Gabriela Ostafe",
+    track: "reformer",
+    level: "Intermediar",
+    note: "Clasă simultană cu Mat"
+  },
+  {
+    day: "luni",
+    startTime: "18:30",
+    endTime: "19:30",
+    title: "Tonifiere",
+    instructor: "Adelina Csolti",
+    track: "saltea",
+    level: "Toate nivelurile",
+    note: null
+  },
+  {
+    day: "marti",
+    startTime: "10:00",
+    endTime: "11:00",
+    title: "Yogalates & Stretching",
+    instructor: "Elena Seremet",
+    track: "saltea",
+    level: null,
+    note: null
+  },
+  {
+    day: "marti",
+    startTime: "19:00",
+    endTime: "20:00",
+    title: "Pilates Mat — Intermediar",
+    instructor: "Gabriela Ostafe",
+    track: "saltea",
+    level: "Intermediar",
+    note: null
+  },
+  {
+    day: "marti",
+    startTime: "19:00",
+    endTime: "20:00",
+    title: "Reformer Flow",
+    instructor: "Adelina Csolti",
+    track: "reformer",
+    level: "Intermediar",
+    note: "Clasă simultană cu Mat"
+  },
+  {
+    day: "miercuri",
+    startTime: "09:30",
+    endTime: "10:30",
+    title: "Postural Pilates",
+    instructor: "Elena Seremet",
+    track: "saltea",
+    level: null,
+    note: null
+  },
+  {
+    day: "joi",
+    startTime: "18:00",
+    endTime: "19:00",
+    title: "Pilates Mat",
+    instructor: "Adelina Csolti",
+    track: "saltea",
+    level: "Toate nivelurile",
+    note: null
+  },
+  {
+    day: "joi",
+    startTime: "18:00",
+    endTime: "19:00",
+    title: "Reformer — Avansat",
+    instructor: "Gabriela Ostafe",
+    track: "reformer",
+    level: "Avansat",
+    note: "Clasă simultană cu Mat"
+  },
+  {
+    day: "vineri",
+    startTime: "08:30",
+    endTime: "09:30",
+    title: "Pilates Mat — Dimineață",
+    instructor: "Elena Seremet",
+    track: "saltea",
+    level: null,
+    note: null
+  },
+  {
+    day: "sambata",
+    startTime: "10:00",
+    endTime: "11:00",
+    title: "Yoga",
+    instructor: "Adelina Csolti",
+    track: "saltea",
+    level: null,
+    note: null
+  }
+];
+
 const EMPTY: ProgramData = {
   openingHours: fallbackSchedule.map((row) => ({ day: row.day, hours: row.hours })),
   gmaNote: DEFAULT_GMA_NOTE,
-  sessions: []
+  sessions: TEMPLATE_PROGRAM_SESSIONS
 };
 
 function isPayloadConfigured(): boolean {
@@ -110,7 +224,7 @@ async function fetchProgram(): Promise<ProgramData> {
     return {
       openingHours: openingHours.length > 0 ? openingHours : EMPTY.openingHours,
       gmaNote: d.gmaNote?.trim() || DEFAULT_GMA_NOTE,
-      sessions
+      sessions: sessions.length > 0 ? sessions : TEMPLATE_PROGRAM_SESSIONS
     };
   } catch (error) {
     console.error("[cms-program] Failed to load program global:", error);

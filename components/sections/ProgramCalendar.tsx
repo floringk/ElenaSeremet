@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import type { ProgramData, ProgramSession } from "@/lib/cms-program";
 import { PROGRAM_DAYS, PROGRAM_DAY_LABELS } from "@/lib/cms-program";
 
@@ -118,11 +116,7 @@ export function ProgramCalendar({ program }: ProgramCalendarProps) {
       ) : (
         <div className="program-calendar-empty-state surface-soft card">
           <p>
-            Calendarul claselor va fi afișat aici după ce adaugi sesiuni în{" "}
-            <Link href="/cms/globals/program" className="focus-ring">
-              CMS → Program clase
-            </Link>
-            .
+            Calendarul claselor va fi afișat aici după ce adaugi sesiuni în CMS → Program clase.
           </p>
         </div>
       )}

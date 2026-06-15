@@ -199,6 +199,7 @@ p {
   position: sticky;
   top: 0;
   z-index: 40;
+  overflow: visible;
   backdrop-filter: blur(8px);
   transition:
     box-shadow var(--dur) var(--ease),
@@ -263,6 +264,7 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  overflow: visible;
 }
 
 .logo-link {
@@ -277,6 +279,7 @@ p {
 .main-nav {
   display: flex;
   align-items: center;
+  overflow: visible;
 }
 
 .main-nav-list {
@@ -1224,6 +1227,7 @@ p {
 
   .main-nav-list {
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: stretch;
     gap: 0.15rem;
     width: 100%;

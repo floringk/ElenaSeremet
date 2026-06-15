@@ -76,7 +76,7 @@ export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
       setMegaOpen(false);
       setMobileSvcOpen(false);
     }
-    const mq = window.matchMedia("(max-width: 900px)");
+    const mq = window.matchMedia("(max-width: 1024px)");
     mq.addEventListener("change", onResize);
     return () => mq.removeEventListener("change", onResize);
   }, []);

@@ -4,6 +4,7 @@
  */
 import "dotenv/config";
 
+import { TEMPLATE_PROGRAM_SESSIONS } from "../lib/cms-program";
 import { pricingPlans, schedule } from "../lib/site-data";
 
 const DEFAULT_GMA_NOTE =
@@ -30,7 +31,16 @@ async function main() {
       hours: row.hours
     })),
     gmaNote: DEFAULT_GMA_NOTE,
-    sessions: [] as []
+    sessions: TEMPLATE_PROGRAM_SESSIONS.map((session) => ({
+      day: session.day,
+      startTime: session.startTime,
+      endTime: session.endTime,
+      title: session.title,
+      instructor: session.instructor ?? "",
+      track: session.track,
+      level: session.level ?? "",
+      note: session.note ?? ""
+    }))
   };
 
   await payload.updateGlobal({
@@ -45,7 +55,9 @@ async function main() {
     data: programData,
     overrideAccess: true
   });
-  console.log(`Seeded program global with ${programData.openingHours.length} opening hour row(s).`);
+  console.log(
+    `Seeded program global with ${programData.openingHours.length} opening hour row(s) and ${programData.sessions.length} class session(s).`
+  );
 
   await payload.destroy();
   console.log("Done.");

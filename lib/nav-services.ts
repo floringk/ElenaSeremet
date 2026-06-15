@@ -7,49 +7,55 @@ export type NavServiceGroup = {
   items: NavServiceLink[];
 };
 
-/** Column labels + slugs (manifest `type: servicii`). Order within each column is preserved. */
-const SERVICE_GROUPS: { label: string; slugs: string[] }[] = [
+/**
+ * Static nav data — must not depend on `mockups/` at runtime (excluded from Vercel serverless bundles).
+ * Manifest titles are merged in when available (local dev / build).
+ */
+const SERVICE_NAV_GROUPS: NavServiceGroup[] = [
   {
     label: "Pilates & antrenament",
-    slugs: ["pilates-mat", "pilates-reformer", "postural", "sedinte-private"]
+    items: [
+      { href: "/pilates-mat", label: "Pilates Mat" },
+      { href: "/pilates-reformer", label: "Pilates Reformer" },
+      { href: "/postural", label: "Postural" },
+      { href: "/sedinte-private", label: "Sedinte Private" }
+    ]
   },
   {
     label: "Yoga & Yogalates",
-    slugs: ["yoga", "yoga-3", "yogalates-stretching"]
+    items: [
+      { href: "/yoga", label: "Yoga" },
+      { href: "/yoga-3", label: "Hatha Yoga (continuitate)" },
+      { href: "/yogalates-stretching", label: "Yogalates & Stretching" }
+    ]
   },
   {
     label: "Tonifiere & recuperare",
-    slugs: ["tonifiere", "masaj-si-drenaj"]
+    items: [
+      { href: "/tonifiere", label: "Tonifiere" },
+      { href: "/masaj-si-drenaj", label: "Masaj si Drenaj" }
+    ]
   }
 ];
 
-export function getServiceNavGroups(): NavServiceGroup[] {
+function mergeManifestTitles(groups: NavServiceGroup[]): NavServiceGroup[] {
   const rows = getServiciiDetailSlugs();
-  const bySlug = new Map(rows.map((r) => [r.slug, r]));
-  const assigned = new Set<string>();
-  const groups: NavServiceGroup[] = [];
-
-  for (const def of SERVICE_GROUPS) {
-    const items: NavServiceLink[] = [];
-    for (const slug of def.slugs) {
-      const row = bySlug.get(slug);
-      if (row) {
-        items.push({ href: `/${slug}`, label: row.title });
-        assigned.add(slug);
-      }
-    }
-    if (items.length > 0) {
-      groups.push({ label: def.label, items });
-    }
+  if (rows.length === 0) {
+    return groups;
   }
 
-  const rest = rows.filter((r) => !assigned.has(r.slug));
-  if (rest.length > 0) {
-    groups.push({
-      label: "Alte servicii",
-      items: rest.map((r) => ({ href: `/${r.slug}`, label: r.title }))
-    });
-  }
+  const titleBySlug = new Map(rows.map((row) => [row.slug, row.title]));
 
-  return groups;
+  return groups.map((group) => ({
+    ...group,
+    items: group.items.map((item) => {
+      const slug = item.href.replace(/^\//, "");
+      const title = titleBySlug.get(slug);
+      return title ? { ...item, label: title } : item;
+    })
+  }));
+}
+
+export function getServiceNavGroups(): NavServiceGroup[] {
+  return mergeManifestTitles(SERVICE_NAV_GROUPS);
 }

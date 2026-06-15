@@ -7,11 +7,17 @@ type ScheduleRegulationsProps = {
   sections: { heading: string; blocks: ContentBlock[] }[];
 };
 
-function isRegulamentHeading(heading: string): boolean {
-  const n = heading
+function normalizeHeading(value: string): string {
+  return value
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function isRegulamentHeading(heading: string): boolean {
+  const n = normalizeHeading(heading);
   return n.includes("regulament");
 }
 
@@ -19,13 +25,30 @@ function isNumberedRuleHeading(heading: string): boolean {
   return /^\d+\.\s/.test(heading.trim());
 }
 
+/** Legacy CMS headings replaced by the interactive calendar — hide empty cards. */
+function isLegacySchedulePlaceholder(heading: string): boolean {
+  const n = normalizeHeading(heading);
+  if (n.includes("program saltea") || n.includes("program reformer")) {
+    return true;
+  }
+  if (n.includes("vezi programul complet")) {
+    return true;
+  }
+  return false;
+}
+
+function filterScheduleSections(sections: ScheduleRegulationsProps["sections"]) {
+  return sections.filter((sec) => !isLegacySchedulePlaceholder(sec.heading));
+}
+
 export function ScheduleRegulations({ sections }: ScheduleRegulationsProps) {
-  const regulamentIndex = sections.findIndex((s) => isRegulamentHeading(s.heading));
+  const filtered = filterScheduleSections(sections);
+  const regulamentIndex = filtered.findIndex((s) => isRegulamentHeading(s.heading));
 
   if (regulamentIndex === -1) {
     return (
       <>
-        {sections.map((sec, idx) => (
+        {filtered.map((sec, idx) => (
           <section key={`${sec.heading}-${idx}`} className="rich-section surface-soft">
             {sec.heading !== "Introducere" ? (
               <h2 className="rich-section-heading">{sec.heading}</h2>
@@ -37,9 +60,9 @@ export function ScheduleRegulations({ sections }: ScheduleRegulationsProps) {
     );
   }
 
-  const before = sections.slice(0, regulamentIndex);
-  const regulamentIntro = sections[regulamentIndex];
-  const rules = sections.slice(regulamentIndex + 1);
+  const before = filtered.slice(0, regulamentIndex).filter((sec) => sec.heading !== "Introducere");
+  const regulamentIntro = filtered[regulamentIndex];
+  const rules = filtered.slice(regulamentIndex + 1);
 
   return (
     <>
