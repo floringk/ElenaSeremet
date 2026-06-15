@@ -20,6 +20,154 @@ type SiteHeaderNavProps = {
   serviceGroups: NavServiceGroup[];
 };
 
+type NavListProps = {
+  serviceGroups: NavServiceGroup[];
+  flatLinks: typeof navLinks;
+  serviciiLink: (typeof navLinks)[number] | undefined;
+  megaOpen: boolean;
+  megaId: string;
+  mobileSvcOpen: boolean;
+  megaWrapRef: React.RefObject<HTMLLIElement | null>;
+  onCloseMenu: () => void;
+  onToggleMega: () => void;
+  onToggleMobileSvc: () => void;
+  variant: "desktop" | "drawer";
+};
+
+function NavList({
+  serviceGroups,
+  flatLinks,
+  serviciiLink,
+  megaOpen,
+  megaId,
+  mobileSvcOpen,
+  megaWrapRef,
+  onCloseMenu,
+  onToggleMega,
+  onToggleMobileSvc,
+  variant
+}: NavListProps) {
+  const isDrawer = variant === "drawer";
+
+  return (
+    <ul className="main-nav-list">
+      {flatLinks.slice(0, 2).map((item) => (
+        <li key={item.href}>
+          <Link href={item.href} className="main-nav-link focus-ring" onClick={onCloseMenu}>
+            {item.label}
+          </Link>
+        </li>
+      ))}
+      <li ref={isDrawer ? undefined : megaWrapRef} className="nav-item-mega">
+        {!isDrawer ? (
+          <>
+            <button
+              type="button"
+              className={`main-nav-trigger focus-ring ${megaOpen ? "is-active" : ""}`}
+              aria-expanded={megaOpen}
+              aria-haspopup="true"
+              aria-controls={megaId}
+              id={`${megaId}-trigger`}
+              onClick={onToggleMega}
+            >
+              {serviciiLink?.label ?? "Servicii"}
+              <span className="nav-mega-chevron" aria-hidden />
+            </button>
+            {megaOpen ? (
+              <div
+                id={megaId}
+                className="nav-mega-panel"
+                role="region"
+                aria-labelledby={`${megaId}-trigger`}
+              >
+                <div className="nav-mega-inner container">
+                  <Link
+                    href="/servicii"
+                    className="nav-mega-overview focus-ring"
+                    onClick={() => {
+                      onToggleMega();
+                      onCloseMenu();
+                    }}
+                  >
+                    <span className="nav-mega-overview-title">Toate serviciile</span>
+                    <span className="nav-mega-overview-sub">Prezentare generală</span>
+                  </Link>
+                  <div className="nav-mega-columns">
+                    {serviceGroups.map((group) => (
+                      <div key={group.label} className="nav-mega-col">
+                        <p className="nav-mega-col-label">{group.label}</p>
+                        <ul className="nav-mega-links">
+                          {group.items.map((item) => (
+                            <li key={item.href}>
+                              <Link
+                                href={item.href}
+                                className="nav-mega-link focus-ring"
+                                onClick={() => {
+                                  onToggleMega();
+                                  onCloseMenu();
+                                }}
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </>
+        ) : null}
+
+        <div className={`nav-mobile-services nav-mobile-only ${mobileSvcOpen ? "is-open" : ""}`}>
+          <button
+            type="button"
+            className="nav-mobile-svc-toggle focus-ring"
+            aria-expanded={mobileSvcOpen}
+            onClick={onToggleMobileSvc}
+          >
+            {serviciiLink?.label ?? "Servicii"}
+            <span
+              className={`nav-mega-chevron nav-mega-chevron--mob ${mobileSvcOpen ? "is-open" : ""}`}
+              aria-hidden
+            />
+          </button>
+          {mobileSvcOpen ? (
+            <div className="nav-mobile-svc-panel">
+              <Link href="/servicii" className="nav-mobile-overview focus-ring" onClick={onCloseMenu}>
+                Toate serviciile →
+              </Link>
+              {serviceGroups.map((group) => (
+                <div key={group.label} className="nav-mobile-group">
+                  <p className="nav-mobile-group-label">{group.label}</p>
+                  <ul className="nav-mobile-group-list">
+                    {group.items.map((item) => (
+                      <li key={item.href}>
+                        <Link href={item.href} className="focus-ring" onClick={onCloseMenu}>
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </li>
+      {flatLinks.slice(2).map((item) => (
+        <li key={item.href}>
+          <Link href={item.href} className="main-nav-link focus-ring" onClick={onCloseMenu}>
+            {item.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -28,7 +176,7 @@ export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
   const navId = useId();
   const megaId = useId();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const navRef = useRef<HTMLElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
   const megaWrapRef = useRef<HTMLLIElement>(null);
 
   const closeMenu = useCallback(() => {
@@ -75,6 +223,9 @@ export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
     function onResize() {
       setMegaOpen(false);
       setMobileSvcOpen(false);
+      if (window.matchMedia("(min-width: 1025px)").matches) {
+        setDrawerOpen(false);
+      }
     }
     const mq = window.matchMedia("(max-width: 1024px)");
     mq.addEventListener("change", onResize);
@@ -90,7 +241,7 @@ export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
 
   useEffect(() => {
     if (!drawerOpen) return;
-    const nav = navRef.current;
+    const nav = drawerRef.current;
     if (!nav) return;
 
     const list = getFocusableElements(nav);
@@ -149,6 +300,19 @@ export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
     setMobileSvcOpen((v) => !v);
   };
 
+  const navListProps: Omit<NavListProps, "variant"> = {
+    serviceGroups,
+    flatLinks,
+    serviciiLink,
+    megaOpen,
+    megaId,
+    mobileSvcOpen,
+    megaWrapRef,
+    onCloseMenu: closeMenu,
+    onToggleMega: toggleMega,
+    onToggleMobileSvc: toggleMobileSvc
+  };
+
   return (
     <>
       {drawerOpen ? (
@@ -159,7 +323,9 @@ export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
           onClick={closeMenu}
         />
       ) : null}
-      <header className={`site-header ${scrolled ? "site-header--scrolled" : ""} ${drawerOpen ? "site-header--menu-open" : ""}`}>
+      <header
+        className={`site-header ${scrolled ? "site-header--scrolled" : ""} ${drawerOpen ? "site-header--menu-open" : ""}`}
+      >
         <div className="container header-inner">
           <Link href="/" className="logo-link focus-ring" onClick={closeMenu}>
             <Image
@@ -185,126 +351,23 @@ export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
             <span />
             <span />
           </button>
-          <nav
-            ref={navRef}
-            id={navId}
-            className={`main-nav ${drawerOpen ? "open" : ""}`}
-            data-open={drawerOpen ? "true" : undefined}
-            aria-label="Navigație principală"
-          >
-            <ul className="main-nav-list">
-              {flatLinks.slice(0, 2).map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="main-nav-link focus-ring" onClick={closeMenu}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-              <li ref={megaWrapRef} className="nav-item-mega">
-                <button
-                  type="button"
-                  className={`main-nav-trigger focus-ring ${megaOpen ? "is-active" : ""}`}
-                  aria-expanded={megaOpen}
-                  aria-haspopup="true"
-                  aria-controls={megaId}
-                  id={`${megaId}-trigger`}
-                  onClick={() => {
-                    toggleMega();
-                  }}
-                >
-                  {serviciiLink?.label ?? "Servicii"}
-                  <span className="nav-mega-chevron" aria-hidden />
-                </button>
-                {megaOpen ? (
-                  <div
-                    id={megaId}
-                    className="nav-mega-panel"
-                    role="region"
-                    aria-labelledby={`${megaId}-trigger`}
-                  >
-                    <div className="nav-mega-inner container">
-                      <Link
-                        href="/servicii"
-                        className="nav-mega-overview focus-ring"
-                        onClick={() => {
-                          setMegaOpen(false);
-                          closeMenu();
-                        }}
-                      >
-                        <span className="nav-mega-overview-title">Toate serviciile</span>
-                        <span className="nav-mega-overview-sub">Prezentare generală</span>
-                      </Link>
-                      <div className="nav-mega-columns">
-                        {serviceGroups.map((group) => (
-                          <div key={group.label} className="nav-mega-col">
-                            <p className="nav-mega-col-label">{group.label}</p>
-                            <ul className="nav-mega-links">
-                              {group.items.map((item) => (
-                                <li key={item.href}>
-                                  <Link
-                                    href={item.href}
-                                    className="nav-mega-link focus-ring"
-                                    onClick={() => {
-                                      setMegaOpen(false);
-                                      closeMenu();
-                                    }}
-                                  >
-                                    {item.label}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
-
-                <div className={`nav-mobile-services nav-mobile-only ${mobileSvcOpen ? "is-open" : ""}`}>
-                  <button
-                    type="button"
-                    className="nav-mobile-svc-toggle focus-ring"
-                    aria-expanded={mobileSvcOpen}
-                    onClick={toggleMobileSvc}
-                  >
-                    {serviciiLink?.label ?? "Servicii"}
-                    <span className={`nav-mega-chevron nav-mega-chevron--mob ${mobileSvcOpen ? "is-open" : ""}`} aria-hidden />
-                  </button>
-                  {mobileSvcOpen ? (
-                    <div className="nav-mobile-svc-panel">
-                      <Link href="/servicii" className="nav-mobile-overview focus-ring" onClick={closeMenu}>
-                        Toate serviciile →
-                      </Link>
-                      {serviceGroups.map((group) => (
-                        <div key={group.label} className="nav-mobile-group">
-                          <p className="nav-mobile-group-label">{group.label}</p>
-                          <ul className="nav-mobile-group-list">
-                            {group.items.map((item) => (
-                              <li key={item.href}>
-                                <Link href={item.href} className="focus-ring" onClick={closeMenu}>
-                                  {item.label}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
-              </li>
-              {flatLinks.slice(2).map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="main-nav-link focus-ring" onClick={closeMenu}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <nav className="main-nav main-nav--desktop" aria-label="Navigație principală (desktop)">
+            <NavList {...navListProps} variant="desktop" />
           </nav>
         </div>
       </header>
+
+      <nav
+        ref={drawerRef}
+        id={navId}
+        className={`main-nav main-nav--drawer ${drawerOpen ? "open" : ""}`}
+        data-open={drawerOpen ? "true" : undefined}
+        aria-label="Navigație principală"
+        aria-hidden={drawerOpen ? undefined : true}
+      >
+        <NavList {...navListProps} variant="drawer" />
+      </nav>
+
       <div className="intro-strip">
         <div className="container intro-strip-inner">
           <p className="intro-strip-text">
