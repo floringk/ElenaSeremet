@@ -16,17 +16,25 @@ type MembershipSignupFormProps = {
   /** Overrides default compact/full heading */
   title?: string;
   id?: string;
+  /** Plan names from CMS; falls back to site-data when omitted */
+  subscriptionOptions?: string[];
 };
 
 export function MembershipSignupForm({
   sourcePage = "/inscriere",
   compact = false,
   title,
-  id = "inscriere-studio"
+  id = "inscriere-studio",
+  subscriptionOptions
 }: MembershipSignupFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  const planOptions =
+    subscriptionOptions && subscriptionOptions.length > 0
+      ? subscriptionOptions
+      : [...MEMBERSHIP_SUBSCRIPTION_VALUES];
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -156,7 +164,7 @@ export function MembershipSignupForm({
             <option value="" disabled>
               Selectează…
             </option>
-            {MEMBERSHIP_SUBSCRIPTION_VALUES.map((name) => (
+            {planOptions.map((name) => (
               <option key={name} value={name}>
                 {name}
               </option>

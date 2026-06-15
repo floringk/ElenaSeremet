@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { CtaBanner } from "@/components/sections/CtaBanner";
 import { Reveal } from "@/components/ui/Reveal";
 import type { ContentBlock, NormalizedPage } from "@/lib/content";
 import { services, team } from "@/lib/site-data";
@@ -230,19 +231,7 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         </div>
       </section>
 
-      <section className="cta-strip page-section home-section">
-        <div className="container cta-strip-inner">
-          <Reveal>
-            <h2>Programează-te</h2>
-            <p>Rezervă locul la clasele preferate sau trimite-ne un mesaj.</p>
-          </Reveal>
-          <Reveal delay={1}>
-            <Link href="/contact" className="btn btn-primary focus-ring">
-              Contact
-            </Link>
-          </Reveal>
-        </div>
-      </section>
+      <CtaBanner className="home-section" />
     </>
   );
 }

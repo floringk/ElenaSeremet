@@ -1,11 +1,15 @@
 import Image from "next/image";
 
+import { CtaBanner } from "@/components/sections/CtaBanner";
 import { PageBlocks } from "@/components/sections/PageBlocks";
+import { ProgramCalendar } from "@/components/sections/ProgramCalendar";
 import { ScheduleBlock } from "@/components/sections/ScheduleBlock";
 import { ScheduleRegulations } from "@/components/sections/ScheduleRegulations";
-import { MembershipSignupForm } from "@/components/membership/MembershipSignupForm";
+import { MembershipSignupFormServer } from "@/components/membership/MembershipSignupFormServer";
 import { ServiceLeadCta } from "@/components/templates/ServiceLeadCta";
 import { Reveal } from "@/components/ui/Reveal";
+import { isClassPage } from "@/lib/class-page";
+import { getProgram } from "@/lib/cms-program";
 import { getServiceChipLabel } from "@/lib/service-chip";
 import type { ContentBlock, NormalizedPage } from "@/lib/content";
 
@@ -62,14 +66,16 @@ function isSvgPath(src: string): boolean {
   return base.toLowerCase().endsWith(".svg");
 }
 
-export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
+export async function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
   const images = page.contentImages;
   const isService = variant === "service";
+  const isClassLead = isService || isClassPage(page.slug, page.pageType);
+  const program = page.slug === "schedules" ? await getProgram() : null;
   const heroPath = page.heroImagePath;
   const heroSvg = heroPath ? isSvgPath(heroPath) : false;
   const chip = isService ? getServiceChipLabel(page.slug) : null;
   const membershipFormRendered =
-    isService &&
+    isClassLead &&
     page.sections.some(
       (sec) => isMembershipSection(sec.heading) || sectionHasLegacyMembershipLabels(sec.blocks)
     );
@@ -120,21 +126,27 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
           {page.intro ? <p className="legacy-intro">{page.intro}</p> : null}
         </header>
 
-        {page.slug === "schedules" ? (
-          <Reveal>
-            <div className="schedule-highlight surface-soft card">
-              <h2 className="rich-section-heading">Program studio</h2>
-              <ScheduleBlock />
-              <p className="muted schedule-highlight-note">
-                Orele pot varia în sărbători — confirmă la telefon înainte de vizită.
-              </p>
-            </div>
-          </Reveal>
+        {page.slug === "schedules" && program ? (
+          <>
+            <Reveal>
+              <div className="schedule-highlight surface-soft card">
+                <h2 className="rich-section-heading">Program studio</h2>
+                <ScheduleBlock openingHours={program.openingHours} />
+                <p className="muted schedule-highlight-note">
+                  Orele pot varia în sărbători — confirmă la telefon înainte de vizită.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={1}>
+              <div className="schedule-classes surface-soft card">
+                <h2 className="rich-section-heading">Calendar clase</h2>
+                <ProgramCalendar program={program} />
+              </div>
+            </Reveal>
+          </>
         ) : null}
 
-        {page.slug === "schedules" ? (
-          <ScheduleRegulations sections={page.sections} />
-        ) : null}
+        {page.slug === "schedules" ? <ScheduleRegulations sections={page.sections} /> : null}
 
         {page.slug !== "schedules" && heroPath && !isService ? (
           <Reveal>
@@ -154,69 +166,69 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
 
         {page.slug !== "schedules"
           ? page.sections.map((sec, idx) => {
-          const img = images[idx];
-          const hasImg = Boolean(img);
-          const flip = Boolean(hasImg && idx % 2 === 1);
-          const inlineSvg = img ? isSvgPath(img.src) : false;
+              const img = images[idx];
+              const hasImg = Boolean(img);
+              const flip = Boolean(hasImg && idx % 2 === 1);
+              const inlineSvg = img ? isSvgPath(img.src) : false;
 
-          const toneClass =
-            isService && (idx % 2 === 0 ? "rich-section--tone-a" : "rich-section--tone-b");
+              const toneClass =
+                isService && (idx % 2 === 0 ? "rich-section--tone-a" : "rich-section--tone-b");
 
-          const showMembershipForm =
-            isService &&
-            (isMembershipSection(sec.heading) || sectionHasLegacyMembershipLabels(sec.blocks));
+              const showMembershipForm =
+                isClassLead &&
+                (isMembershipSection(sec.heading) || sectionHasLegacyMembershipLabels(sec.blocks));
 
-          const sectionBlocks = showMembershipForm
-            ? sec.blocks.filter((block) => !isLegacyMembershipLabelBlock(block))
-            : sec.blocks;
+              const sectionBlocks = showMembershipForm
+                ? sec.blocks.filter((block) => !isLegacyMembershipLabelBlock(block))
+                : sec.blocks;
 
-          return (
-            <Reveal key={`${sec.heading}-${idx}`} delay={(idx % 4) as 0 | 1 | 2 | 3}>
-              <section
-                className={`rich-section ${isService ? toneClass : "surface-soft"} ${
-                  hasImg && isService ? "rich-section--with-media" : ""
-                }`}
-              >
-                {flip && hasImg && isService ? (
-                  <InlineFigure img={img} heading={sec.heading} inlineSvg={inlineSvg} />
-                ) : null}
+              return (
+                <Reveal key={`${sec.heading}-${idx}`} delay={(idx % 4) as 0 | 1 | 2 | 3}>
+                  <section
+                    className={`rich-section ${isService ? toneClass : "surface-soft"} ${
+                      hasImg && isService ? "rich-section--with-media" : ""
+                    }`}
+                  >
+                    {flip && hasImg && isService ? (
+                      <InlineFigure img={img} heading={sec.heading} inlineSvg={inlineSvg} />
+                    ) : null}
 
-                <div className="rich-section-copy">
-                  {sec.heading !== "Introducere" ? (
-                    <h2 className="rich-section-heading">{sec.heading}</h2>
-                  ) : null}
-                  <PageBlocks blocks={sectionBlocks} withSectionWrappers={false} />
-                  {showMembershipForm ? (
-                    <div className="service-lead-block">
-                      <MembershipSignupForm
-                        sourcePage={`/${page.slug}`}
-                        compact
-                        title="Alătură-te astăzi"
-                        id={`membership-${page.slug}`}
-                      />
-                      <ServiceLeadCta />
+                    <div className="rich-section-copy">
+                      {sec.heading !== "Introducere" ? (
+                        <h2 className="rich-section-heading">{sec.heading}</h2>
+                      ) : null}
+                      <PageBlocks blocks={sectionBlocks} withSectionWrappers={false} />
+                      {showMembershipForm ? (
+                        <div className="service-lead-block">
+                          <MembershipSignupFormServer
+                            sourcePage={`/${page.slug}`}
+                            compact
+                            title="Alătură-te astăzi"
+                            id={`membership-${page.slug}`}
+                          />
+                          <ServiceLeadCta />
+                        </div>
+                      ) : null}
                     </div>
-                  ) : null}
-                </div>
 
-                {!flip && hasImg && isService ? (
-                  <InlineFigure img={img} heading={sec.heading} inlineSvg={inlineSvg} />
-                ) : null}
+                    {!flip && hasImg && isService ? (
+                      <InlineFigure img={img} heading={sec.heading} inlineSvg={inlineSvg} />
+                    ) : null}
 
-                {hasImg && !isService ? (
-                  <InlineFigure img={img} heading={sec.heading} inlineSvg={inlineSvg} />
-                ) : null}
-              </section>
-            </Reveal>
-          );
-        })
+                    {hasImg && !isService ? (
+                      <InlineFigure img={img} heading={sec.heading} inlineSvg={inlineSvg} />
+                    ) : null}
+                  </section>
+                </Reveal>
+              );
+            })
           : null}
 
-        {isService && !membershipFormRendered ? (
+        {isClassLead && !membershipFormRendered ? (
           <Reveal>
-            <section className="rich-section rich-section--tone-a">
+            <section className={`rich-section ${isService ? "rich-section--tone-a" : "surface-soft"}`}>
               <div className="rich-section-copy">
-                <MembershipSignupForm
+                <MembershipSignupFormServer
                   sourcePage={`/${page.slug}`}
                   compact
                   title="Alătură-te astăzi"
@@ -226,6 +238,14 @@ export function RichLegacyTemplate({ page, variant }: RichLegacyTemplateProps) {
               </div>
             </section>
           </Reveal>
+        ) : null}
+
+        {isClassLead ? (
+          <CtaBanner
+            className="rich-legacy-cta"
+            primaryHref="/inscriere#inscriere-studio"
+            primaryLabel="Înscrie-te"
+          />
         ) : null}
       </div>
     </section>

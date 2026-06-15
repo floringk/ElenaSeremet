@@ -8,12 +8,12 @@ import { ServiciiHubTemplate } from "@/components/templates/ServiciiHubTemplate"
 import { TeamTemplate } from "@/components/templates/TeamTemplate";
 import { resolveTemplateKind, type TemplateKind } from "@/components/templates/resolveTemplateKind";
 
-export function renderPageByTemplate(page: NormalizedPage, isHome: boolean): ReactNode {
+export async function renderPageByTemplate(page: NormalizedPage, isHome: boolean): Promise<ReactNode> {
   const kind = resolveTemplateKind(page, isHome);
   return renderByKind(kind, page);
 }
 
-export function renderByKind(kind: TemplateKind, page: NormalizedPage): ReactNode {
+export async function renderByKind(kind: TemplateKind, page: NormalizedPage): Promise<ReactNode> {
   switch (kind) {
     case "home":
       return <HomeTemplate page={page} />;

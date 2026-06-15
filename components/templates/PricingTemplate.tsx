@@ -3,14 +3,16 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/ui/Reveal";
 import type { NormalizedPage } from "@/lib/content";
+import { getPricingPlans } from "@/lib/cms-pricing";
 import { splitPriceValue } from "@/lib/format-price";
-import { pricingPlans } from "@/lib/site-data";
 
 type PricingTemplateProps = {
   page: NormalizedPage;
 };
 
-export function PricingTemplate({ page }: PricingTemplateProps) {
+export async function PricingTemplate({ page }: PricingTemplateProps) {
+  const pricingPlans = await getPricingPlans();
+
   return (
     <section className="page-section pricing-template">
       <div className="container">
@@ -40,7 +42,7 @@ export function PricingTemplate({ page }: PricingTemplateProps) {
 
         <div className="grid-3 pricing-cards">
           {pricingPlans.map((plan, i) => {
-            const featured = plan.name.includes("8");
+            const featured = plan.featured;
             const { amount, currency } = splitPriceValue(plan.value);
             return (
               <Reveal key={plan.name} delay={(i % 4) as 0 | 1 | 2 | 3}>

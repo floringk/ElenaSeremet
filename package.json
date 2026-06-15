@@ -19,7 +19,8 @@
     "cms:sync-hero-paths": "node scripts/patch-payload-loadenv.cjs && tsx scripts/import-media-to-payload.ts",
     "cms:clear-media-refs": "node scripts/patch-payload-loadenv.cjs && tsx scripts/clear-cms-media-refs.ts",
     "cms:import-media": "npm run cms:sync-hero-paths",
-    "cms:import-membership": "node scripts/patch-payload-loadenv.cjs && tsx scripts/import-membership-to-payload.ts"
+    "cms:import-membership": "node scripts/patch-payload-loadenv.cjs && tsx scripts/import-membership-to-payload.ts",
+    "cms:seed": "node scripts/patch-payload-loadenv.cjs && tsx scripts/seed-cms-content.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.84.1",

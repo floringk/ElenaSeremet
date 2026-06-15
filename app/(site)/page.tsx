@@ -9,7 +9,7 @@ export default async function HomePage() {
   const page = await getNormalizedPage("index");
   if (!page) notFound();
 
-  return renderPageByTemplate(page, true);
+  return await renderPageByTemplate(page, true);
 }
 
 export async function generateMetadata(): Promise<Metadata> {

@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import { MembershipSignupForm } from "@/components/membership/MembershipSignupForm";
+import { MembershipSignupFormServer } from "@/components/membership/MembershipSignupFormServer";
 import { gymAppLeadsUrl, gymAppLoginUrl } from "@/lib/gym-app";
 
-export function InscrierePanel() {
+export async function InscrierePanel() {
   return (
     <div className="inscriere-panel">
       <section className="inscriere-existing card surface-soft" aria-labelledby="inscriere-existing-heading">
@@ -38,7 +38,7 @@ export function InscrierePanel() {
             folosi și formularul Gym App de mai jos.
           </p>
         </header>
-        <MembershipSignupForm sourcePage="/inscriere" id="inscriere-studio" />
+        <MembershipSignupFormServer sourcePage="/inscriere" id="inscriere-studio" />
       </section>
 
       <section className="inscriere-leads card" aria-labelledby="inscriere-leads-heading">

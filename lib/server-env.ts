@@ -33,17 +33,42 @@ function getRequired(name: string): string {
   throw new Error(`Missing required environment variable: ${name}`);
 }
 
+/** Lazy getters — reading Supabase vars must not require SMTP/admin at import time. */
 export const serverEnv = {
-  supabaseUrl: getRequired("SUPABASE_URL"),
-  supabaseServiceRoleKey: getRequired("SUPABASE_SERVICE_ROLE_KEY"),
-  smtpHost: getRequired("SMTP_HOST"),
-  smtpPort: Number(process.env.SMTP_PORT || "587"),
-  smtpSecure: process.env.SMTP_SECURE === "true",
-  smtpUser: getRequired("SMTP_USER"),
-  smtpPass: getRequired("SMTP_PASS"),
-  mailFrom: getRequired("MAIL_FROM"),
-  mailTo: getRequired("MAIL_TO"),
-  adminUser: getRequired("ADMIN_USER"),
-  adminPassword: getRequired("ADMIN_PASSWORD"),
-  adminSessionSecret: getRequired("ADMIN_SESSION_SECRET")
+  get supabaseUrl() {
+    return getRequired("SUPABASE_URL");
+  },
+  get supabaseServiceRoleKey() {
+    return getRequired("SUPABASE_SERVICE_ROLE_KEY");
+  },
+  get smtpHost() {
+    return getRequired("SMTP_HOST");
+  },
+  get smtpPort() {
+    return Number(process.env.SMTP_PORT || "587");
+  },
+  get smtpSecure() {
+    return process.env.SMTP_SECURE === "true";
+  },
+  get smtpUser() {
+    return getRequired("SMTP_USER");
+  },
+  get smtpPass() {
+    return getRequired("SMTP_PASS");
+  },
+  get mailFrom() {
+    return getRequired("MAIL_FROM");
+  },
+  get mailTo() {
+    return getRequired("MAIL_TO");
+  },
+  get adminUser() {
+    return getRequired("ADMIN_USER");
+  },
+  get adminPassword() {
+    return getRequired("ADMIN_PASSWORD");
+  },
+  get adminSessionSecret() {
+    return getRequired("ADMIN_SESSION_SECRET");
+  }
 };

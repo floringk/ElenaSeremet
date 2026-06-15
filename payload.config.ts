@@ -292,6 +292,120 @@ const Settings: GlobalConfig = {
   ]
 };
 
+const PROGRAM_DAY_OPTIONS = [
+  { label: "Luni", value: "luni" },
+  { label: "Marți", value: "marti" },
+  { label: "Miercuri", value: "miercuri" },
+  { label: "Joi", value: "joi" },
+  { label: "Vineri", value: "vineri" },
+  { label: "Sâmbătă", value: "sambata" },
+  { label: "Duminică", value: "duminica" }
+];
+
+const Pricing: GlobalConfig = {
+  slug: "pricing",
+  label: "Prețuri",
+  access: {
+    read: () => true,
+    update: ({ req }) => Boolean(req.user)
+  },
+  fields: [
+    {
+      name: "plans",
+      type: "array",
+      label: "Abonamente",
+      admin: {
+        description: "Planurile afișate pe /preturi și în formularul de înscriere."
+      },
+      fields: [
+        { name: "name", type: "text", required: true, admin: { description: "Ex: 8 sedinte" } },
+        {
+          name: "price",
+          type: "text",
+          required: true,
+          admin: { description: "Ex: 520 RON" }
+        },
+        { name: "note", type: "textarea" },
+        {
+          name: "featured",
+          type: "checkbox",
+          defaultValue: false,
+          admin: { description: "Afișează badge „Recomandat”" }
+        }
+      ]
+    }
+  ]
+};
+
+const Program: GlobalConfig = {
+  slug: "program",
+  label: "Program clase",
+  access: {
+    read: () => true,
+    update: ({ req }) => Boolean(req.user)
+  },
+  fields: [
+    {
+      name: "openingHours",
+      type: "array",
+      label: "Program studio (recepție)",
+      fields: [
+        { name: "day", type: "text", required: true, admin: { description: "Ex: Luni - Vineri" } },
+        { name: "hours", type: "text", required: true, admin: { description: "Ex: 08:30 - 21:00" } }
+      ]
+    },
+    {
+      name: "gmaNote",
+      type: "textarea",
+      admin: { description: "Notă despre rezervări în aplicația GMA." }
+    },
+    {
+      name: "sessions",
+      type: "array",
+      label: "Clase săptămânale",
+      admin: {
+        description:
+          "Adaugă clase per zi. Clase cu ore suprapuse (ex. Saltea + Reformer) apar simultan în calendar."
+      },
+      fields: [
+        {
+          name: "day",
+          type: "select",
+          required: true,
+          options: PROGRAM_DAY_OPTIONS
+        },
+        {
+          name: "startTime",
+          type: "text",
+          required: true,
+          admin: { description: "Ex: 09:00" }
+        },
+        {
+          name: "endTime",
+          type: "text",
+          required: true,
+          admin: { description: "Ex: 10:00" }
+        },
+        { name: "title", type: "text", required: true },
+        { name: "instructor", type: "text" },
+        {
+          name: "track",
+          type: "select",
+          required: true,
+          defaultValue: "saltea",
+          options: [
+            { label: "Saltea", value: "saltea" },
+            { label: "Reformer", value: "reformer" },
+            { label: "Altele", value: "alte" }
+          ]
+        },
+        { name: "level", type: "text", admin: { description: "Ex: Începători, Intermediar" } },
+        { name: "note", type: "textarea" }
+      ]
+    }
+  ]
+};
+
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || "",
   admin: {
@@ -312,7 +426,7 @@ export default buildConfig({
   }),
   editor: lexicalEditor(),
   collections: [Users, Media, Pages, Submissions, MembershipSignups],
-  globals: [Settings],
+  globals: [Settings, Pricing, Program],
   typescript: {
     outputFile: path.resolve(process.cwd(), "payload-types.ts")
   }

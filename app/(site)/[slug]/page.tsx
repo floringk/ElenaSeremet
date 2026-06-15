@@ -50,7 +50,7 @@ export default async function LegacyPage({ params, searchParams }: PageProps) {
           </div>
         </div>
       ) : null}
-      {renderPageByTemplate(page, false)}
+      {await renderPageByTemplate(page, false)}
     </>
   );
 }

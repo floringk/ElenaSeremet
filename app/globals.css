@@ -618,9 +618,9 @@ p {
 }
 
 .btn-secondary {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: transparent;
+  border-color: var(--primary-dark);
+  color: var(--primary-dark);
+  background: rgba(15, 118, 110, 0.06);
 }
 
 .btn-secondary:hover {
@@ -1129,7 +1129,7 @@ p {
   font-size: 0.9rem;
 }
 
-@media (max-width: 1100px) and (min-width: 901px) {
+@media (max-width: 1100px) and (min-width: 1025px) {
   .footer-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1139,7 +1139,7 @@ p {
   }
 }
 
-@media (max-width: 1000px) and (min-width: 901px) {
+@media (max-width: 1100px) and (min-width: 1025px) {
   .nav-mega-columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1154,7 +1154,7 @@ p {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .hero,
   .grid-3 {
     grid-template-columns: 1fr;
@@ -1808,6 +1808,25 @@ p {
 .cta-strip .btn-primary:hover {
   background: var(--bg);
   color: var(--primary-dark);
+}
+
+.cta-strip-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.cta-strip .btn-secondary {
+  border-color: rgba(255, 255, 255, 0.85);
+  color: #fff;
+  background: transparent;
+}
+
+.cta-strip .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border-color: #fff;
 }
 
 .about-split {
@@ -2897,4 +2916,137 @@ p {
 
 .contact-template-grid {
   gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+/* --- Program calendar --- */
+.schedule-classes {
+  margin-top: 1.5rem;
+  padding: 1.35rem 1.35rem 1.5rem;
+}
+
+.program-calendar-wrap {
+  display: grid;
+  gap: 1rem;
+}
+
+.program-calendar-gma {
+  margin: 0 0 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.program-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.program-calendar-day {
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 0.75rem;
+  min-height: 120px;
+}
+
+.program-calendar-day-title {
+  margin: 0 0 0.65rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.program-calendar-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.program-calendar-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.program-calendar-session {
+  border-radius: 10px;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  background: rgba(15, 118, 110, 0.06);
+}
+
+.program-calendar-session--reformer {
+  border-color: rgba(132, 204, 22, 0.35);
+  background: rgba(132, 204, 22, 0.1);
+}
+
+.program-calendar-session--alte {
+  border-color: rgba(15, 23, 42, 0.12);
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.program-calendar-time {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.program-calendar-class-title {
+  margin: 0 0 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.3;
+}
+
+.program-calendar-meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.45rem;
+  font-size: 0.75rem;
+  color: var(--text-muted, #4b5563);
+}
+
+.program-calendar-track {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.program-calendar-note {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.program-calendar-empty {
+  margin: 0;
+  font-size: 0.8125rem;
+}
+
+.program-calendar-empty-state {
+  padding: 1rem 1.15rem;
+}
+
+.program-calendar-empty-state p {
+  margin: 0;
+}
+
+.rich-legacy-cta {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 1100px) {
+  .program-calendar-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .program-calendar-grid {
+    grid-template-columns: 1fr;
+  }
 }

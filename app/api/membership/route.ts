@@ -2,8 +2,7 @@ import { NextRequest } from "next/server";
 import { z } from "zod";
 import {
   MEMBERSHIP_KINDS,
-  MEMBERSHIP_WANT_GOALS,
-  MEMBERSHIP_SUBSCRIPTION_VALUES
+  MEMBERSHIP_WANT_GOALS
 } from "@/lib/membership-signup";
 import { getPayloadClient } from "@/lib/payload";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
@@ -14,7 +13,7 @@ const kindValues = MEMBERSHIP_KINDS.map((x) => x.value) as [string, ...string[]]
 
 const membershipSchema = z.object({
   want_goal: z.enum(wantValues),
-  subscription_type: z.enum(MEMBERSHIP_SUBSCRIPTION_VALUES),
+  subscription_type: z.string().min(1).max(120),
   member_kind: z.enum(kindValues),
   source_page: z.string().max(200).optional().default("/inscriere"),
   company: z.string().max(200).optional().default("")
