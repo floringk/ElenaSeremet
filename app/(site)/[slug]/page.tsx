@@ -9,18 +9,19 @@ import { buildBreadcrumbJsonLd } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ preview?: string }>;
 };
+
+/** Prerender every manifest slug so Vercel does not need mockups/ at request time. */
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const sp = await searchParams;
-  const preview = sp.preview === "true";
-  const page = await getNormalizedPage(slug, { includeDraft: preview });
+  const page = await getNormalizedPage(slug);
   if (!page) {
     return { title: "Pagina indisponibila" };
   }
@@ -28,11 +29,9 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   return buildMetadataFromPage(page, `/${slug}`);
 }
 
-export default async function LegacyPage({ params, searchParams }: PageProps) {
+export default async function LegacyPage({ params }: PageProps) {
   const { slug } = await params;
-  const sp = await searchParams;
-  const preview = sp.preview === "true";
-  const page = await getNormalizedPage(slug, { includeDraft: preview });
+  const page = await getNormalizedPage(slug);
   if (!page) {
     notFound();
   }
@@ -41,15 +40,6 @@ export default async function LegacyPage({ params, searchParams }: PageProps) {
     <>
       <JsonLd data={buildBreadcrumbJsonLd(slug, page.title)} />
       <ExtraPageJsonLd page={page} />
-      {preview ? (
-        <div className="preview-draft-banner" role="status">
-          <div className="container">
-            <p>
-              <strong>Previzualizare draft</strong> — conținutul poate include pagini nepublicate din CMS.
-            </p>
-          </div>
-        </div>
-      ) : null}
       {await renderPageByTemplate(page, false)}
     </>
   );
