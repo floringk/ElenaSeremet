@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/admin/", "/cms", "/cms/", "/api/"]
+        disallow: ["/admin", "/admin/", "/cms", "/cms/", "/api/", "/content/raw/"]
       }
     ],
     host: "https://elenaseremet.ro",

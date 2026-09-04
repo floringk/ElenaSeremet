@@ -10,9 +10,16 @@ const nextConfig = {
     tsconfigPath: "tsconfig.build.json"
   },
   poweredByHeader: false,
-  /** Images live in public/content after sync; keep mockups/ off serverless bundles. */
+  /**
+   * Album photos are copied to public/content at build (CDN). Keep them out of
+   * lambdas. JSON + manifest stay in the bundle so dynamic `/[slug]` can render
+   * when `?preview=true` or CONTENT_SOURCE=auto runs at request time.
+   */
   outputFileTracingExcludes: {
-    "/*": ["./mockups/**"]
+    "/*": ["./mockups/content/images/**", "./mockups/*.html"]
+  },
+  outputFileTracingIncludes: {
+    "/*": ["./mockups/content/raw/**", "./mockups/content/site_manifest.json"]
   },
   // Next may pick a parent folder if multiple lockfiles exist; keep resolution inside this app
   turbopack: {

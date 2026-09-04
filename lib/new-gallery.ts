@@ -77,7 +77,7 @@ function encodePathSegment(s: string): string {
 export type AlbumImage = { src: string; alt: string };
 
 /**
- * Public URLs for every image in an album (served by `app/content/[...path]`).
+ * Public URLs for every image in an album (`public/content` after build sync).
  */
 export function getAlbumImages(slug: string): AlbumImage[] {
   const album = getAlbumBySlug(slug);

@@ -43,12 +43,12 @@ Dynamic legacy slugs are generated from `mockups/content/site_manifest.json` and
 
 ## Legacy compatibility
 
-- `/content/*` paths are served from `mockups/content/*` by `app/content/[...path]/route.ts`.
+- `/content/*` paths are static files from `public/content` (copied from `mockups/content` at `npm run build` / `npm run dev`).
 - Redirect aliases are configured in `next.config.mjs` (for example `/despre` -> `/despre-noi` and `/program` -> `/schedules`).
 
 ## Assets (site chrome)
 
-Files in **`public/`** are served at the site root (`/favicon.ico`, `/og-default.jpg`, etc.). Page-level imagery stays under **`mockups/content/images/`** and is exposed at **`/content/images/...`** via `app/content/[...path]/route.ts`.
+Files in **`public/`** are served at the site root (`/favicon.ico`, `/og-default.jpg`, etc.). Page-level imagery stays under **`mockups/content/images/`** and is copied to **`public/content/images/`** at build, then served at **`/content/images/...`**.
 
 | File | Purpose |
 | --- | --- |
