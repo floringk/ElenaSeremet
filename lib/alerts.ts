@@ -2,7 +2,7 @@ import "server-only";
 
 import crypto from "node:crypto";
 import nodemailer from "nodemailer";
-import { serverEnv } from "@/lib/server-env";
+import { getSmtpEnv, isSmtpConfigured } from "@/lib/mail";
 
 export type ErrorAlertInput = {
   subject: string;
@@ -37,6 +37,10 @@ export async function sendErrorAlert(input: ErrorAlertInput): Promise<void> {
   if (existing && existing > now) {
     return;
   }
+  if (!isSmtpConfigured()) {
+    return;
+  }
+
   dedupeUntil.set(key, now + DEDUPE_TTL_MS);
 
   const lines = [
@@ -45,20 +49,21 @@ export async function sendErrorAlert(input: ErrorAlertInput): Promise<void> {
     input.context ? `Context: ${JSON.stringify(input.context, null, 2)}` : null
   ].filter(Boolean);
 
+  const smtp = getSmtpEnv();
   const transporter = nodemailer.createTransport({
-    host: serverEnv.smtpHost,
-    port: serverEnv.smtpPort,
-    secure: serverEnv.smtpSecure,
+    host: smtp.host,
+    port: smtp.port,
+    secure: smtp.secure,
     auth: {
-      user: serverEnv.smtpUser,
-      pass: serverEnv.smtpPass
+      user: smtp.user,
+      pass: smtp.pass
     }
   });
 
   try {
     await transporter.sendMail({
-      from: serverEnv.mailFrom,
-      to: serverEnv.mailTo,
+      from: smtp.from,
+      to: smtp.to,
       subject: input.subject,
       text: lines.join("\n")
     });

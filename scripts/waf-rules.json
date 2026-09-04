@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Rate limit contact",
+    "active": true,
+    "conditionGroup": [
+      {
+        "conditions": [
+          { "type": "path", "op": "eq", "value": "/api/contact" },
+          { "type": "method", "op": "eq", "value": "POST" }
+        ]
+      }
+    ],
+    "action": {
+      "mitigate": {
+        "action": "rate_limit",
+        "rateLimit": {
+          "algo": "fixed_window",
+          "window": 600,
+          "limit": 5,
+          "keys": ["ip"],
+          "action": "deny"
+        }
+      }
+    }
+  },
+  {
+    "name": "Rate limit membership",
+    "active": true,
+    "conditionGroup": [
+      {
+        "conditions": [
+          { "type": "path", "op": "eq", "value": "/api/membership" },
+          { "type": "method", "op": "eq", "value": "POST" }
+        ]
+      }
+    ],
+    "action": {
+      "mitigate": {
+        "action": "rate_limit",
+        "rateLimit": {
+          "algo": "fixed_window",
+          "window": 600,
+          "limit": 8,
+          "keys": ["ip"],
+          "action": "deny"
+        }
+      }
+    }
+  },
+  {
+    "name": "Rate limit track",
+    "active": true,
+    "conditionGroup": [
+      {
+        "conditions": [
+          { "type": "path", "op": "eq", "value": "/api/track" },
+          { "type": "method", "op": "eq", "value": "POST" }
+        ]
+      }
+    ],
+    "action": {
+      "mitigate": {
+        "action": "rate_limit",
+        "rateLimit": {
+          "algo": "fixed_window",
+          "window": 600,
+          "limit": 60,
+          "keys": ["ip"],
+          "action": "deny"
+        }
+      }
+    }
+  },
+  {
+    "name": "Rate limit admin login",
+    "active": true,
+    "conditionGroup": [
+      {
+        "conditions": [
+          { "type": "path", "op": "eq", "value": "/api/admin/login" },
+          { "type": "method", "op": "eq", "value": "POST" }
+        ]
+      }
+    ],
+    "action": {
+      "mitigate": {
+        "action": "rate_limit",
+        "rateLimit": {
+          "algo": "fixed_window",
+          "window": 600,
+          "limit": 10,
+          "keys": ["ip"],
+          "action": "deny"
+        }
+      }
+    }
+  }
+]

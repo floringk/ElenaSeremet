@@ -254,7 +254,13 @@ function deriveDescriptionFromBlocks(blocks: ContentBlock[]): string {
   return firstParagraph?.text?.trim() || "";
 }
 
+const SLUG_TITLE_OVERRIDES: Record<string, string> = {
+  "sedinte-private": "Ședințe Private",
+  "masaj-si-drenaj": "Masaj și Drenaj"
+};
+
 function getDisplayTitle(rawTitle: string, slug: string): string {
+  if (SLUG_TITLE_OVERRIDES[slug]) return SLUG_TITLE_OVERRIDES[slug];
   const trimmed = rawTitle.trim();
   if (!trimmed) return slug;
   return trimmed.split(" – ")[0].trim();

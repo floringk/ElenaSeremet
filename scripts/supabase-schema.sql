@@ -46,3 +46,22 @@ create index if not exists idx_page_events_event_name
 
 -- Payload CMS tables live here (see payload.config.ts `schemaName`), not in `public`.
 create schema if not exists payload;
+
+-- A3: RLS on public lead / analytics tables. INSERT for anon; no SELECT.
+alter table public.form_submissions enable row level security;
+alter table public.membership_signups enable row level security;
+alter table public.page_events enable row level security;
+
+grant insert on public.form_submissions, public.membership_signups, public.page_events to anon, authenticated;
+
+drop policy if exists membership_signups_insert_public on public.membership_signups;
+create policy membership_signups_insert_public
+  on public.membership_signups for insert to anon, authenticated with check (true);
+
+drop policy if exists form_submissions_insert_public on public.form_submissions;
+create policy form_submissions_insert_public
+  on public.form_submissions for insert to anon, authenticated with check (true);
+
+drop policy if exists page_events_insert_public on public.page_events;
+create policy page_events_insert_public
+  on public.page_events for insert to anon, authenticated with check (true);
