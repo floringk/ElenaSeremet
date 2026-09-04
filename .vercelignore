@@ -1,3 +1,6 @@
+Assets
+*.exe
+*.zip
 mockups/content/images/new.localbak
 .next
 inspect-prod.json
