@@ -5,6 +5,8 @@ import Link from "next/link";
 import { buildMetadataForRoute } from "@/lib/page-metadata";
 import { getAlbumCoverImage, getAlbums, getTotalGalleryImageCount } from "@/lib/new-gallery";
 
+export const dynamic = "force-static";
+
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadataForRoute("/galerie", {
     title: "Galerie foto",

@@ -5,6 +5,8 @@ import { getNormalizedPage } from "@/lib/content";
 import { buildMetadataFromPage } from "@/lib/page-metadata";
 import { buildPageMetadata, siteName } from "@/lib/seo";
 
+export const dynamic = "force-static";
+
 export default async function HomePage() {
   const page = await getNormalizedPage("index");
   if (!page) notFound();

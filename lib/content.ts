@@ -173,17 +173,17 @@ export function mapImagePath(localPath: string): string {
 }
 
 function imageExists(localPath: string): boolean {
+  // Do not stat public/content on Vercel — file tracing would pull albums into lambdas.
+  if (process.env.VERCEL) {
+    return true;
+  }
   const normalized = localPath.replace(/^\/+/, "").replace(/\\/g, "/");
   const mockupsPath = path.join(contentRoot, normalized);
   if (fs.existsSync(mockupsPath)) {
     return true;
   }
   const publicPath = path.join(process.cwd(), "public", "content", normalized);
-  if (fs.existsSync(publicPath)) {
-    return true;
-  }
-  // Vercel serves synced files from the CDN, not the lambda filesystem.
-  return Boolean(process.env.VERCEL);
+  return fs.existsSync(publicPath);
 }
 
 function publicContentPathExists(publicPath: string): boolean {

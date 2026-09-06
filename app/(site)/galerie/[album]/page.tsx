@@ -11,6 +11,9 @@ type PageProps = {
   params: Promise<{ album: string }>;
 };
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getAlbums().map((a) => ({ album: a.slug }));
 }
