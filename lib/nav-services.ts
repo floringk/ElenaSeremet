@@ -18,7 +18,7 @@ const SERVICE_NAV_GROUPS: NavServiceGroup[] = [
       { href: "/pilates-mat", label: "Pilates Mat" },
       { href: "/pilates-reformer", label: "Pilates Reformer" },
       { href: "/postural", label: "Postural" },
-      { href: "/sedinte-private", label: "Sedinte Private" }
+      { href: "/sedinte-private", label: "Ședințe Private" }
     ]
   },
   {
@@ -33,7 +33,7 @@ const SERVICE_NAV_GROUPS: NavServiceGroup[] = [
     label: "Tonifiere & recuperare",
     items: [
       { href: "/tonifiere", label: "Tonifiere" },
-      { href: "/masaj-si-drenaj", label: "Masaj si Drenaj" }
+      { href: "/masaj-si-drenaj", label: "Masaj și Drenaj" }
     ]
   }
 ];

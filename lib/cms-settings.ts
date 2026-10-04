@@ -1,5 +1,8 @@
 import { cache } from "react";
 
+import { resolveMediaUrl } from "@/lib/media-url";
+import { isPayloadEnvConfigured } from "@/lib/payload-database-url";
+
 export type RouteSeoEntry = {
   path: string;
   metaTitle?: string | null;
@@ -23,7 +26,7 @@ const EMPTY: SiteSettings = {
 };
 
 function isPayloadConfigured(): boolean {
-  return Boolean(process.env.PAYLOAD_SECRET?.trim() && process.env.PAYLOAD_DATABASE_URL?.trim());
+  return isPayloadEnvConfigured();
 }
 
 function normalizePath(p: string): string {
@@ -40,7 +43,7 @@ async function fetchSiteSettings(): Promise<SiteSettings> {
   try {
     const { getPayloadClient } = await import("./payload");
     const payload = await getPayloadClient();
-    const doc = await payload.findGlobal({ slug: "settings", depth: 0 });
+    const doc = await payload.findGlobal({ slug: "settings", depth: 1 });
     if (!doc || typeof doc !== "object") {
       return EMPTY;
     }
@@ -53,6 +56,7 @@ async function fetchSiteSettings(): Promise<SiteSettings> {
         path?: string;
         metaTitle?: string;
         metaDescription?: string;
+        ogImage?: unknown;
         ogImagePath?: string;
         noIndex?: boolean;
       }>;
@@ -67,7 +71,7 @@ async function fetchSiteSettings(): Promise<SiteSettings> {
           path,
           metaTitle: row.metaTitle?.trim() || null,
           metaDescription: row.metaDescription?.trim() || null,
-          ogImagePath: row.ogImagePath?.trim() || null,
+          ogImagePath: resolveMediaUrl(row.ogImage, row.ogImagePath?.trim() || null),
           noIndex: Boolean(row.noIndex)
         });
       }

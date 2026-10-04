@@ -1,4 +1,6 @@
 import { JsonLd } from "@/components/seo/JsonLd";
+import { getPricingPlans } from "@/lib/cms-pricing";
+import { getStudioChrome } from "@/lib/cms-studio";
 import {
   buildInstructorListJsonLd,
   buildPersonJsonLd,
@@ -7,18 +9,19 @@ import {
   effectivePageDescription
 } from "@/lib/seo";
 import type { NormalizedPage } from "@/lib/content";
-import { instructorProfileSlugs, pricingPlans, team } from "@/lib/site-data";
+import { instructorProfileSlugs } from "@/lib/site-data";
 
 type ExtraPageJsonLdProps = {
   page: NormalizedPage;
 };
 
-export function ExtraPageJsonLd({ page }: ExtraPageJsonLdProps) {
+export async function ExtraPageJsonLd({ page }: ExtraPageJsonLdProps) {
   if (page.slug === "instructori") {
+    const studio = await getStudioChrome();
     return (
       <JsonLd
         data={buildInstructorListJsonLd(
-          team.map((t) => ({ name: t.name, path: t.href, imagePath: t.image }))
+          studio.team.map((t) => ({ name: t.name, path: t.href, imagePath: t.image }))
         )}
       />
     );
@@ -49,10 +52,15 @@ export function ExtraPageJsonLd({ page }: ExtraPageJsonLdProps) {
   }
 
   if (page.slug === "preturi") {
+    const plans = await getPricingPlans();
     return (
       <JsonLd
         data={buildPricingItemListJsonLd(
-          pricingPlans.map((p) => ({ name: p.name, price: p.value, description: p.note }))
+          plans.map((p) => ({
+            name: p.name,
+            price: p.value.replace(/[^\d.]/g, "") || "0",
+            description: p.note
+          }))
         )}
       />
     );

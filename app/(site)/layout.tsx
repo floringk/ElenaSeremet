@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { AnalyticsTracker } from "@/components/analytics/AnalyticsTracker";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
 import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
+import { UtmCapture } from "@/components/analytics/UtmCapture";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PreviewBanner } from "@/components/layout/PreviewBanner";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -13,6 +14,7 @@ import {
   buildRootStructuredDataGraph,
   defaultDescription,
   defaultOgImagePath,
+  googleSiteVerification,
   siteName,
   siteUrl
 } from "@/lib/seo";
@@ -22,6 +24,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora", display: "swap" });
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID?.trim() || "";
+const googleVerification = googleSiteVerification();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -56,13 +59,16 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true
-  }
+  },
+  ...(googleVerification
+    ? { verification: { google: googleVerification } }
+    : {})
 };
 
-const structuredData = buildRootStructuredDataGraph();
-
 /** Root layout for the public marketing site (separate from Payload `/cms`). */
-export default function SiteLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function SiteLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const structuredData = await buildRootStructuredDataGraph();
+
   return (
     <html lang="ro">
       <body className={`${inter.variable} ${lora.variable}`}>
@@ -70,6 +76,7 @@ export default function SiteLayout({ children }: Readonly<{ children: ReactNode 
         <a href="#main-content" className="skip-link">
           Sari la conținut
         </a>
+        <UtmCapture />
         <AnalyticsTracker />
         {gtmId ? <GoogleTagManager gtmId={gtmId} /> : null}
         <SiteHeader />

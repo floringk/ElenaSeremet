@@ -8,8 +8,34 @@ type AboutTemplateProps = {
   page: NormalizedPage;
 };
 
+const MAX_ASIDE_PHOTOS = 5;
+
+function isRasterPhoto(src: string): boolean {
+  return /\.(jpe?g|png|webp|gif)$/i.test(src.split("?")[0] ?? "");
+}
+
+function pickAsidePhotos(images: NormalizedPage["contentImages"]) {
+  const photos = images.filter((img) => isRasterPhoto(img.src));
+  const studioFirst = [
+    ...photos.filter((img) => img.src.includes("/images/new/")),
+    ...photos.filter((img) => !img.src.includes("/images/new/"))
+  ];
+  // Prefer distinct shots; drop tiny/wordmark-like leftovers by path heuristics.
+  const deduped: typeof photos = [];
+  const seen = new Set<string>();
+  for (const img of studioFirst) {
+    const key = img.src.replace(/-1024x\d+/i, "").toLowerCase();
+    if (seen.has(key)) continue;
+    if (/home\d/i.test(img.src) && deduped.length >= 2) continue;
+    seen.add(key);
+    deduped.push(img);
+    if (deduped.length >= MAX_ASIDE_PHOTOS) break;
+  }
+  return deduped;
+}
+
 export function AboutTemplate({ page }: AboutTemplateProps) {
-  const imgs = page.contentImages;
+  const imgs = pickAsidePhotos(page.contentImages);
 
   return (
     <section className="page-section about-template">
@@ -34,37 +60,28 @@ export function AboutTemplate({ page }: AboutTemplateProps) {
           </div>
         ) : null}
 
-        <div className="about-split">
+        <div className={`about-split ${imgs.length > 0 ? "about-split--with-aside" : ""}`}>
           <Reveal className="about-split-main">
             <PageBlocks blocks={page.blocks} withSectionWrappers />
           </Reveal>
           {imgs.length > 0 ? (
-            <aside className="about-split-aside" aria-label="Imagini">
-              {imgs.map((img, ii) => {
-                const lower = img.src.toLowerCase();
-                const isSvg = lower.endsWith(".svg");
-                const isLogo = lower.includes("logo") || lower.includes("moto-pilates");
-                const cardClass = isSvg
-                  ? "about-aside-figure about-aside-figure--icon"
-                  : isLogo
-                    ? "about-aside-figure about-aside-figure--logo"
-                    : "about-aside-figure about-aside-figure--photo";
-                return (
-                  <Reveal key={img.src} delay={(ii % 4) as 0 | 1 | 2 | 3}>
-                    <figure className={cardClass}>
+            <aside className="about-split-aside" aria-label="Imagini din studio">
+              {imgs.map((img, ii) => (
+                <Reveal key={img.src} delay={(ii % 4) as 0 | 1 | 2 | 3}>
+                  <figure className="about-aside-figure about-aside-figure--photo">
+                    <div className="about-aside-photo-frame">
                       <Image
                         src={img.src}
-                        alt={img.alt || page.title}
-                        width={480}
-                        height={360}
+                        alt={img.alt || `${page.title} — imagine din studio`}
+                        fill
                         className="about-aside-img"
                         loading="lazy"
-                        sizes="(max-width: 900px) 100vw, 400px"
+                        sizes="(max-width: 900px) 100vw, 380px"
                       />
-                    </figure>
-                  </Reveal>
-                );
-              })}
+                    </div>
+                  </figure>
+                </Reveal>
+              ))}
             </aside>
           ) : null}
         </div>

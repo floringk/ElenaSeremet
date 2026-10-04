@@ -113,6 +113,8 @@ Use this before DNS cutover or public announcement:
 - [ ] **DNS:** apex + `www` → hosting; HTTPS valid.
 - [ ] **CI:** `main` / `master` green — lint, TypeScript, production build.
 - [ ] **Smoke on deployed URL:** `/`, a heavy or representative slug (e.g. `/pilates-mat`), `/contact`, `/admin` (login flow), `/sitemap.xml`, `/robots.txt`; confirm `POST /api/track` in Network tab on navigation.
+- [ ] **Analytics / SEO / SEM:** see [`docs/ANALYTICS-SEO-SEM.md`](docs/ANALYTICS-SEO-SEM.md) — set `NEXT_PUBLIC_GTM_ID`, wire GA4 tags in GTM, Search Console sitemap.
+- [ ] **CMS editability:** see [`docs/CMS-EDITABILITY.md`](docs/CMS-EDITABILITY.md) — Media/S3 env, Studio/Navigare/Albume filled in `/cms`.
 - [ ] **Contact:** submission sends mail; if Payload DB is live, check `submissions` via `/admin` or CMS.
 - [ ] **Runtime alerts:** in production only, verify error alerting path once (see [`app/actions/report-runtime-error.ts`](app/actions/report-runtime-error.ts)); remove any temporary throw route afterward.
 - [ ] **Lighthouse (mobile):** acceptable scores on `/`, one heavy slug, `/contact` — record in [`scripts/README.md`](scripts/README.md).

@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactTemplate } from "@/components/templates/ContactTemplate";
+import { getNavLinks } from "@/lib/cms-navigation";
+import { getProgram } from "@/lib/cms-program";
+import { getStudioChrome } from "@/lib/cms-studio";
 import { getNormalizedPage } from "@/lib/content";
 import { buildMetadataForRoute, buildMetadataFromPage } from "@/lib/page-metadata";
 
@@ -19,7 +22,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  const page = await getNormalizedPage("contact");
+  const [page, studio, program, navLinks] = await Promise.all([
+    getNormalizedPage("contact"),
+    getStudioChrome(),
+    getProgram(),
+    getNavLinks()
+  ]);
 
   return (
     <ContactTemplate
@@ -27,6 +35,9 @@ export default async function ContactPage() {
       intro={page?.intro ?? null}
       heroImagePath={page?.heroImagePath}
       heroAlt={page?.heroAlt}
+      studio={studio}
+      openingHours={program.openingHours}
+      navLinks={navLinks}
     >
       <ContactForm />
     </ContactTemplate>

@@ -1,30 +1,18 @@
 import { cache } from "react";
 
+import { isPayloadEnvConfigured } from "@/lib/payload-database-url";
+import {
+  type OpeningHoursRow,
+  type ProgramData,
+  type ProgramSession,
+  type ProgramTrack,
+  PROGRAM_DAY_LABELS,
+  PROGRAM_DAYS
+} from "@/lib/program-shared";
 import { schedule as fallbackSchedule } from "@/lib/site-data";
 
-export type ProgramTrack = "saltea" | "reformer" | "alte";
-
-export type ProgramSession = {
-  day: string;
-  startTime: string;
-  endTime: string;
-  title: string;
-  instructor: string | null;
-  track: ProgramTrack;
-  level: string | null;
-  note: string | null;
-};
-
-export type OpeningHoursRow = {
-  day: string;
-  hours: string;
-};
-
-export type ProgramData = {
-  openingHours: OpeningHoursRow[];
-  gmaNote: string | null;
-  sessions: ProgramSession[];
-};
+export type { OpeningHoursRow, ProgramData, ProgramSession, ProgramTrack };
+export { PROGRAM_DAY_LABELS, PROGRAM_DAYS };
 
 const DEFAULT_GMA_NOTE =
   "Rezervările se fac în aplicația GMA (cod sală: elenaseremet). Programul afișează clasele disponibile pentru o săptămână.";
@@ -150,7 +138,7 @@ const EMPTY: ProgramData = {
 };
 
 function isPayloadConfigured(): boolean {
-  return Boolean(process.env.PAYLOAD_SECRET?.trim() && process.env.PAYLOAD_DATABASE_URL?.trim());
+  return isPayloadEnvConfigured();
 }
 
 function normalizeTrack(value: unknown): ProgramTrack {
@@ -233,17 +221,3 @@ async function fetchProgram(): Promise<ProgramData> {
 }
 
 export const getProgram = cache(fetchProgram);
-
-export const PROGRAM_DAYS = [
-  { value: "luni", label: "Luni" },
-  { value: "marti", label: "Marți" },
-  { value: "miercuri", label: "Miercuri" },
-  { value: "joi", label: "Joi" },
-  { value: "vineri", label: "Vineri" },
-  { value: "sambata", label: "Sâmbătă" },
-  { value: "duminica", label: "Duminică" }
-] as const;
-
-export const PROGRAM_DAY_LABELS: Record<string, string> = Object.fromEntries(
-  PROGRAM_DAYS.map((d) => [d.value, d.label])
-);

@@ -1,4 +1,4 @@
-import type { OpeningHoursRow } from "@/lib/cms-program";
+import type { OpeningHoursRow } from "@/lib/program-shared";
 import { schedule as fallbackSchedule } from "@/lib/site-data";
 
 type ScheduleBlockProps = {

@@ -2,13 +2,18 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { navLinks, schedule } from "@/lib/site-data";
+import type { NavLink } from "@/lib/cms-navigation";
+import type { OpeningHoursRow } from "@/lib/program-shared";
+import type { StudioChrome } from "@/lib/cms-studio";
 
 type ContactTemplateProps = {
   title: string;
   intro?: string | null;
   heroImagePath?: string | null;
   heroAlt?: string;
+  studio: StudioChrome;
+  openingHours: OpeningHoursRow[];
+  navLinks: NavLink[];
   children: ReactNode;
 };
 
@@ -48,7 +53,16 @@ function IconClock({ className }: { className?: string }) {
   );
 }
 
-export function ContactTemplate({ title, intro, heroImagePath, heroAlt, children }: ContactTemplateProps) {
+export function ContactTemplate({
+  title,
+  intro,
+  heroImagePath,
+  heroAlt,
+  studio,
+  openingHours,
+  navLinks,
+  children
+}: ContactTemplateProps) {
   const quickLinks = navLinks.filter((l) => l.href !== "/contact");
 
   return (
@@ -82,19 +96,19 @@ export function ContactTemplate({ title, intro, heroImagePath, heroAlt, children
               <IconPin className="contact-aside-icon" />
               Studio
             </h2>
-            <p className="contact-aside-line">Bd. 1 Decembrie 1918, nr. 58</p>
-            <p className="contact-aside-line">București, Sector 3</p>
+            <p className="contact-aside-line">{studio.addressLine1}</p>
+            <p className="contact-aside-line">{studio.addressLine2}</p>
             <p className="contact-aside-line contact-aside-line--phone">
               <IconPhone className="contact-aside-icon" />
-              <a href="tel:+40755247412" className="focus-ring">
-                +40 755 247 412
+              <a href={studio.phoneHref} className="focus-ring">
+                {studio.phoneDisplay}
               </a>
             </p>
             <h2 className="contact-aside-title">
               <IconClock className="contact-aside-icon" />
               Program
             </h2>
-            {schedule.map((item) => (
+            {openingHours.map((item) => (
               <p key={item.day} className="contact-aside-line">
                 <strong>{item.day}:</strong> {item.hours}
               </p>

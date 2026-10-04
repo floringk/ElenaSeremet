@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
+import { getAlbumsResolved } from "@/lib/cms-gallery";
 import { getAllSlugsMerged, getNoIndexSlugs } from "@/lib/content";
-import { getAlbums } from "@/lib/new-gallery";
+import { siteUrl } from "@/lib/seo";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = "https://elenaseremet.ro";
+  const base = siteUrl;
   const lastModified = new Date();
   const routes: MetadataRoute.Sitemap = [
     { url: `${base}/`, changeFrequency: "weekly", priority: 1, lastModified },
@@ -14,11 +15,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/schedules`, changeFrequency: "weekly", priority: 0.88, lastModified },
     { url: `${base}/inscriere`, changeFrequency: "monthly", priority: 0.72, lastModified },
     { url: `${base}/galerie`, changeFrequency: "weekly", priority: 0.75, lastModified },
-    { url: `${base}/instructori`, changeFrequency: "monthly", priority: 0.8, lastModified }
+    { url: `${base}/instructori`, changeFrequency: "monthly", priority: 0.8, lastModified },
+    { url: `${base}/politica-cookie`, changeFrequency: "yearly", priority: 0.3, lastModified }
   ];
 
-  const slugs = await getAllSlugsMerged();
-  const noIndex = await getNoIndexSlugs();
+  const [slugs, noIndex, albums] = await Promise.all([
+    getAllSlugsMerged(),
+    getNoIndexSlugs(),
+    getAlbumsResolved()
+  ]);
   for (const slug of slugs) {
     if (noIndex.has(slug)) continue;
     routes.push({
@@ -29,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  for (const album of getAlbums()) {
+  for (const album of albums) {
     routes.push({
       url: `${base}/galerie/${album.slug}`,
       changeFrequency: "monthly",

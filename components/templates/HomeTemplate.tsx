@@ -3,8 +3,10 @@ import Link from "next/link";
 
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { Reveal } from "@/components/ui/Reveal";
+import { getProgram } from "@/lib/cms-program";
+import { getStudioChrome } from "@/lib/cms-studio";
 import type { ContentBlock, NormalizedPage } from "@/lib/content";
-import { services, team } from "@/lib/site-data";
+import { PROGRAM_DAY_LABELS, PROGRAM_TRACK_LABELS, type ProgramSession } from "@/lib/program-shared";
 
 type HomeTemplateProps = {
   page: NormalizedPage;
@@ -48,11 +50,39 @@ function splitHomeBlocks(blocks: ContentBlock[]) {
   };
 }
 
-export function HomeTemplate({ page }: HomeTemplateProps) {
+function parseTime(value: string): number {
+  const [h, m] = value.split(":").map((part) => Number(part));
+  if (Number.isNaN(h)) return 0;
+  return h * 60 + (Number.isNaN(m) ? 0 : m);
+}
+
+function getTeaserDay(sessions: ProgramSession[]): string {
+  const jsDay = new Date().getDay();
+  const map = ["duminica", "luni", "marti", "miercuri", "joi", "vineri", "sambata"];
+  const today = map[jsDay] ?? "luni";
+  const candidates = today === "duminica" ? ["luni", "marti", "miercuri"] : [today, "luni", "marti"];
+  for (const day of candidates) {
+    if (sessions.some((s) => s.day.toLowerCase() === day)) {
+      return day;
+    }
+  }
+  return sessions[0]?.day.toLowerCase() ?? "luni";
+}
+
+export async function HomeTemplate({ page }: HomeTemplateProps) {
   const { lines, tagline } = splitHomeBlocks(page.blocks);
   const displayTagline = normalizeHomeTagline(tagline || page.intro);
   const hero = page.heroImagePath;
   const titleLines = lines && lines.length >= 2 ? lines : null;
+  const [program, studio] = await Promise.all([getProgram(), getStudioChrome()]);
+  const services = studio.services;
+  const team = studio.team;
+  const teaserDay = getTeaserDay(program.sessions);
+  const teaserSessions = program.sessions
+    .filter((s) => s.day.toLowerCase() === teaserDay)
+    .sort((a, b) => parseTime(a.startTime) - parseTime(b.startTime))
+    .slice(0, 4);
+  const teaserDayLabel = PROGRAM_DAY_LABELS[teaserDay] ?? teaserDay;
 
   return (
     <>
@@ -87,45 +117,45 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         <div className="container home-hero-cinematic-inner">
           <Reveal className="home-hero-cinematic-copy">
             <div className="home-hero-glass">
-            <p className="home-hero-eyebrow">Pilates Studio · București</p>
+              <p className="home-hero-eyebrow">Pilates Studio · București</p>
 
-            {titleLines ? (
-              <h1 id="home-hero-heading" className="home-hero-display">
-                {titleLines.map((line, index) => (
-                  <span
-                    key={`${line}-${index}`}
-                    className={
-                      line === "&" ? "home-hero-display-line home-hero-display-line--accent" : "home-hero-display-line"
-                    }
-                  >
-                    {line}
-                  </span>
+              {titleLines ? (
+                <h1 id="home-hero-heading" className="home-hero-display">
+                  {titleLines.map((line, index) => (
+                    <span
+                      key={`${line}-${index}`}
+                      className={
+                        line === "&" ? "home-hero-display-line home-hero-display-line--accent" : "home-hero-display-line"
+                      }
+                    >
+                      {line}
+                    </span>
+                  ))}
+                </h1>
+              ) : (
+                <h1 id="home-hero-heading" className="home-hero-display home-hero-display--single">
+                  {page.title.split(" – ")[0]}
+                </h1>
+              )}
+
+              <p className="home-hero-tagline home-hero-tagline--cinematic">
+                <span className="home-hero-tagline-text">{displayTagline}</span>
+              </p>
+
+              <ul className="home-hero-pills" aria-label="Specialități studio">
+                {HERO_PILLS.map((pill) => (
+                  <li key={pill}>{pill}</li>
                 ))}
-              </h1>
-            ) : (
-              <h1 id="home-hero-heading" className="home-hero-display home-hero-display--single">
-                {page.title.split(" – ")[0]}
-              </h1>
-            )}
+              </ul>
 
-            <p className="home-hero-tagline home-hero-tagline--cinematic">
-              <span className="home-hero-tagline-text">{displayTagline}</span>
-            </p>
-
-            <ul className="home-hero-pills" aria-label="Specialități studio">
-              {HERO_PILLS.map((pill) => (
-                <li key={pill}>{pill}</li>
-              ))}
-            </ul>
-
-            <div className="home-hero-cta home-hero-cta--cinematic">
-              <Link href="/inscriere#inscriere-studio" className="btn btn-primary focus-ring">
-                Înscrie-te
-              </Link>
-              <Link href="/schedules" className="btn btn-secondary focus-ring home-hero-btn-ghost">
-                Program clase
-              </Link>
-            </div>
+              <div className="home-hero-cta home-hero-cta--cinematic">
+                <Link href="/inscriere#inscriere-studio" className="btn btn-primary focus-ring">
+                  Înscrie-te
+                </Link>
+                <Link href="/schedules" className="btn btn-secondary focus-ring home-hero-btn-ghost">
+                  Program clase
+                </Link>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -135,7 +165,7 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         </div>
       </section>
 
-      <section className="surface-soft page-section home-section home-services">
+      <section className="home-section home-section--soft home-services">
         <div className="container">
           <Reveal>
             <p className="section-label">Servicii</p>
@@ -168,20 +198,60 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         </div>
       </section>
 
-      <section className="page-section home-section home-testimonial">
+      {teaserSessions.length > 0 ? (
+        <section className="home-section home-program-teaser" aria-labelledby="home-program-heading">
+          <div className="container">
+            <Reveal>
+              <p className="section-label">Program</p>
+              <h2 id="home-program-heading">Clase {teaserDayLabel}</h2>
+              <p className="home-lead">Alege ora care ți se potrivește — rezervările se fac în aplicația GMA.</p>
+            </Reveal>
+            <Reveal delay={1}>
+              <ul className="home-program-teaser-list">
+                {teaserSessions.map((session) => (
+                  <li
+                    key={`${session.startTime}-${session.title}-${session.track}`}
+                    className="home-program-teaser-item"
+                  >
+                    <p className="home-program-teaser-time">
+                      {session.startTime} – {session.endTime}
+                    </p>
+                    <div>
+                      <p className="home-program-teaser-title">{session.title}</p>
+                      <p className="home-program-teaser-meta">
+                        {PROGRAM_TRACK_LABELS[session.track] ?? session.track}
+                        {session.instructor ? ` · ${session.instructor}` : ""}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+            <Reveal delay={2}>
+              <p className="home-inline-cta">
+                <Link href="/schedules" className="btn btn-primary focus-ring">
+                  Vezi programul complet
+                </Link>
+              </p>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="home-section home-section--soft home-testimonial">
         <div className="container">
           <Reveal>
             <div className="model5-testimonial-inner">
               <blockquote>
                 „Aici vei găsi un loc al relaxării, al energiei pozitive și al evoluției constante.”
               </blockquote>
-              <cite>Pilates Studio Elena Seremet</cite>
+              <cite>Pilates Studio Elena Șeremet</cite>
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="surface-soft page-section home-section home-pricing-teaser">
+      <section className="home-section home-pricing-teaser">
         <div className="container model5-pricing-teaser-inner">
           <Reveal className="model5-pricing-teaser-copy">
             <h2>Abonamente flexibile</h2>
@@ -196,7 +266,7 @@ export function HomeTemplate({ page }: HomeTemplateProps) {
         </div>
       </section>
 
-      <section className="page-section home-section home-team">
+      <section className="home-section home-section--soft home-team">
         <div className="container">
           <Reveal>
             <p className="section-label">Echipă</p>

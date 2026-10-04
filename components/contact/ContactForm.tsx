@@ -2,6 +2,10 @@
 
 import { FormEvent, useCallback, useRef, useState } from "react";
 
+import { hasAnalyticsConsent } from "@/lib/cookie-consent";
+import { trackMarketingEvent } from "@/lib/data-layer";
+import { getStoredUtm, withUtmAttribution } from "@/lib/utm";
+
 type Status = "idle" | "loading" | "success" | "success_partial" | "error";
 
 type ApiShape = {
@@ -98,12 +102,19 @@ export function ContactForm({ introId = "contact-intro", sourcePage = "/contact"
       setMessage("Mesaj trimis cu succes. Revenim în cel mai scurt timp.");
     }
 
-    fetch("/api/track", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "contact_submit", path: sourcePage }),
-      keepalive: true
-    }).catch(() => {});
+    if (hasAnalyticsConsent()) {
+      const attributedPath = withUtmAttribution(sourcePage);
+      fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "contact_submit", path: attributedPath }),
+        keepalive: true
+      }).catch(() => {});
+      trackMarketingEvent("contact_submit", {
+        page_path: attributedPath,
+        ...getStoredUtm()
+      });
+    }
   }, [sourcePage]);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -134,7 +145,7 @@ export function ContactForm({ introId = "contact-intro", sourcePage = "/contact"
       email,
       phone,
       message: body,
-      source_page: sourcePage,
+      source_page: withUtmAttribution(sourcePage),
       company
     };
     lastPayloadRef.current = payload;

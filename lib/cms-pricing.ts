@@ -1,5 +1,6 @@
 import { cache } from "react";
 
+import { isPayloadEnvConfigured } from "@/lib/payload-database-url";
 import { pricingPlans as fallbackPlans } from "@/lib/site-data";
 
 export type PricingPlan = {
@@ -10,7 +11,7 @@ export type PricingPlan = {
 };
 
 function isPayloadConfigured(): boolean {
-  return Boolean(process.env.PAYLOAD_SECRET?.trim() && process.env.PAYLOAD_DATABASE_URL?.trim());
+  return isPayloadEnvConfigured();
 }
 
 async function fetchPricingPlans(): Promise<PricingPlan[]> {

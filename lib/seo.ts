@@ -30,11 +30,42 @@ export function parseSameAsFromEnv(): string[] {
     .filter(Boolean);
 }
 
-export function buildRootStructuredDataGraph(): {
+/** Merge env sameAs with CMS Studio global (when available). */
+export async function resolveSameAsUrls(): Promise<string[]> {
+  const fromEnv = parseSameAsFromEnv();
+  try {
+    const { getStudioChrome } = await import("@/lib/cms-studio");
+    const studio = await getStudioChrome();
+    const merged = new Set([...fromEnv, ...studio.sameAs]);
+    return Array.from(merged);
+  } catch {
+    return fromEnv;
+  }
+}
+
+/** Optional LocalBusiness geo — set SITE_GEO_LAT / SITE_GEO_LNG when known. */
+export function parseGeoFromEnv(): { latitude: number; longitude: number } | null {
+  const latRaw = process.env.SITE_GEO_LAT?.trim();
+  const lngRaw = process.env.SITE_GEO_LNG?.trim();
+  if (!latRaw || !lngRaw) return null;
+  const latitude = Number(latRaw);
+  const longitude = Number(lngRaw);
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+  if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) return null;
+  return { latitude, longitude };
+}
+
+/** Google Search Console HTML-tag verification token (optional). */
+export function googleSiteVerification(): string | undefined {
+  const token = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+  return token || undefined;
+}
+
+export async function buildRootStructuredDataGraph(): Promise<{
   "@context": string;
   "@graph": Record<string, unknown>[];
-} {
-  const sameAs = parseSameAsFromEnv();
+}> {
+  const sameAs = await resolveSameAsUrls();
 
   const organization: Record<string, unknown> = {
     "@type": "Organization",
@@ -51,18 +82,50 @@ export function buildRootStructuredDataGraph(): {
     organization.sameAs = sameAs;
   }
 
+  const localBusiness: Record<string, unknown> = {
+    "@type": ["SportsActivityLocation", "LocalBusiness"],
+    "@id": `${siteUrl}/#localbusiness`,
+    name: siteName,
+    description: defaultDescription,
+    url: absoluteUrl("/"),
+    image: absoluteUrl(defaultOgImagePath),
+    telephone: siteTelephone,
+    address: sitePostalAddress,
+    parentOrganization: { "@id": `${siteUrl}/#organization` },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "08:30",
+        closes: "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "09:00",
+        closes: "14:00"
+      }
+    ]
+  };
+
+  if (sameAs.length > 0) {
+    localBusiness.sameAs = sameAs;
+  }
+
+  const geo = parseGeoFromEnv();
+  if (geo) {
+    localBusiness.geo = {
+      "@type": "GeoCoordinates",
+      latitude: geo.latitude,
+      longitude: geo.longitude
+    };
+  }
+
   return {
     "@context": "https://schema.org",
     "@graph": [
       organization,
-      {
-        "@type": "SportsActivityLocation",
-        name: siteName,
-        description: defaultDescription,
-        url: absoluteUrl("/"),
-        image: absoluteUrl(defaultOgImagePath),
-        parentOrganization: { "@id": `${siteUrl}/#organization` }
-      },
+      localBusiness,
       {
         "@type": "WebSite",
         name: siteName,

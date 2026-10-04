@@ -127,8 +127,14 @@ export async function RichLegacyTemplate({ page, variant }: RichLegacyTemplatePr
         </header>
 
         {page.slug === "schedules" && program ? (
-          <>
+          <div className="schedule-page-stack">
             <Reveal>
+              <div className="schedule-classes surface-soft card">
+                <h2 className="rich-section-heading">Calendar clase</h2>
+                <ProgramCalendar program={program} />
+              </div>
+            </Reveal>
+            <Reveal delay={1}>
               <div className="schedule-highlight surface-soft card">
                 <h2 className="rich-section-heading">Program studio</h2>
                 <ScheduleBlock openingHours={program.openingHours} />
@@ -137,16 +143,9 @@ export async function RichLegacyTemplate({ page, variant }: RichLegacyTemplatePr
                 </p>
               </div>
             </Reveal>
-            <Reveal delay={1}>
-              <div className="schedule-classes surface-soft card">
-                <h2 className="rich-section-heading">Calendar clase</h2>
-                <ProgramCalendar program={program} />
-              </div>
-            </Reveal>
-          </>
+            <ScheduleRegulations sections={page.sections} />
+          </div>
         ) : null}
-
-        {page.slug === "schedules" ? <ScheduleRegulations sections={page.sections} /> : null}
 
         {page.slug !== "schedules" && heroPath && !isService ? (
           <Reveal>

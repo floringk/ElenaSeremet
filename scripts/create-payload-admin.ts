@@ -13,12 +13,13 @@ async function main() {
   }
 
   const email = process.env.PAYLOAD_ADMIN_EMAIL?.trim();
-  const password = process.env.PAYLOAD_ADMIN_PASSWORD;
+  const password = process.env.PAYLOAD_ADMIN_PASSWORD || process.env.ADMIN_PASSWORD;
 
   if (!email || !password) {
     console.error("Add to .env then run again:\n");
     console.error("  PAYLOAD_ADMIN_EMAIL=your-email@example.com");
     console.error("  PAYLOAD_ADMIN_PASSWORD=your-secure-password");
+    console.error("\n(PAYLOAD_ADMIN_PASSWORD can fall back to ADMIN_PASSWORD.)");
     process.exit(1);
   }
 

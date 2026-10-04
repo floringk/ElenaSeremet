@@ -1,43 +1,85 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-const STORAGE_KEY = "es-cookie-consent";
+import { COOKIE_CONSENT_EVENT, hasAnalyticsConsent } from "@/lib/cookie-consent";
+import {
+  applyConsentDefaults,
+  readStoredAnalyticsGranted,
+  syncConsentMode
+} from "@/lib/data-layer";
 
 type GoogleTagManagerProps = {
   gtmId: string;
 };
 
+/**
+ * Consent Mode defaults → optional restore from localStorage → GTM container.
+ * GTM loads even before Accept; tags that need analytics wait for consent update.
+ */
 export function GoogleTagManager({ gtmId }: GoogleTagManagerProps) {
-  const [enabled, setEnabled] = useState(false);
-
   useEffect(() => {
-    function sync() {
-      try {
-        setEnabled(window.localStorage.getItem(STORAGE_KEY) === "accepted");
-      } catch {
-        setEnabled(false);
-      }
+    applyConsentDefaults();
+    syncConsentMode(readStoredAnalyticsGranted());
+
+    function onConsentChange() {
+      syncConsentMode(hasAnalyticsConsent());
     }
-    sync();
-    window.addEventListener("cookie-consent-accepted", sync);
-    return () => window.removeEventListener("cookie-consent-accepted", sync);
+
+    window.addEventListener(COOKIE_CONSENT_EVENT, onConsentChange);
+    window.addEventListener("storage", onConsentChange);
+    return () => {
+      window.removeEventListener(COOKIE_CONSENT_EVENT, onConsentChange);
+      window.removeEventListener("storage", onConsentChange);
+    };
   }, []);
 
-  if (!enabled || !gtmId) {
+  if (!gtmId) {
     return null;
   }
 
+  // Inline bootstrap must run before gtm.js. Keep as one Script so order is guaranteed.
+  const bootstrap = `
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      wait_for_update: 500
+    });
+    try {
+      var raw = localStorage.getItem('es-cookie-consent');
+      var analytics = false;
+      if (raw === 'accepted') { analytics = true; }
+      else if (raw) {
+        var parsed = JSON.parse(raw);
+        analytics = !!(parsed && parsed.version === 1 && parsed.analytics === true);
+      }
+      if (analytics) {
+        gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+      }
+    } catch (e) {}
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','${gtmId}');
+  `;
+
   return (
     <>
-      <Script id="gtm-init" strategy="afterInteractive">{`
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','${gtmId}');
-      `}</Script>
+      <Script id="gtm-consent-bootstrap" strategy="afterInteractive">
+        {bootstrap}
+      </Script>
       <noscript>
         <iframe
           title="Google Tag Manager"

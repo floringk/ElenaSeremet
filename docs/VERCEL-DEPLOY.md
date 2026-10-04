@@ -41,13 +41,17 @@ Pentru **domeniul live** `elenaseremet.ro` — același deploy, plus DNS (etapă
 - Fișiere: `mockups/content/images/` → `public/content/` la build.
 - Mapare pagini: [`docs/image-map.csv`](docs/image-map.csv).
 
-### Storage Supabase + S3 (viitor, opțional)
-
-Când vrei upload drag-and-drop în CMS:
+### Storage Supabase + S3 (upload Media în CMS)
 
 1. Rulează [`scripts/supabase-storage-setup.sql`](scripts/supabase-storage-setup.sql)
-2. Adaugă `@payloadcms/storage-s3` + colecția Media în Payload
-3. Env: `SUPABASE_STORAGE_BUCKET`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_ENDPOINT`
+2. Creează S3 access keys în Supabase (Storage → S3)
+3. Env pe Vercel:
+   `SUPABASE_STORAGE_BUCKET=cms-media`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_REGION`,
+   opțional `S3_ENDPOINT` (altfel e derivat din `SUPABASE_URL`)
+4. Restart / redeploy — plugin `@payloadcms/storage-s3` se activează când env-urile sunt setate
+5. În `/cms` → Media: upload; pe Pagini: Hero / OG / Imagini în pagină
+
+Hartă editabilitate: [`docs/CMS-EDITABILITY.md`](./CMS-EDITABILITY.md).
 
 ---
 
@@ -93,8 +97,13 @@ CONTENT_SOURCE=auto
 
 ```
 NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 SITE_SAME_AS=https://instagram.com/...,https://facebook.com/...
+SITE_GEO_LAT=
+SITE_GEO_LNG=
 ```
+
+`NEXT_PUBLIC_GTM_ID` / verification / geo pot rămâne goale — site-ul rulează fără ele. Când ai tokenii: vezi stop-line în [`docs/ANALYTICS-SEO-SEM.md`](./ANALYTICS-SEO-SEM.md).
 
 ---
 

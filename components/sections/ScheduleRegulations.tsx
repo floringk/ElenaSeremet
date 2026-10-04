@@ -28,6 +28,9 @@ function isNumberedRuleHeading(heading: string): boolean {
 /** Legacy CMS headings replaced by the interactive calendar — hide empty cards. */
 function isLegacySchedulePlaceholder(heading: string): boolean {
   const n = normalizeHeading(heading);
+  if (n === "introducere") {
+    return true;
+  }
   if (n.includes("program saltea") || n.includes("program reformer")) {
     return true;
   }
@@ -37,22 +40,30 @@ function isLegacySchedulePlaceholder(heading: string): boolean {
   return false;
 }
 
+function sectionHasVisibleBlocks(blocks: ContentBlock[]): boolean {
+  return blocks.some((block) => Boolean(block.text?.trim()));
+}
+
 function filterScheduleSections(sections: ScheduleRegulationsProps["sections"]) {
-  return sections.filter((sec) => !isLegacySchedulePlaceholder(sec.heading));
+  return sections.filter(
+    (sec) => !isLegacySchedulePlaceholder(sec.heading) && sectionHasVisibleBlocks(sec.blocks)
+  );
 }
 
 export function ScheduleRegulations({ sections }: ScheduleRegulationsProps) {
   const filtered = filterScheduleSections(sections);
+  if (filtered.length === 0) {
+    return null;
+  }
+
   const regulamentIndex = filtered.findIndex((s) => isRegulamentHeading(s.heading));
 
   if (regulamentIndex === -1) {
     return (
       <>
         {filtered.map((sec, idx) => (
-          <section key={`${sec.heading}-${idx}`} className="rich-section surface-soft">
-            {sec.heading !== "Introducere" ? (
-              <h2 className="rich-section-heading">{sec.heading}</h2>
-            ) : null}
+          <section key={`${sec.heading}-${idx}`} className="schedule-regulations surface-soft card">
+            <h2 className="rich-section-heading">{sec.heading}</h2>
             <PageBlocks blocks={sec.blocks} />
           </section>
         ))}
@@ -60,17 +71,15 @@ export function ScheduleRegulations({ sections }: ScheduleRegulationsProps) {
     );
   }
 
-  const before = filtered.slice(0, regulamentIndex).filter((sec) => sec.heading !== "Introducere");
+  const before = filtered.slice(0, regulamentIndex);
   const regulamentIntro = filtered[regulamentIndex];
   const rules = filtered.slice(regulamentIndex + 1);
 
   return (
     <>
       {before.map((sec, idx) => (
-        <section key={`${sec.heading}-${idx}`} className="rich-section surface-soft">
-          {sec.heading !== "Introducere" ? (
-            <h2 className="rich-section-heading">{sec.heading}</h2>
-          ) : null}
+        <section key={`${sec.heading}-${idx}`} className="schedule-regulations surface-soft card">
+          <h2 className="rich-section-heading">{sec.heading}</h2>
           <PageBlocks blocks={sec.blocks} />
         </section>
       ))}

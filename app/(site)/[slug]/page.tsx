@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ExtraPageJsonLd } from "@/components/templates/ExtraPageJsonLd";
 import { renderPageByTemplate } from "@/components/templates/renderPageByTemplate";
-import { getAllSlugs, getNormalizedPage } from "@/lib/content";
+import { getAllSlugsMerged, getNormalizedPage } from "@/lib/content";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildMetadataFromPage } from "@/lib/page-metadata";
 import { buildBreadcrumbJsonLd } from "@/lib/seo";
@@ -11,12 +11,13 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-/** Prerender every manifest slug so Vercel does not need mockups/ at request time. */
+/** Prerender merged CMS + manifest slugs; allow CMS-only slugs at request time. */
 export const dynamic = "force-static";
-export const dynamicParams = false;
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  const slugs = await getAllSlugsMerged();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

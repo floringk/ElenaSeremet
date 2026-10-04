@@ -1,9 +1,10 @@
 import "server-only";
 
 import { isSmtpConfigured } from "@/lib/mail";
+import { isPayloadEnvConfigured } from "@/lib/payload-database-url";
 
 export function isPayloadConfigured(): boolean {
-  return Boolean(process.env.PAYLOAD_SECRET?.trim() && process.env.PAYLOAD_DATABASE_URL?.trim());
+  return isPayloadEnvConfigured();
 }
 
 export function isSupabaseConfigured(): boolean {

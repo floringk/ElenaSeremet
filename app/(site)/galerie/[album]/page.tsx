@@ -4,23 +4,28 @@ import { notFound } from "next/navigation";
 
 import { AlbumMasonry } from "@/components/gallery/AlbumMasonry";
 import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  getAlbumBySlugResolved,
+  getAlbumImagesResolved,
+  getAlbumsResolved
+} from "@/lib/cms-gallery";
 import { absoluteUrl, buildPageMetadata, defaultDescription } from "@/lib/seo";
-import { getAlbumBySlug, getAlbumImages, getAlbums } from "@/lib/new-gallery";
 
 type PageProps = {
   params: Promise<{ album: string }>;
 };
 
 export const dynamic = "force-static";
-export const dynamicParams = false;
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return getAlbums().map((a) => ({ album: a.slug }));
+export async function generateStaticParams() {
+  const albums = await getAlbumsResolved();
+  return albums.map((a) => ({ album: a.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { album: slug } = await params;
-  const album = getAlbumBySlug(slug);
+  const album = await getAlbumBySlugResolved(slug);
   if (!album) {
     return { title: "Album negasit" };
   }
@@ -35,12 +40,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function GalleryAlbumPage({ params }: PageProps) {
   const { album: slug } = await params;
-  const album = getAlbumBySlug(slug);
+  const album = await getAlbumBySlugResolved(slug);
   if (!album) {
     notFound();
   }
 
-  const images = getAlbumImages(slug);
+  const images = await getAlbumImagesResolved(slug);
 
   const breadcrumb = {
     "@context": "https://schema.org",

@@ -4,14 +4,17 @@ import Link from "next/link";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { PageBlocks } from "@/components/sections/PageBlocks";
 import { Reveal } from "@/components/ui/Reveal";
+import { getStudioChrome } from "@/lib/cms-studio";
 import type { NormalizedPage } from "@/lib/content";
-import { team } from "@/lib/site-data";
 
 type TeamTemplateProps = {
   page: NormalizedPage;
 };
 
-export function TeamTemplate({ page }: TeamTemplateProps) {
+export async function TeamTemplate({ page }: TeamTemplateProps) {
+  const studio = await getStudioChrome();
+  const team = studio.team;
+
   return (
     <>
       <section className="page-section team-template">

@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import type { NavLink } from "@/lib/cms-navigation";
 import type { NavServiceGroup } from "@/lib/nav-services";
-import { navLinks } from "@/lib/site-data";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -18,12 +19,14 @@ function getFocusableElements(container: HTMLElement | null): HTMLElement[] {
 
 type SiteHeaderNavProps = {
   serviceGroups: NavServiceGroup[];
+  navLinks: NavLink[];
 };
 
 type NavListProps = {
   serviceGroups: NavServiceGroup[];
-  flatLinks: typeof navLinks;
-  serviciiLink: (typeof navLinks)[number] | undefined;
+  flatLinks: NavLink[];
+  serviciiLink: NavLink | undefined;
+  pathname: string;
   megaOpen: boolean;
   megaId: string;
   mobileSvcOpen: boolean;
@@ -34,10 +37,16 @@ type NavListProps = {
   variant: "desktop" | "drawer";
 };
 
+function isNavActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 function NavList({
   serviceGroups,
   flatLinks,
   serviciiLink,
+  pathname,
   megaOpen,
   megaId,
   mobileSvcOpen,
@@ -48,12 +57,18 @@ function NavList({
   variant
 }: NavListProps) {
   const isDrawer = variant === "drawer";
+  const serviciiActive = isNavActive(pathname, "/servicii") || pathname === "/servicii";
 
   return (
     <ul className="main-nav-list">
       {flatLinks.slice(0, 2).map((item) => (
         <li key={item.href}>
-          <Link href={item.href} className="main-nav-link focus-ring" onClick={onCloseMenu}>
+          <Link
+            href={item.href}
+            className={`main-nav-link focus-ring ${isNavActive(pathname, item.href) ? "is-active" : ""}`}
+            onClick={onCloseMenu}
+            aria-current={isNavActive(pathname, item.href) ? "page" : undefined}
+          >
             {item.label}
           </Link>
         </li>
@@ -61,18 +76,28 @@ function NavList({
       <li ref={isDrawer ? undefined : megaWrapRef} className="nav-item-mega">
         {!isDrawer ? (
           <>
-            <button
-              type="button"
-              className={`main-nav-trigger focus-ring ${megaOpen ? "is-active" : ""}`}
-              aria-expanded={megaOpen}
-              aria-haspopup="true"
-              aria-controls={megaId}
-              id={`${megaId}-trigger`}
-              onClick={onToggleMega}
-            >
-              {serviciiLink?.label ?? "Servicii"}
-              <span className="nav-mega-chevron" aria-hidden />
-            </button>
+            <div className="nav-servicii-combo">
+              <Link
+                href="/servicii"
+                className={`main-nav-link focus-ring ${serviciiActive ? "is-active" : ""}`}
+                onClick={onCloseMenu}
+                aria-current={serviciiActive ? "page" : undefined}
+              >
+                {serviciiLink?.label ?? "Servicii"}
+              </Link>
+              <button
+                type="button"
+                className={`main-nav-trigger focus-ring ${megaOpen ? "is-active" : ""}`}
+                aria-expanded={megaOpen}
+                aria-haspopup="true"
+                aria-controls={megaId}
+                id={`${megaId}-trigger`}
+                aria-label="Deschide meniul Servicii"
+                onClick={onToggleMega}
+              >
+                <span className="nav-mega-chevron" aria-hidden />
+              </button>
+            </div>
             {megaOpen ? (
               <div
                 id={megaId}
@@ -122,18 +147,27 @@ function NavList({
         ) : null}
 
         <div className={`nav-mobile-services nav-mobile-only ${mobileSvcOpen ? "is-open" : ""}`}>
-          <button
-            type="button"
-            className="nav-mobile-svc-toggle focus-ring"
-            aria-expanded={mobileSvcOpen}
-            onClick={onToggleMobileSvc}
-          >
-            {serviciiLink?.label ?? "Servicii"}
-            <span
-              className={`nav-mega-chevron nav-mega-chevron--mob ${mobileSvcOpen ? "is-open" : ""}`}
-              aria-hidden
-            />
-          </button>
+          <div className="nav-mobile-svc-row">
+            <Link
+              href="/servicii"
+              className={`nav-mobile-svc-link focus-ring ${serviciiActive ? "is-active" : ""}`}
+              onClick={onCloseMenu}
+            >
+              {serviciiLink?.label ?? "Servicii"}
+            </Link>
+            <button
+              type="button"
+              className="nav-mobile-svc-toggle focus-ring"
+              aria-expanded={mobileSvcOpen}
+              aria-label="Deschide lista de servicii"
+              onClick={onToggleMobileSvc}
+            >
+              <span
+                className={`nav-mega-chevron nav-mega-chevron--mob ${mobileSvcOpen ? "is-open" : ""}`}
+                aria-hidden
+              />
+            </button>
+          </div>
           {mobileSvcOpen ? (
             <div className="nav-mobile-svc-panel">
               <Link href="/servicii" className="nav-mobile-overview focus-ring" onClick={onCloseMenu}>
@@ -159,7 +193,12 @@ function NavList({
       </li>
       {flatLinks.slice(2).map((item) => (
         <li key={item.href}>
-          <Link href={item.href} className="main-nav-link focus-ring" onClick={onCloseMenu}>
+          <Link
+            href={item.href}
+            className={`main-nav-link focus-ring ${isNavActive(pathname, item.href) ? "is-active" : ""}`}
+            onClick={onCloseMenu}
+            aria-current={isNavActive(pathname, item.href) ? "page" : undefined}
+          >
             {item.label}
           </Link>
         </li>
@@ -168,7 +207,8 @@ function NavList({
   );
 }
 
-export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
+export function SiteHeaderNav({ serviceGroups, navLinks }: SiteHeaderNavProps) {
+  const pathname = usePathname() || "/";
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
@@ -304,6 +344,7 @@ export function SiteHeaderNav({ serviceGroups }: SiteHeaderNavProps) {
     serviceGroups,
     flatLinks,
     serviciiLink,
+    pathname,
     megaOpen,
     megaId,
     mobileSvcOpen,

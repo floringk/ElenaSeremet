@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import {
+  getAlbumCoverImageResolved,
+  getAlbumsResolved,
+  getTotalGalleryImageCountResolved
+} from "@/lib/cms-gallery";
 import { buildMetadataForRoute } from "@/lib/page-metadata";
-import { getAlbumCoverImage, getAlbums, getTotalGalleryImageCount } from "@/lib/new-gallery";
 
 export const dynamic = "force-static";
 
@@ -17,9 +21,13 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function GalleryIndexPage() {
-  const albums = getAlbums();
-  const total = getTotalGalleryImageCount();
+export default async function GalleryIndexPage() {
+  const albums = await getAlbumsResolved();
+  const total = await getTotalGalleryImageCountResolved();
+  const covers = await Promise.all(
+    albums.map(async (a) => ({ slug: a.slug, cover: await getAlbumCoverImageResolved(a.slug) }))
+  );
+  const coverBySlug = new Map(covers.map((c) => [c.slug, c.cover]));
 
   return (
     <section className="page-section gallery-page">
@@ -29,7 +37,7 @@ export default function GalleryIndexPage() {
           <h1>Galerie foto</h1>
           <p className="legacy-intro">
             {albums.length === 0
-              ? "Nu sunt albume în mockups/content/images/new."
+              ? "Nu sunt albume publicate încă."
               : `${albums.length} albume · ${total} fotografii în total.`}
           </p>
         </header>
@@ -37,7 +45,7 @@ export default function GalleryIndexPage() {
         {albums.length > 0 ? (
           <ul className="gallery-album-grid">
             {albums.map((a) => {
-              const cover = getAlbumCoverImage(a.slug);
+              const cover = coverBySlug.get(a.slug) ?? null;
               return (
                 <li key={a.slug}>
                   <Link href={`/galerie/${a.slug}`} className="gallery-album-tile focus-ring">

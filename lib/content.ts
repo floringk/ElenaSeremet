@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { resolveMediaUrl } from "@/lib/media-url";
+import { resolveMediaAlt, resolveMediaUrl } from "@/lib/media-url";
+import { isPayloadEnvConfigured } from "@/lib/payload-database-url";
 
 export type ContentBlock = {
   type: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "ul";
@@ -115,11 +116,17 @@ function isLogoAssetPath(localPath: string): boolean {
   return /(^|\/)logo|moto-pilates-mat|wordmark/i.test(n);
 }
 
+/** Decorative SVGs (Classes.svg, hatha.svg) create empty/orphan media slots in layouts. */
+function isDecorativeIconPath(localPath: string): boolean {
+  return /\.svg$/i.test(localPath.replace(/\\/g, "/"));
+}
+
 function buildContentImagesFromRaw(page: RawPage): NormalizedContentImage[] {
   const heroPath = getPrimaryImagePath(page);
   return page.images
     .filter((img) => img?.local_path && imageExists(img.local_path))
     .filter((img) => !isLogoAssetPath(img.local_path))
+    .filter((img) => !isDecorativeIconPath(img.local_path))
     .map((img) => ({
       src: mapImagePath(img.local_path),
       alt: (img.alt?.trim() || "").trim()
@@ -137,7 +144,7 @@ export function getAllSlugs(): string[] {
 }
 
 function isPayloadConfigured(): boolean {
-  return Boolean(process.env.PAYLOAD_SECRET?.trim() && process.env.PAYLOAD_DATABASE_URL?.trim());
+  return isPayloadEnvConfigured();
 }
 
 export function getPageBySlug(slug: string): RawPage | null {
@@ -375,6 +382,7 @@ async function getNormalizedPageFromPayload(
     title?: string;
     description?: string | null;
     metaTitle?: string | null;
+    pageType?: string | null;
     ogImage?: unknown;
     ogImagePath?: string | null;
     noIndex?: boolean | null;
@@ -383,6 +391,7 @@ async function getNormalizedPageFromPayload(
     heroAlt?: string | null;
     intro?: string | null;
     blocks?: unknown;
+    contentImages?: Array<{ image?: unknown; alt?: string | null }>;
   };
 
   let blocks = mapPayloadBlocks(doc.blocks);
@@ -394,29 +403,32 @@ async function getNormalizedPageFromPayload(
   const description =
     (typeof doc.description === "string" && doc.description.trim()) || deriveDescriptionFromBlocks(blocks);
 
-  let heroImagePath = normalizeHeroPath(doc.heroImagePath);
-  if (!heroImagePath) {
-    heroImagePath = resolveMediaUrl(doc.heroImage, null);
-  }
+  // Prefer upload relation, then path fallback
+  let heroImagePath = resolveMediaUrl(doc.heroImage, null) || normalizeHeroPath(doc.heroImagePath);
   if (heroImagePath?.startsWith("/content/") && !publicContentPathExists(heroImagePath)) {
-    heroImagePath = resolveMediaUrl(doc.heroImage, null);
+    heroImagePath = resolveMediaUrl(doc.heroImage, null) || heroImagePath;
   }
 
-  let seoOgImagePath = normalizeHeroPath(doc.ogImagePath);
-  if (!seoOgImagePath) {
-    seoOgImagePath = resolveMediaUrl(doc.ogImage, heroImagePath);
-  }
+  let seoOgImagePath =
+    resolveMediaUrl(doc.ogImage, null) || normalizeHeroPath(doc.ogImagePath) || heroImagePath;
   if (seoOgImagePath?.startsWith("/content/") && !publicContentPathExists(seoOgImagePath)) {
-    seoOgImagePath = heroImagePath;
+    seoOgImagePath = resolveMediaUrl(doc.ogImage, null) || heroImagePath;
   }
 
-  const heroAlt = String(doc.heroAlt || doc.title || title);
+  const heroAlt =
+    String(doc.heroAlt || "").trim() ||
+    resolveMediaAlt(doc.heroImage, "") ||
+    String(doc.title || title);
   const intro =
     typeof doc.intro === "string" && doc.intro.trim() ? doc.intro.trim() : getIntro(blocks);
   const seoTitle =
     typeof doc.metaTitle === "string" && doc.metaTitle.trim() ? doc.metaTitle.trim() : null;
 
   const entry = getManifestEntryForSlug(slug);
+  const cmsPageType =
+    typeof doc.pageType === "string" && doc.pageType.trim() ? doc.pageType.trim() : null;
+
+  const contentImages = buildContentImagesFromPayload(doc.contentImages, heroImagePath);
 
   return {
     slug,
@@ -430,9 +442,28 @@ async function getNormalizedPageFromPayload(
     intro,
     sections: buildSections(blocks),
     blocks,
-    pageType: entry?.type ?? "page",
-    contentImages: []
+    pageType: cmsPageType || entry?.type || "page",
+    contentImages
   };
+}
+
+function buildContentImagesFromPayload(
+  rows: Array<{ image?: unknown; alt?: string | null }> | undefined,
+  heroImagePath: string | null
+): NormalizedContentImage[] {
+  if (!Array.isArray(rows) || rows.length === 0) return [];
+  const out: NormalizedContentImage[] = [];
+  for (const row of rows) {
+    const src = resolveMediaUrl(row.image, null);
+    if (!src) continue;
+    if (isLogoAssetPath(src) || isDecorativeIconPath(src)) continue;
+    if (heroImagePath && src === heroImagePath) continue;
+    out.push({
+      src,
+      alt: (row.alt?.trim() || resolveMediaAlt(row.image, "")).trim()
+    });
+  }
+  return out;
 }
 
 /** Legacy JSON files only (sync). */

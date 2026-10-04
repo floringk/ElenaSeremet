@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 
 import { InscrierePanel } from "@/components/inscriere/InscrierePanel";
 import { ContactTemplate } from "@/components/templates/ContactTemplate";
+import { getNavLinks } from "@/lib/cms-navigation";
+import { getProgram } from "@/lib/cms-program";
+import { getStudioChrome } from "@/lib/cms-studio";
 import { getNormalizedPage } from "@/lib/content";
 import { buildMetadataForRoute } from "@/lib/page-metadata";
 
@@ -15,7 +18,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function InscrierePage() {
-  const page = await getNormalizedPage("inregistrare-clienti");
+  const [page, studio, program, navLinks] = await Promise.all([
+    getNormalizedPage("inregistrare-clienti"),
+    getStudioChrome(),
+    getProgram(),
+    getNavLinks()
+  ]);
 
   const intro =
     page?.intro?.trim() ||
@@ -27,6 +35,9 @@ export default async function InscrierePage() {
       intro={intro}
       heroImagePath={page?.heroImagePath}
       heroAlt={page?.heroAlt}
+      studio={studio}
+      openingHours={program.openingHours}
+      navLinks={navLinks}
     >
       <InscrierePanel />
     </ContactTemplate>
